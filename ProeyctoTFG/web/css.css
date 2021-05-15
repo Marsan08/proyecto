@@ -1,0 +1,61 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 14-may-2021, 14:29:59
+    Author     : msantin
+*/
+/*
+.color1 {color: #122514;}
+.color2 {color: #125562;}
+.color3 {color: #5d930a;}
+.color4 {color: #d5d85f;}
+.color5 {color: #f8efcb;}*/
+
+html{
+    font-family: arial;
+    
+}
+body{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+}
+#inicio { 
+    margin: 50px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8efcb;
+    width: 50%;
+    height: 50%;
+     flex-direction: column
+
+}
+
+.form {
+     display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8efcb;
+    width: 50%;
+    height: 50%;
+     flex-direction: column
+    
+}
+
+.boton {
+font-family: arial;
+background-color: #5d930a;
+border-radius: 67px 66px 66px 66px;
+-webkit-border-radius: 67px 66px 66px 66px;
+-moz-border-radius: 67px 66px 66px 66px;
+margin: 2px;
+}

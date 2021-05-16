@@ -21,32 +21,39 @@ import javax.swing.JOptionPane;
  * @author DAW208
  */
 public class Toolbox {
-
+    //login y contraseña utilizados para la conectarse a la base de datos
+    private static String loginBD = "admin";
+    private static String passwordBD = "1234";
+    
+    /**
+     * metodo que realiza la conexion a la base de datos gestionParcelas
+     * @return una conexion a la base de datos gestionParcelas
+     * @throws ClassNotFoundException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     * @throws SQLException 
+     */
+    private static Connection realizaConexion() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        String url = "jdbc:mysql://localhost/gestionparcelas";
+        return (Connection) DriverManager.getConnection(url, loginBD, passwordBD);
+    }
+    
     public static boolean validacion(String user, String pass) {
-
         java.sql.Connection conn = null;
         java.sql.Statement stmt = null;
         try {
-            //Paso 1: Cargar el driver JDBC.
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            // Paso 2: Conectarse a la Base de Datos utilizando la clase Connection
-            String userName = "admin";
-            String password = "admin";
-            //URL de la base de datos(equipo, puerto, base de datos)
-            String url = "jdbc:mysql://localhost/gestionparcelas";
-            conn = DriverManager.getConnection(url, userName, password);
-            // Paso 3: Crear sentencias SQL, utilizando objetos de tipo Statement
+            conn=realizaConexion();
             stmt = (Statement) conn.createStatement();
-
             String sqlStr = "SELECT * FROM usuario where nombre='" + user + "' and pass='" + pass + "';";
             //PARA DEPURACIÓN
             System.out.println("La consulta sql es " + sqlStr);
             //Ejecutar la sentencia SQL a través de los objetos Statement 
             ResultSet rset = stmt.executeQuery(sqlStr);
-            
-             while (rset.next()) {
-                    return true;
-             }
+
+            while (rset.next()) {
+                return true;
+            }
 
             // Cerramos el resto de recursos
             if (stmt != null) {
@@ -58,43 +65,31 @@ public class Toolbox {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
-        
         return false;
     }
-
+    
     public static int rol(String user, String pass) {
-         
-     Connection conn = null;
+        Connection conn = null;
         Statement stmt = null;
         int validar = 0;
-        int id=0;
+        int id = 0;
         try {
-           
-            //Paso 1 Cargar Driver
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            //Paso 2 Conectarse a BD
-            String loginBD = "admin";
-            String passwordBD = "admin";
-
-            String url = "jdbc:mysql://localhost/gestionparcelas";
-            conn = (Connection) DriverManager.getConnection(url, loginBD, passwordBD);
+            conn=realizaConexion();
             stmt = (Statement) conn.createStatement();
-
             String sqlStr = "SELECT * FROM usuario WHERE nombre='" + user + "' and pass='" + pass + "'";
             ResultSet rset = stmt.executeQuery(sqlStr);
-            
+
             while (rset.next()) {
-                id=rset.getInt("idusuario");
-            System.out.println(id);
+                id = rset.getInt("idusuario");
+                System.out.println(id);
             }
             sqlStr = "SELECT * FROM usuario WHERE idusuario = '" + id + "'";
             rset = stmt.executeQuery(sqlStr);
             while (rset.next()) {
-                validar=rset.getInt("idrol");
+                validar = rset.getInt("idrol");
                 System.out.println("ENTRA");
             }
-            
+
             if (stmt != null) {
                 stmt.close();
             }
@@ -106,41 +101,32 @@ public class Toolbox {
             System.out.println("NO ENTRA");
         }
         return validar;
-    
+
     }
-    
+
     public static int idUser(String user) {
-         
-     Connection conn = null;
+
+        Connection conn = null;
         Statement stmt = null;
         int validar = 0;
-        int id=0;
+        int id = 0;
         try {
-           
-            //Paso 1 Cargar Driver
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            //Paso 2 Conectarse a BD
-            String loginBD = "admin";
-            String passwordBD = "admin";
-
-            String url = "jdbc:mysql://localhost/gestionparcelas";
-            conn = (Connection) DriverManager.getConnection(url, loginBD, passwordBD);
+            conn=realizaConexion();
             stmt = (Statement) conn.createStatement();
-
             String sqlStr = "SELECT * FROM usuario WHERE nombre='" + user + "'";
             ResultSet rset = stmt.executeQuery(sqlStr);
-            
+
             while (rset.next()) {
-                id=rset.getInt("idusuario");
-            System.out.println(id);
+                id = rset.getInt("idusuario");
+                System.out.println(id);
             }
             sqlStr = "SELECT * FROM usuario WHERE nombre='" + user + "'";
             rset = stmt.executeQuery(sqlStr);
             while (rset.next()) {
-                validar=rset.getInt("idusuario");
+                validar = rset.getInt("idusuario");
                 System.out.println("ENTRA");
             }
-            
+
             if (stmt != null) {
                 stmt.close();
             }
@@ -152,36 +138,28 @@ public class Toolbox {
             System.out.println("NO ENTRA");
         }
         return validar;
-    
+
     }
-    
-     public static int idProp(int iduser) {
-         
-     Connection conn = null;
+
+    public static int idProp(int iduser) {
+
+        Connection conn = null;
         Statement stmt = null;
         int validar = 0;
-        int id=0;
+        int id = 0;
         try {
-           
-            //Paso 1 Cargar Driver
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            //Paso 2 Conectarse a BD
-            String loginBD = "admin";
-            String passwordBD = "admin";
 
-            String url = "jdbc:mysql://localhost/gestionparcelas";
-            conn = (Connection) DriverManager.getConnection(url, loginBD, passwordBD);
+            conn=realizaConexion();
             stmt = (Statement) conn.createStatement();
 
             String sqlStr = "SELECT * FROM propietario WHERE idusuario='" + iduser + "';";
             ResultSet rset = stmt.executeQuery(sqlStr);
-            
-            
+
             while (rset.next()) {
-                validar=rset.getInt("idpropietario");
+                validar = rset.getInt("idpropietario");
                 System.out.println("ENTRA");
             }
-            
+
             if (stmt != null) {
                 stmt.close();
             }
@@ -193,7 +171,7 @@ public class Toolbox {
             System.out.println("NO ENTRA");
         }
         return validar;
-    
+
     }
 
     public static Connection Conexion() throws ClassNotFoundException, InstantiationException, SQLException {
@@ -225,16 +203,16 @@ public class Toolbox {
         } else if (estado.equals("gestionusuarios")) {
             nextPage = "/menusuario.jsp";
         } else if (estado.equals("gestionespecies")) {
-            nextPage = "/menuespecie.jsp"; 
+            nextPage = "/menuespecie.jsp";
         } else if (estado.equals("gestionparcelas")) {
             nextPage = "/menuparcela.jsp";
-        } else if (estado.equals("modificarusuario")){
+        } else if (estado.equals("modificarusuario")) {
             nextPage = "/modificaUsuario.jsp";
-        }else if (estado.equals("irinsertespecie")){
+        } else if (estado.equals("irinsertespecie")) {
             nextPage = "/insertarespecies.jsp";
-        }else if (estado.equals("irinsertparcela")){
+        } else if (estado.equals("irinsertparcela")) {
             nextPage = "/insertarparcela.jsp";
-        }else if (estado.equals("modificarparcela")){
+        } else if (estado.equals("modificarparcela")) {
             nextPage = "/modificaparcela.jsp";
         }
         return nextPage;
@@ -244,7 +222,6 @@ public class Toolbox {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
-
         String sql = "SELECT count(id) FROM usuarios WHERE usuario = ?";
 
         try {

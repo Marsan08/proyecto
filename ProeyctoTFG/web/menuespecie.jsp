@@ -47,8 +47,6 @@
             <tbody> 
                 <%
                     while (rset.next()) {
-
-
                 %>
                 <tr>
                     
@@ -60,7 +58,6 @@
                 </tr>
 
                 <%
-
                     }
                 %>
             </tbody>

@@ -5,7 +5,6 @@
     String sessionId = session.getId();
     String user = (String) session.getAttribute("usuario");
     String pass = (String) session.getAttribute("contra");
-    request.getAttribute("contra");
     if ((Boolean) session.getAttribute("usuarioValido")) {
         if (controladores.Toolbox.rol(user, pass) == 1) {
 %>

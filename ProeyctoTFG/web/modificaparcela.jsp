@@ -11,36 +11,42 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
-        session = request.getSession();
-        
-        String user = (String) session.getAttribute("usuario");
-        String pass = (String) session.getAttribute("contra");
-        String sessionId = session.getId();
-        if ((Boolean) session.getAttribute("usuarioValido")) {
-            
-            
-            
-            if(controladores.Toolbox.rol(user, pass)==1){
+    session = request.getSession();
 
-            
+    String user = (String) session.getAttribute("usuario");
+    String pass = (String) session.getAttribute("contra");
+    String sessionId = session.getId();
+    if ((Boolean) session.getAttribute("usuarioValido")) {
+        
+        
     %>
+    
     
     <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
+    
     <body>
-        <%      
-            int idparcela = (Integer) session.getAttribute("idparcela");
-            int hectareas = (Integer)session.getAttribute("hectareas");
+        
+    <%
+
+        if (controladores.Toolbox.rol(user, pass) == 1) {
+
+
+%>
+
+
+    
+        <%            int idparcela = (Integer) session.getAttribute("idparcela");
+            int hectareas = (Integer) session.getAttribute("hectareas");
             String nombreprop = (String) session.getAttribute("nombreprop");
             String nombrestado = (String) session.getAttribute("nombrestado");
             String nombretipo = (String) session.getAttribute("nombretipo");
-            int referencia = (Integer) session.getAttribute("referencia");        
-                        
-        
-             
+            int referencia = (Integer) session.getAttribute("referencia");
+
+
         %>
 
         <h1>Modificar estado de la parcela</h1> 
@@ -59,18 +65,18 @@
 
                 </thead>
                 <tbody> 
-                    
+
                     <tr>
 
-                    <td><%=idparcela%></td>
-                    <td><%=hectareas%></td>
-                    <td><%=nombreprop%></td>
-                    <td><%=nombretipo%></td>
-                    <td><%=referencia%></td>
+                        <td><%=idparcela%></td>
+                        <td><%=hectareas%></td>
+                        <td><%=nombreprop%></td>
+                        <td><%=nombretipo%></td>
+                        <td><%=referencia%></td>
                         <td><select name="idestado">
 
 
-                                <%  
+                                <%
 
                                     Connection conn2 = controladores.Toolbox.Conexion();
                                     Statement stmt2 = conn2.createStatement();
@@ -92,40 +98,29 @@
                     </tr>
                 </tbody>
             </table>
-
-            <%
-                //Cierre de recursos 
-
-            %>
             <input type="submit" value="Cambiar estado">
 
         </form>
-            
-    </body>
-    </html>
-    
-    
-        <% } else   if(controladores.Toolbox.rol(user, pass)==2){
 
-            
-    %>
-    <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-            
-    <body>
-        <%      
-            int idparcela = (Integer) session.getAttribute("idparcela");
-            int hectareas = (Integer)session.getAttribute("hectareas");
+    </body>
+</html>
+
+
+<% } else if (controladores.Toolbox.rol(user, pass) == 2) {
+
+
+%>
+
+
+  
+        <%            int idparcela = (Integer) session.getAttribute("idparcela");
+            int hectareas = (Integer) session.getAttribute("hectareas");
             String nombreprop = (String) session.getAttribute("nombreprop");
             String nombrestado = (String) session.getAttribute("nombrestado");
             String nombretipo = (String) session.getAttribute("nombretipo");
-            int referencia = (Integer) session.getAttribute("referencia");        
-                        
-        
-             
+            int referencia = (Integer) session.getAttribute("referencia");
+
+
         %>
 
         <h1>Modificar estado de la parcela</h1> 
@@ -144,18 +139,18 @@
 
                 </thead>
                 <tbody> 
-                    
+
                     <tr>
 
-                    <td><%=idparcela%></td>
-                    <td><%=hectareas%></td>
-                    <td><%=nombreprop%></td>
-                    <td><%=nombretipo%></td>
-                    <td><%=referencia%></td>
+                        <td><%=idparcela%></td>
+                        <td><%=hectareas%></td>
+                        <td><%=nombreprop%></td>
+                        <td><%=nombretipo%></td>
+                        <td><%=referencia%></td>
                         <td><select name="idestado">
 
 
-                                <%  
+                                <%
 
                                     Connection conn2 = controladores.Toolbox.Conexion();
                                     Statement stmt2 = conn2.createStatement();
@@ -177,37 +172,24 @@
                     </tr>
                 </tbody>
             </table>
-
-            <%
-                //Cierre de recursos 
-
-            %>
             <input type="submit" value="Cambiar estado">
 
         </form>
-            
-    </body>
-        <% }else   if(controladores.Toolbox.rol(user, pass)==3){
 
-            
-    %>
-    
-    <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <%      
-            int idparcela = (Integer) session.getAttribute("idparcela");
-            int hectareas = (Integer)session.getAttribute("hectareas");
+<% } else if (controladores.Toolbox.rol(user, pass) == 3) {
+
+
+%>
+
+
+        <%            int idparcela = (Integer) session.getAttribute("idparcela");
+            int hectareas = (Integer) session.getAttribute("hectareas");
             String nombreprop = (String) session.getAttribute("nombreprop");
             String nombrestado = (String) session.getAttribute("nombrestado");
             String nombretipo = (String) session.getAttribute("nombretipo");
-            int referencia = (Integer) session.getAttribute("referencia");        
-                        
-        
-             
+            int referencia = (Integer) session.getAttribute("referencia");
+
+
         %>
 
         <h1>Modificar estado de la parcela</h1> 
@@ -226,18 +208,18 @@
 
                 </thead>
                 <tbody> 
-                    
+
                     <tr>
 
-                    <td><%=idparcela%></td>
-                    <td><%=hectareas%></td>
-                    <td><%=nombreprop%></td>
-                    <td><%=nombretipo%></td>
-                    <td><%=referencia%></td>
+                        <td><%=idparcela%></td>
+                        <td><%=hectareas%></td>
+                        <td><%=nombreprop%></td>
+                        <td><%=nombretipo%></td>
+                        <td><%=referencia%></td>
                         <td><select name="idestado">
 
 
-                                <%  
+                                <%
 
                                     Connection conn2 = controladores.Toolbox.Conexion();
                                     Statement stmt2 = conn2.createStatement();
@@ -259,32 +241,29 @@
                     </tr>
                 </tbody>
             </table>
-
-            <%
-                //Cierre de recursos 
-
-            %>
             <input type="submit" value="Cambiar estado">
 
         </form>
-            
-    </body>
-    </html>
-            
-   
-        <% }else { %>
-        
-        <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    
-    <body>
+
+
+
+<% }
+%>
+
+</body>
+
+</html>
+
+<%
+
+
+} else { %>
+
+
         <h1>NO TIENES ACCESO</h1>
         <a href="index.jsp">Inicio</a>
-        
-    </body>
-        </html>
-        <% }%>
-   
+
+    
+
+<% }%>
+

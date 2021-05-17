@@ -33,7 +33,7 @@
             
         %> 
         <h1>Parcelas</h1>
-        <table border="1" width="2" cellspacing="2" cellpadding="2">
+        <table>
             <thead>
                 <tr>
 
@@ -115,14 +115,94 @@
         <title>Menú</title>
     </head>
 
-    <body>
-        <header><p>Bienvenido administrador <%= user%> </p></header>
+     <body>
+        <header><p>Bienvenido adminitrador <%= user%> </p><div><nav>AQUI VIENE EL NAVEGADOR</nav></div></header>
 
+
+        <%
+           Connection conn = controladores.Toolbox.Conexion();
+
+            Statement stmt = conn.createStatement();
+            
+            int iduser = controladores.Toolbox.idUser(user);
+            
+            int idparcela = controladores.Toolbox.parcelaAdmin(iduser);
+
+            String sqlStr = "SELECT * FROM parcela INNER JOIN propietario ON parcela.idpropietario = propietario.idpropietario INNER JOIN tipoparcela ON parcela.idtipoparcela = tipoparcela.idtipoparcela + tipoparcela.nombretipo INNER JOIN estado ON parcela.idestado = estado.idestado + estado.nombrestado WHERE parcela.idparcela = "+ idparcela +";";
+
+            System.out.println("La consulta sql es " + sqlStr);
+
+            ResultSet rset = stmt.executeQuery(sqlStr);
+            
+            
+        %> 
+        <h1>Parcelas</h1>
+        <table>
+            <thead>
+                <tr>
+
+                    <th>ID de la parcela</th>
+                    <th>Hectáreas de la parcela</th>
+                    <th>ID propietario</th>
+                    <th>ID estado</th>
+                    <th>Tipo de parcela</th>
+                    <th>Referencia</th>
+                    <th>Modificar</th>
+                   
+                </tr>
+            </thead>
+            <tbody> 
+                <%
+                    while (rset.next()) {
+                        session.setAttribute("idparcela", rset.getInt("idparcela"));
+                        session.setAttribute("hectareas", rset.getInt("hectareas"));
+                        session.setAttribute("nombreprop", rset.getString("propietario.nombre"));
+                        session.setAttribute("nombrestado", rset.getString("estado.nombrestado"));
+                        session.setAttribute("nombretipo", rset.getString("tipoparcela.nombretipo"));
+                        session.setAttribute("referencia", rset.getInt("referencia"));
+                        
+                %>
+                <tr>
+                    
+                    <td><%=rset.getInt("idparcela")%></td>
+                    <td><%=rset.getInt("hectareas")%></td>
+                    <td><%=rset.getString("propietario.nombre")%></td>
+                    <td><%=rset.getString("estado.nombrestado")%></td>
+                    <td><%=rset.getString("tipoparcela.nombretipo")%></td>
+                    <td><%=rset.getInt("referencia")%></td>
+                    <td><form action="controlador" method="post"><input type="hidden" value="modificarparcela" name="todo"><input type="hidden" value='<%=rset.getInt("idparcela")%>' name="idparcela"><input type="submit" value="Modificar"></form></td>
+                       
+                </tr>
+
+                <%
+
+                    }
+                %>
+            </tbody>
+        </table>
+
+        <%
+            //Cierre de recursos 
+            rset.close();
+            stmt.close();
+            conn.close();
+
+        %>
+        
+        <form action="controlador" method="post" id="irinsertparcela">
+        
+                    
+                   
+                    <input type="hidden" value="irinsertparcela" name="todo"/>
+                    <input type="submit" value="Insertar otra parcela">
+                   
+        
+                </form>
 
         <form action="controlador" method="post">
 
-            <input type="hidden" value="menu" name="todo">
-            <input type="submit" value="Volver al menú">
+            <input type="hidden" value="menu" name="menu">
+            <input type="submit" value="MENU">
         </form>
 
 

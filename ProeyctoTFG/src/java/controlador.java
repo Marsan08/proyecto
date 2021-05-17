@@ -38,7 +38,7 @@ public class controlador extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, InstantiationException, SQLException {
-        
+
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
 
@@ -73,17 +73,14 @@ public class controlador extends HttpServlet {
                     int idtipoparcela = Integer.parseInt(request.getParameter("idtipoparcela"));
                     int referencia = Integer.parseInt(request.getParameter("referencia"));
 
-                    
                     try {
                         Connection conn = controladores.Toolbox.Conexion();
-                        // Paso 3: Crear sentencias SQL, utilizando objetos de tipo Statement
+
                         Statement stmt = conn.createStatement();
-                        // Paso 4: Ejecutar las sentencias SQL a traves de los objetos Statement
+
                         String sqlStr = "insert into parcela(hectareas, idpropietario, idestado, idtipoparcela, referencia) values(" + hectareas + ", " + idpropietario + ", " + idestado + ", " + idtipoparcela + ", " + referencia + ");";
                         int state = stmt.executeUpdate(sqlStr);
-                        
-                      
-                        // Cerramos el resto de recursos
+
                         if (stmt != null) {
                             stmt.close();
                         }
@@ -92,29 +89,66 @@ public class controlador extends HttpServlet {
                         }
                     } catch (Exception ex) {
                         ex.printStackTrace();
+                    }
+
+                    int idparcela = controladores.Toolbox.idparcela(referencia);
+
+                    if (idtipoparcela == 1) {
+
+                        try {
+                            Connection conn2 = controladores.Toolbox.Conexion();
+
+                            Statement stmt2 = conn2.createStatement();
+
+                            String sqlStr2 = "insert into pagricola(idparcela, referencia) values(" + idparcela + ", " + referencia + ");";
+                            int state2 = stmt2.executeUpdate(sqlStr2);
+
+                            if (stmt2 != null) {
+                                stmt2.close();
+                            }
+                            if (conn2 != null) {
+                                conn2.close();
+                            }
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                    } else if (idtipoparcela == 2) {
+                        
+                          try {
+                        Connection conn2 = controladores.Toolbox.Conexion();
+
+                        Statement stmt2 = conn2.createStatement();
+
+                        String sqlStr2 = "insert into pganadera(idparcela, referencia) values(" + idparcela + ", " + referencia + ");";
+                        int state2 = stmt2.executeUpdate(sqlStr2);
+
+                        if (stmt2 != null) {
+                            stmt2.close();
+                        }
+                        if (conn2 != null) {
+                            conn2.close();
+                        }
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+
                     }
 
                     estado = "gestionparcelas";
                 } else if (estado.equals("ejecutarbparcela")) {
-    
+
                     Connection conn = null;
                     Statement stmt = null;
                     try {
-                        //Paso 1: Cargar el driver JDBC.
                         Class.forName("com.mysql.jdbc.Driver").newInstance();
-                        // Paso 2: Conectarse a la Base de Datos utilizando la clase Connection
                         String userName = "admin";
                         String password = "admin";
-                        //URL de la base de datos(equipo, puerto, base de datos)
                         String url = "jdbc:mysql://localhost/gestionparcelas";
                         conn = DriverManager.getConnection(url, userName, password);
-                        // Paso 3: Crear sentencias SQL, utilizando objetos de tipo Statement
                         stmt = conn.createStatement();
-                        // Paso 4: Ejecutar las sentencias SQL a traves de los objetos Statement
-                        String sqlStr = "delete from parcela where idparcela="+ Integer.parseInt(request.getParameter("idparcela")) +";";
+                        String sqlStr = "delete from parcela where idparcela=" + Integer.parseInt(request.getParameter("idparcela")) + ";";
                         int state = stmt.executeUpdate(sqlStr);
-                        
-                        // Cerramos el resto de recursos
+
                         if (stmt != null) {
                             stmt.close();
                         }
@@ -124,57 +158,44 @@ public class controlador extends HttpServlet {
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
-                    
-                    
 
                     estado = "gestionparcelas";
                 } else if (estado.equals("ejecutarbespecie")) {
-    
-                        Connection conn = controladores.Toolbox.Conexion();
-                        // Paso 3: Crear sentencias SQL, utilizando objetos de tipo Statement
-                        Statement stmt = conn.createStatement();
-                        // Paso 4: Ejecutar las sentencias SQL a traves de los objetos Statement
-                        String sqlStr = "delete from especie where idespecie="+ Integer.parseInt(request.getParameter("idespecie") )+";";
-                        int state = stmt.executeUpdate(sqlStr);
-                        
-                        // Cerramos el resto de recursos
-                        if (stmt != null) {
-                            stmt.close();
-                        }
-                        if (conn != null) {
-                            conn.close();
-                        }
 
+                    Connection conn = controladores.Toolbox.Conexion();
+                    Statement stmt = conn.createStatement();
+                    String sqlStr = "delete from especie where idespecie=" + Integer.parseInt(request.getParameter("idespecie")) + ";";
+                    int state = stmt.executeUpdate(sqlStr);
+
+                    if (stmt != null) {
+                        stmt.close();
+                    }
+                    if (conn != null) {
+                        conn.close();
+                    }
 
                     estado = "gestionespecies";
                 } else if (estado.equals("ejercutariusuario")) {
-                    
+
                     String nombre = request.getParameter("nombre");
                     String email = request.getParameter("email");
                     String dni = request.getParameter("dni");
                     int telefono = Integer.parseInt(request.getParameter("telefono"));
                     String contrasena = request.getParameter("contrasena");
                     int idrol = Integer.parseInt(request.getParameter("idrol"));
-                    
 
                     Connection conn = null;
                     Statement stmt = null;
                     try {
-                        //Paso 1: Cargar el driver JDBC.
                         Class.forName("com.mysql.jdbc.Driver").newInstance();
-                        // Paso 2: Conectarse a la Base de Datos utilizando la clase Connection
                         String userName = "admin";
                         String password = "admin";
-                        //URL de la base de datos(equipo, puerto, base de datos)
                         String url = "jdbc:mysql://localhost/gestionparcelas";
                         conn = DriverManager.getConnection(url, userName, password);
-                        // Paso 3: Crear sentencias SQL, utilizando objetos de tipo Statement
                         stmt = conn.createStatement();
-                        // Paso 4: Ejecutar las sentencias SQL a traves de los objetos Statement
                         String sqlStr = "insert into usuario(nombre, email, dni, telefono, idrol, contraseña) values('" + nombre + "', '" + email + "', '" + dni + "', " + telefono + ", " + idrol + ", '" + contrasena + "');";
                         int state = stmt.executeUpdate(sqlStr);
-                        
-                  
+
                         if (stmt != null) {
                             stmt.close();
                         }
@@ -187,24 +208,18 @@ public class controlador extends HttpServlet {
 
                     estado = "menu";
                 } else if (estado.equals("ejecutarbusuario")) {
-                      Connection conn = null;
+                    Connection conn = null;
                     Statement stmt = null;
                     try {
-                        //Paso 1: Cargar el driver JDBC.
                         Class.forName("com.mysql.jdbc.Driver").newInstance();
-                        // Paso 2: Conectarse a la Base de Datos utilizando la clase Connection
                         String userName = "admin";
                         String password = "admin";
-                        //URL de la base de datos(equipo, puerto, base de datos)
                         String url = "jdbc:mysql://localhost/gestionparcelas";
                         conn = DriverManager.getConnection(url, userName, password);
-                        // Paso 3: Crear sentencias SQL, utilizando objetos de tipo Statement
                         stmt = conn.createStatement();
-                        // Paso 4: Ejecutar las sentencias SQL a traves de los objetos Statement
-                        String sqlStr = "delete from usuario where nombre='"+ request.getParameter("nombreusuario") +"';";
+                        String sqlStr = "delete from usuario where nombre='" + request.getParameter("nombreusuario") + "';";
                         int state = stmt.executeUpdate(sqlStr);
-                        
-                        // Cerramos el resto de recursos
+
                         if (stmt != null) {
                             stmt.close();
                         }
@@ -214,7 +229,6 @@ public class controlador extends HttpServlet {
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
-                    
 
                     estado = "menu";
 
@@ -226,21 +240,15 @@ public class controlador extends HttpServlet {
                     Connection conn = null;
                     Statement stmt = null;
                     try {
-                        //Paso 1: Cargar el driver JDBC.
                         Class.forName("com.mysql.jdbc.Driver").newInstance();
-                        // Paso 2: Conectarse a la Base de Datos utilizando la clase Connection
                         String userName = "admin";
                         String password = "admin";
-                        //URL de la base de datos(equipo, puerto, base de datos)
                         String url = "jdbc:mysql://localhost/gestionparcelas";
                         conn = DriverManager.getConnection(url, userName, password);
-                        // Paso 3: Crear sentencias SQL, utilizando objetos de tipo Statement
                         stmt = conn.createStatement();
-                        // Paso 4: Ejecutar las sentencias SQL a traves de los objetos Statement
                         String sqlStr = "insert into especie (nombreespecie, tipo) values ( '" + nombre + "' , " + idtipo + ");";
                         int state = stmt.executeUpdate(sqlStr);
 
-                        // Cerramos el resto de recursos
                         if (stmt != null) {
                             stmt.close();
                         }
@@ -253,46 +261,39 @@ public class controlador extends HttpServlet {
 
                     estado = "gestionespecies";
                 } else if (estado.equals("ejecutarUpdateParcela")) {
-                    
+
                     int idestado = Integer.parseInt(request.getParameter("idestado"));
                     int idparcela = (Integer) session.getAttribute("idparcela");
-                    
-                    Connection conn = controladores.Toolbox.Conexion();
-                        // Paso 3: Crear sentencias SQL, utilizando objetos de tipo Statement
-                       Statement stmt = conn.createStatement();
-                        // Paso 4: Ejecutar las sentencias SQL a traves de los objetos Statement
-                        String sqlStr = "UPDATE `parcela` SET `idestado`="+ idestado + " WHERE idparcela = " + idparcela +";";
-                        int state = stmt.executeUpdate(sqlStr);
 
-                        // Cerramos el resto de recursos
-                        if (stmt != null) {
-                            stmt.close();
-                        }
-                        if (conn != null) {
-                            conn.close();
-                        }
-                    
+                    Connection conn = controladores.Toolbox.Conexion();
+                    Statement stmt = conn.createStatement();
+                    String sqlStr = "UPDATE `parcela` SET `idestado`=" + idestado + " WHERE idparcela = " + idparcela + ";";
+                    int state = stmt.executeUpdate(sqlStr);
+
+                    if (stmt != null) {
+                        stmt.close();
+                    }
+                    if (conn != null) {
+                        conn.close();
+                    }
 
                     estado = "gestionparcelas";
-                }
-                
-                else if (estado.equals("cerrar")) {
+                } else if (estado.equals("cerrar")) {
                     session.invalidate();
                     session = request.getSession(true);
                     estado = null;
                 }
-        }
-            
+            }
+
             System.out.println(estado);
             session.setAttribute("estado", estado);
             nextPage = controladores.Toolbox.getNextPage(estado);
             ServletContext servletContext = getServletContext();
             RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher(nextPage);
             requestDispatcher.forward(request, response);
-        }   
-    
+        }
+
     }
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

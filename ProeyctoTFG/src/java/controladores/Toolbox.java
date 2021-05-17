@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
 public class Toolbox {
     //login y contraseña utilizados para la conectarse a la base de datos
     private static String loginBD = "admin";
-    private static String passwordBD = "1234";
+    private static String passwordBD = "admin";
     
     /**
      * metodo que realiza la conexion a la base de datos gestionParcelas
@@ -140,6 +140,44 @@ public class Toolbox {
         return validar;
 
     }
+    
+    
+    public static int idparcela(int referencia) {
+
+        Connection conn = null;
+        Statement stmt = null;
+        int validar = 0;
+        int id = 0;
+        try {
+            conn=realizaConexion();
+            stmt = (Statement) conn.createStatement();
+            String sqlStr = "SELECT * FROM parcela WHERE referencia=" + referencia + ";";
+            ResultSet rset = stmt.executeQuery(sqlStr);
+
+            while (rset.next()) {
+                id = rset.getInt("idparcela");
+                System.out.println(id);
+            }
+            sqlStr = "SELECT * FROM parcela WHERE referencia=" + referencia + ";";
+            rset = stmt.executeQuery(sqlStr);
+            while (rset.next()) {
+                validar = rset.getInt("idparcela");
+                System.out.println("ENTRA");
+            }
+
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("NO ENTRA");
+        }
+        return validar;
+
+    }
 
     public static int idProp(int iduser) {
 
@@ -157,6 +195,137 @@ public class Toolbox {
 
             while (rset.next()) {
                 validar = rset.getInt("idpropietario");
+                System.out.println("ENTRA");
+            }
+
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("NO ENTRA");
+        }
+        return validar;
+
+    }
+    
+     public static int idAdmin(int iduser) {
+
+        Connection conn = null;
+        Statement stmt = null;
+        int validar = 0;
+        int id = 0;
+        try {
+
+            conn=realizaConexion();
+            stmt = (Statement) conn.createStatement();
+
+            String sqlStr = "SELECT * FROM admin WHERE idusuario='" + iduser + "';";
+            ResultSet rset = stmt.executeQuery(sqlStr);
+
+            while (rset.next()) {
+                validar = rset.getInt("idadmin");
+                System.out.println("ENTRA");
+            }
+
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("NO ENTRA");
+        }
+        return validar;
+
+    }
+     
+     public static int idJornalero(int iduser) {
+
+        Connection conn = null;
+        Statement stmt = null;
+        int validar = 0;
+        int id = 0;
+        try {
+
+            conn=realizaConexion();
+            stmt = (Statement) conn.createStatement();
+
+            String sqlStr = "SELECT * FROM jornalero WHERE idusuario='" + iduser + "';";
+            ResultSet rset = stmt.executeQuery(sqlStr);
+
+            while (rset.next()) {
+                validar = rset.getInt("idjornalero");
+                System.out.println("ENTRA");
+            }
+
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("NO ENTRA");
+        }
+        return validar;
+
+    }
+    
+     public static int parcelaAdmin(int iduser) {
+
+        Connection conn = null;
+        Statement stmt = null;
+        int validar = 0;
+        int id = 0;
+        try {
+
+            conn=realizaConexion();
+            stmt = (Statement) conn.createStatement();
+
+            String sqlStr = "SELECT * FROM admin WHERE idusuario='" + iduser + "';";
+            ResultSet rset = stmt.executeQuery(sqlStr);
+
+            while (rset.next()) {
+                validar = rset.getInt("idparcela");
+                System.out.println("ENTRA");
+            }
+
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("NO ENTRA");
+        }
+        return validar;
+
+    }
+     public static int parcelaJornalero(int iduser) {
+
+        Connection conn = null;
+        Statement stmt = null;
+        int validar = 0;
+        int id = 0;
+        try {
+
+            conn=realizaConexion();
+            stmt = (Statement) conn.createStatement();
+
+            String sqlStr = "SELECT * FROM jornalero WHERE idusuario='" + iduser + "';";
+            ResultSet rset = stmt.executeQuery(sqlStr);
+
+            while (rset.next()) {
+                validar = rset.getInt("idparcela");
                 System.out.println("ENTRA");
             }
 

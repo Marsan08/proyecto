@@ -112,7 +112,7 @@
 
             Statement stmt = conn.createStatement();
 
-            String sqlStr = "SELECT * FROM usuario INNER JOIN rol ON usuario.idrol = rol.idrol + rol.nombre";
+            String sqlStr = "SELECT * FROM usuario INNER JOIN rol ON usuario.idrol = rol.idrol + rol.nombre WHERE usurario.idrol NOT IN 1";
 
             System.out.println("La consulta sql es " + sqlStr);
 

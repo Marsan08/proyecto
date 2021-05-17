@@ -16,8 +16,15 @@
         <title>JSP Page</title>
     </head><%
         session = request.getSession();
+        
+        String user = (String) session.getAttribute("usuario");
         String sessionId = session.getId();
         if ((Boolean) session.getAttribute("usuarioValido")) {
+            
+            
+            
+            if(controladores.Toolbox.rol(user, pass)==1){
+
             
     %>
     <body>

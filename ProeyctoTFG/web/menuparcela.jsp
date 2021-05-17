@@ -56,12 +56,6 @@
             <tbody> 
                 <%
                     while (rset.next()) {
-                        session.setAttribute("idparcela", rset.getInt("idparcela"));
-                        session.setAttribute("hectareas", rset.getInt("hectareas"));
-                        session.setAttribute("nombreprop", rset.getString("propietario.nombre"));
-                        session.setAttribute("nombrestado", rset.getString("estado.nombrestado"));
-                        session.setAttribute("nombretipo", rset.getString("tipoparcela.nombretipo"));
-                        session.setAttribute("referencia", rset.getInt("referencia"));
                         
                 %>
                 <tr>

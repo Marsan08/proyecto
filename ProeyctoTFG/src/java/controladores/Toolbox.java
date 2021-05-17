@@ -488,10 +488,14 @@ public class Toolbox {
             nextPage = "/modificaparcela.jsp";
         } else if (estado.equals("irinsertanimal")) {
             nextPage = "/insertaranimal.jsp";
-        } else if (estado.equals("irinsertplantacion")) {
+        } else if (estado.equals("irinsertarplantacion")) {
             nextPage = "/insertarplantacion.jsp";
         } else if (estado.equals("gestionanimal")) {
             nextPage = "/menuanimales.jsp";
+        }else if (estado.equals("gestionplantaciones")) {
+            nextPage = "/menuplantaciones.jsp";
+        }else if (estado.equals("modificarplantacion")) {
+            nextPage = "/modfiicarplantacion.jsp";
         }
         return nextPage;
     }

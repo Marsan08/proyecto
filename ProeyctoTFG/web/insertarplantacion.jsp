@@ -15,6 +15,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
+    
+    <body>
     <%
         session = request.getSession();
         String sessionId = session.getId();
@@ -24,17 +26,17 @@
 
             if ((controladores.Toolbox.rol(user, pass) == 1)) {
     %>
-    <body>
+    
 
-        <h1>ESTA ES LA PAGINA DE INSERTAR ANIMALES</h1>
+        <h1>ESTA ES LA PAGINA DE INSERTAR PLANTACIONES</h1>
         <form action="controlador" method="post">
-            <input type="hidden" name="todo" value="insertanimal">
+            <input type="hidden" name="todo" value="inserplantacion">
             <%
                 Connection conn = controladores.Toolbox.Conexion();
 
                 Statement stmt = conn.createStatement();
 
-                String sqlStr = "SELECT * FROM eganadera";
+                String sqlStr = "SELECT * FROM eagricola";
 
                 System.out.println("La consulta sql es " + sqlStr);
 
@@ -58,7 +60,7 @@
                     <tr>
 
                         <td><%=rset.getString("nombreespecie")%></td>
-                        <td><input type="radio" name="idespecie" value="<%=rset.getInt("ideganadera")%>"></td>
+                        <td><input type="radio" name="idespecie" value="<%=rset.getInt("ideagricola")%>"></td>
                     </tr>
 
                     <%
@@ -75,7 +77,7 @@
 
                 Statement stmt2 = conn2.createStatement();
 
-                String sqlStr2 = "SELECT * FROM pganadera";
+                String sqlStr2 = "SELECT * FROM pagricola";
 
                 System.out.println("La consulta sql es " + sqlStr2);
 
@@ -101,7 +103,7 @@
 
                       
                         <td><%=rset2.getInt("referencia")%></td>
-                        <td><input type="radio" name="idparcela" value="<%=rset2.getInt("idpganadera")%>"></td>
+                        <td><input type="radio" name="idparcela" value="<%=rset2.getInt("idpagricola")%>"></td>
 
                         
 
@@ -123,7 +125,7 @@
                 <thead>
                     <tr>
 
-                        <th>Sexo</th>
+                        <th>Fecha de plantacion</th>
 
                     </tr>
                 </thead>
@@ -131,7 +133,7 @@
                 <tbody> 
                     <tr>
 
-                        <td><input type="text" name="sexo"/></td>
+                        <td><input type="date" name="fecha"/></td>
 
                     </tr>
 
@@ -148,17 +150,16 @@
 </form>
                     <% } else if(controladores.Toolbox.rol(user, pass)==2) { %>
 
-  
-
-        <h1>ESTA ES LA PAGINA DE INSERTAR ANIMALES</h1>
+ 
+        <h1>ESTA ES LA PAGINA DE INSERTAR PLANTACIONES</h1>
         <form action="controlador" method="post">
-            <input type="hidden" name="todo" value="insertanimal">
+            <input type="hidden" name="todo" value="inserplantacion">
             <%
                 Connection conn = controladores.Toolbox.Conexion();
 
                 Statement stmt = conn.createStatement();
 
-                String sqlStr = "SELECT * FROM eganadera";
+                String sqlStr = "SELECT * FROM eagricola";
 
                 System.out.println("La consulta sql es " + sqlStr);
 
@@ -182,7 +183,7 @@
                     <tr>
 
                         <td><%=rset.getString("nombreespecie")%></td>
-                        <td><input type="radio" name="idespecie" value="<%=rset.getInt("ideganadera")%>"></td>
+                        <td><input type="radio" name="idespecie" value="<%=rset.getInt("ideagricola")%>"></td>
                     </tr>
 
                     <%
@@ -199,11 +200,12 @@
 
                 Statement stmt2 = conn2.createStatement();
                 
-                int idadmin = controladores.Toolbox.idUser(user);
+                int iduser = controladores.Toolbox.idUser(user);
                 
-                int idparcela = controladores.Toolbox.parcelaAdmin(idadmin);
+                int idparcela = controladores.Toolbox.parcelaAdmin(iduser);
+                
 
-                String sqlStr2 = "SELECT * FROM pganadera WHERE idparcela =" + idparcela + ";";
+                String sqlStr2 = "SELECT * FROM pagricola WHERE idparcela = "+ idparcela + ";";
 
                 System.out.println("La consulta sql es " + sqlStr2);
 
@@ -229,7 +231,7 @@
 
                       
                         <td><%=rset2.getInt("referencia")%></td>
-                        <td><input type="radio" name="idparcela" value="<%=rset2.getInt("idpganadera")%>"></td>
+                        <td><input type="radio" name="idparcela" value="<%=rset2.getInt("idpagricola")%>"></td>
 
                         
 
@@ -251,7 +253,7 @@
                 <thead>
                     <tr>
 
-                        <th>Sexo</th>
+                        <th>Fecha de plantacion</th>
 
                     </tr>
                 </thead>
@@ -259,7 +261,7 @@
                 <tbody> 
                     <tr>
 
-                        <td><input type="text" name="sexo"/></td>
+                        <td><input type="date" name="fecha"/></td>
 
                     </tr>
 
@@ -267,6 +269,7 @@
                 </tbody>
             </table>
 
+   
 <input type="submit" name="enviar" value="Enviar">
 </form>
 <form action="controlador" method="post">
@@ -276,15 +279,15 @@
 
 <% }else if(controladores.Toolbox.rol(user, pass)==3) { %>
 
-        <h1>ESTA ES LA PAGINA DE INSERTAR ANIMALES</h1>
+        <h1>ESTA ES LA PAGINA DE INSERTAR PLANTACIONES</h1>
         <form action="controlador" method="post">
-            <input type="hidden" name="todo" value="insertanimal">
+            <input type="hidden" name="todo" value="inserplantacion">
             <%
                 Connection conn = controladores.Toolbox.Conexion();
 
                 Statement stmt = conn.createStatement();
 
-                String sqlStr = "SELECT * FROM eganadera";
+                String sqlStr = "SELECT * FROM eagricola";
 
                 System.out.println("La consulta sql es " + sqlStr);
 
@@ -308,7 +311,7 @@
                     <tr>
 
                         <td><%=rset.getString("nombreespecie")%></td>
-                        <td><input type="radio" name="idespecie" value="<%=rset.getInt("ideganadera")%>"></td>
+                        <td><input type="radio" name="idespecie" value="<%=rset.getInt("ideagricola")%>"></td>
                     </tr>
 
                     <%
@@ -328,8 +331,8 @@
                 int iduser = controladores.Toolbox.idUser(user);
                 
                 int idparcela = controladores.Toolbox.parcelaJornalero(iduser);
-                
-                String sqlStr2 = "SELECT * FROM pganadera WHERE idparcela =" + idparcela + ";";
+
+                String sqlStr2 = "SELECT * FROM pagricola WHERE idparcela = " + idparcela + ";";
 
                 System.out.println("La consulta sql es " + sqlStr2);
 
@@ -355,7 +358,7 @@
 
                       
                         <td><%=rset2.getInt("referencia")%></td>
-                        <td><input type="radio" name="idparcela" value="<%=rset2.getInt("idpganadera")%>"></td>
+                        <td><input type="radio" name="idparcela" value="<%=rset2.getInt("idpagricola")%>"></td>
 
                         
 
@@ -377,7 +380,7 @@
                 <thead>
                     <tr>
 
-                        <th>Sexo</th>
+                        <th>Fecha de plantacion</th>
 
                     </tr>
                 </thead>
@@ -385,7 +388,7 @@
                 <tbody> 
                     <tr>
 
-                        <td><input type="text" name="sexo"/></td>
+                        <td><input type="date" name="fecha"/></td>
 
                     </tr>
 
@@ -393,7 +396,7 @@
                 </tbody>
             </table>
 
-      
+   
 <input type="submit" name="enviar" value="Enviar">
 </form>
 <form action="controlador" method="post">

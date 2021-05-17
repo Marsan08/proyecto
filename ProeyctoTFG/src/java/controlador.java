@@ -7,10 +7,13 @@
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -37,7 +40,7 @@ public class controlador extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ClassNotFoundException, InstantiationException, SQLException {
+            throws ServletException, IOException, ClassNotFoundException, InstantiationException, SQLException, ParseException {
 
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
@@ -62,9 +65,9 @@ public class controlador extends HttpServlet {
                         session = request.getSession(true);
                         estado = null;
                     }
-                    
+
                     //INSERTAR PARCELA
-                }  else if (estado.equals("ejecutarpinsert")) {
+                } else if (estado.equals("ejecutarpinsert")) {
 
                     int hectareas = Integer.parseInt(request.getParameter("hectareas"));
                     String user = (String) session.getAttribute("usuario");
@@ -93,7 +96,7 @@ public class controlador extends HttpServlet {
                     }
 
                     int idparcela = controladores.Toolbox.idparcela(referencia);
-                    
+
                     //SI EL TIPO DE PARCELA ES 1 POR TANTO ES AGRICOLA Y SE AÑADE EN PAGRICOLA
                     if (idtipoparcela == 1) {
 
@@ -114,7 +117,7 @@ public class controlador extends HttpServlet {
                         } catch (Exception ex) {
                             ex.printStackTrace();
                         }
-                        
+
                         //SI EL TIPO DE PARCELA ES 2 ES GANADERA Y POR TANTO SE AÑADE A PGANADERA
                     } else if (idtipoparcela == 2) {
 
@@ -137,10 +140,10 @@ public class controlador extends HttpServlet {
                         }
 
                     }
-                    
+
                     //SE VUELVE AL MENUPARCELAS
                     estado = "gestionparcelas";
-                    
+
                     //SE BORRA LA PARCEÑA
                 } else if (estado.equals("ejecutarbparcela")) {
 
@@ -160,7 +163,7 @@ public class controlador extends HttpServlet {
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
-                    
+
                     //TAMBIEN SE INTENTA BORRAR LAS PARCELAS GANADERAS QUE TENGAN COMO IDPARCELA LA QUE QUEREMOS BORRAR
                     try {
                         Connection conn3 = controladores.Toolbox.Conexion();
@@ -177,9 +180,8 @@ public class controlador extends HttpServlet {
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
-                    
+
                     //DESPUES DE BORRAR LA PARCELA EN PAGRICOLA O PGANADERA SE BORRA EN PARCELA DEBIDO A QUE HAY QUE HACER UN BORRADO EN CASCADA POR QUE TIENEN UNA REALCION PADRE HIJO
-                    
                     try {
                         Connection conn = controladores.Toolbox.Conexion();
                         Statement stmt = conn.createStatement();
@@ -197,10 +199,10 @@ public class controlador extends HttpServlet {
                     }
                     //SE VUELVE A MENUPARCELA
                     estado = "gestionparcelas";
-                    
+
                     //SE BORRA LA ESPECIE
                 } else if (estado.equals("ejecutarbespecie")) {
-                    
+
                     //PRIMERO SE INTENTA BORRAR LA ESPECIE AGRICOLA QUE TENGA COMO IDESPECIE LA ESPECIE QUE QUEREMOS BORRAR
                     try {
                         Connection conn2 = controladores.Toolbox.Conexion();
@@ -233,7 +235,7 @@ public class controlador extends HttpServlet {
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
-                    
+
                     //POR ULTIMO SE BORRA LA ESPECIE DADO QUE TIENE UNA RELACION PADRE HIJO CON EGARCIOLA Y EGANADERA HAY BORRAR ANTES DE LA TABLA HIJO QUE DE LA PADRE
                     Connection conn = controladores.Toolbox.Conexion();
                     Statement stmt = conn.createStatement();
@@ -273,7 +275,7 @@ public class controlador extends HttpServlet {
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
-                    
+
                     //VUELVE A MENUSUARIO
                     estado = "gestionusuarios";
                     //INSERTA ANIMAL
@@ -295,17 +297,63 @@ public class controlador extends HttpServlet {
                     if (conn != null) {
                         conn.close();
                     }
-                    
+
                     //VUELVE A MENUANIMAL
                     estado = "irinsertanimal";
-                    
+
+                    //INSERTA PLANTACIONES
+                } else if (estado.equals("inserplantacion")) {
+
+                    Date fecha = Date.valueOf(request.getParameter("fecha"));
+                    int idespecie = Integer.parseInt(request.getParameter("idespecie"));
+                    int idparcela = Integer.parseInt(request.getParameter("idparcela"));
+
+                    Connection conn = controladores.Toolbox.Conexion();
+
+                    Statement stmt = conn.createStatement();
+                    String sqlStr = "insert into plantacion(fplantacion, ideagricola, idparcela) values('" + fecha + "' , " + idespecie + ", " + idparcela + ");";
+                    int state = stmt.executeUpdate(sqlStr);
+
+                    if (stmt != null) {
+                        stmt.close();
+                    }
+                    if (conn != null) {
+                        conn.close();
+                    }
+
+                    //VUELVE A MENUANIMAL
+                    estado = "irinsertanimal";
+
                     //BORRA USUARIOS
-                } else if (estado.equals("ejecutarbusuario")) {
-                    
+                } else if (estado.equals("ejecutarbplantacion")) {
+
                     try {
-                        
+
                         Connection conn = controladores.Toolbox.Conexion();
-                        
+
+                        Statement stmt = conn.createStatement();
+                        String sqlStr = "delete from plantacion where idplantacion=" + Integer.parseInt(request.getParameter("idplantacion")) + ";";
+                        int state = stmt.executeUpdate(sqlStr);
+
+                        if (stmt != null) {
+                            stmt.close();
+                        }
+                        if (conn != null) {
+                            conn.close();
+                        }
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    //VUELVE A MENUSUARIOS
+                    estado = "gestionplantaciones";
+
+                    //BORRAR ANIMAL
+                } else if (estado.equals("ejecutarbusuario")) {
+
+                    try {
+
+                        Connection conn = controladores.Toolbox.Conexion();
+
                         Statement stmt = conn.createStatement();
                         String sqlStr = "delete from usuario where nombre='" + request.getParameter("nombreusuario") + "';";
                         int state = stmt.executeUpdate(sqlStr);
@@ -321,7 +369,7 @@ public class controlador extends HttpServlet {
                     }
                     //VUELVE A MENUSUARIOS
                     estado = "gestionusuarios";
-                    
+
                     //BORRAR ANIMAL
                 } else if (estado.equals("ejecutarbanimal")) {
 
@@ -336,7 +384,7 @@ public class controlador extends HttpServlet {
                     if (conn != null) {
                         conn.close();
                     }
-                    
+
                     //VUELVE A MENUANIMALES
                     estado = "gestionanimal";
 
@@ -346,15 +394,10 @@ public class controlador extends HttpServlet {
                     String nombre = request.getParameter("nombre");
                     int idtipo = Integer.parseInt(request.getParameter("idtipo"));
 
-                    Connection conn = null;
-                    Statement stmt = null;
                     try {
-                        Class.forName("com.mysql.jdbc.Driver").newInstance();
-                        String userName = "admin";
-                        String password = "admin";
-                        String url = "jdbc:mysql://localhost/gestionparcelas";
-                        conn = DriverManager.getConnection(url, userName, password);
-                        stmt = conn.createStatement();
+
+                        Connection conn = controladores.Toolbox.Conexion();
+                        Statement stmt = conn.createStatement();
                         String sqlStr = "insert into especie (nombreespecie, tipo) values ( '" + nombre + "' , " + idtipo + ");";
                         int state = stmt.executeUpdate(sqlStr);
 
@@ -414,7 +457,7 @@ public class controlador extends HttpServlet {
                     }
                     //VUELVE AL MENU GESTIONESPCIES
                     estado = "gestionespecies";
-                    
+
                     //MODIFICAR PARCELA
                 } else if (estado.equals("ejecutarUpdateParcela")) {
 
@@ -434,6 +477,24 @@ public class controlador extends HttpServlet {
                     }
                     //VUELVE A MENUPARCELAS
                     estado = "gestionparcelas";
+                } else if (estado.equals("ejecutarUpdatePlantacion")) {
+                   
+                     Date fecha = Date.valueOf(request.getParameter("fecha"));
+                    int idplantacion = (Integer) session.getAttribute("idplantacion");
+                    System.out.println(fecha);
+                    Connection conn = controladores.Toolbox.Conexion();
+                    Statement stmt = conn.createStatement();
+                    String sqlStr = "UPDATE `plantacion` SET `frecogida`='" + fecha + "' WHERE idplantacion = " + idplantacion + ";";
+                    int state = stmt.executeUpdate(sqlStr);
+
+                    if (stmt != null) {
+                        stmt.close();
+                    }
+                    if (conn != null) {
+                        conn.close();
+                    }
+                    //VUELVE A MENUPARCELAS
+                    estado = "gestionplantaciones";
                 } else if (estado.equals("cerrar")) {
                     session.invalidate();
                     session = request.getSession(true);
@@ -471,6 +532,8 @@ public class controlador extends HttpServlet {
             Logger.getLogger(controlador.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(controlador.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(controlador.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -492,6 +555,8 @@ public class controlador extends HttpServlet {
         } catch (InstantiationException ex) {
             Logger.getLogger(controlador.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
+            Logger.getLogger(controlador.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
             Logger.getLogger(controlador.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

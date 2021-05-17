@@ -31,21 +31,16 @@
     <body>
 
         <%        if (controladores.Toolbox.rol(user, pass) == 1) {
-
-
-        %>
-
-
-
-        <%            int idparcela = (Integer) session.getAttribute("idparcela");
-            int hectareas = (Integer) session.getAttribute("hectareas");
-            String nombreprop = (String) session.getAttribute("nombreprop");
-            String nombrestado = (String) session.getAttribute("nombrestado");
-            String nombretipo = (String) session.getAttribute("nombretipo");
-            int referencia = (Integer) session.getAttribute("referencia");
-
+            
+                    int idparcela = Integer.parseInt(request.getParameter("idparcela"));
+                    
+                    Connection conn = controladores.Toolbox.Conexion();
+                    Statement stmt = conn.createStatement();
+            String sqlStr = "SELECT * FROM parcela INNER JOIN propietario ON parcela.idpropietario = propietario.idpropietario INNER JOIN tipoparcela ON parcela.idtipoparcela = tipoparcela.idtipoparcela + tipoparcela.nombretipo INNER JOIN estado ON parcela.idestado = estado.idestado + estado.nombrestado WHERE parcela.idparcela =" + idparcela + ";";
+                    ResultSet rset = stmt.executeQuery(sqlStr);
 
         %>
+
 
         <h1>Modificar estado de la parcela</h1> 
         <form action="controlador" method="POST">
@@ -66,15 +61,19 @@
 
                     <tr>
 
-                        <td><%=idparcela%></td>
-                        <td><%=hectareas%></td>
-                        <td><%=nombreprop%></td>
-                        <td><%=nombretipo%></td>
-                        <td><%=referencia%></td>
+                    <td><%=idparcela%></td>
+                    <td><%=rset.getInt("hectareas")%></td>
+                    <td><%=rset.getString("propietario.nombre")%></td>
+                    <td><%=rset.getString("tipoparcela.nombretipo")%></td>
+                    <td><%=rset.getInt("referencia")%></td>
                         <td><select name="idestado">
 
 
                                 <%
+                                    
+                                    rset.close();
+                                    stmt.close();
+                                    conn.close();
 
                                     Connection conn2 = controladores.Toolbox.Conexion();
                                     Statement stmt2 = conn2.createStatement();

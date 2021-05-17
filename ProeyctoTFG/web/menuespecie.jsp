@@ -174,6 +174,19 @@
         
                 </form>
             
+               <form action="controlador" method="post" id="irinsertanimal">
+          
+                    <input type="hidden" value="irinsertanimal" name="todo"/>
+                    <input type="submit" value="Insertar un animal">
+        
+                </form>
+            <form action="controlador" method="post" id="irinsertplantacion">
+          
+                    <input type="hidden" value="irinsertplantacion" name="todo"/>
+                    <input type="submit" value="Insertar una plantación">
+        
+                </form>
+            
             
         <%
             //Cierre de recursos 

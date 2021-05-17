@@ -279,6 +279,23 @@ public class controlador extends HttpServlet {
                     }
 
                     estado = "menu";
+                }else if (estado.equals("insertanimal")) {
+                        
+                        Connection conn  = controladores.Toolbox.Conexion();
+                   
+                        Statement stmt = conn.createStatement();
+                        String sqlStr = "insert into animal(sexo, ideganadera, idparcela) values();";
+                        int state = stmt.executeUpdate(sqlStr);
+
+                        if (stmt != null) {
+                            stmt.close();
+                        }
+                        if (conn != null) {
+                            conn.close();
+                        }
+                    
+
+                    estado = "menu";
                 } else if (estado.equals("ejecutarbusuario")) {
                     Connection conn = null;
                     Statement stmt = null;

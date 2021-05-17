@@ -420,6 +420,10 @@ public class Toolbox {
             nextPage = "/insertarparcela.jsp";
         } else if (estado.equals("modificarparcela")) {
             nextPage = "/modificaparcela.jsp";
+        } else if (estado.equals("irinsertanimal")) {
+            nextPage = "/insertaranimal.jsp";
+        } else if (estado.equals("irinsertplantacion")) {
+            nextPage = "/insertarplantacion.jsp";
         }
         return nextPage;
     }

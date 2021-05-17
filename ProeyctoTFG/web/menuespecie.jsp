@@ -41,6 +41,7 @@
                     <th>Nombre especie</th>
                     <th>Tipo de especie</th>
                     <th>Borrar</th>
+                    
              
                 </tr>
             </thead>
@@ -54,6 +55,7 @@
                     <td><%=rset.getString("tipoespecie.nombre")%></td>
              
                                 <td><form action="controlador" method="post"><input type="hidden" value="ejecutarbespecie" name="todo"><input type="hidden" value='<%=rset.getInt("idespecie")%>' name="idespecie"><input type="submit" value="Borrar"></form></td>
+                                
 
                 </tr>
 
@@ -64,14 +66,25 @@
         </table>
             
             <form action="controlador" method="post" id="irinsertespecie">
-        
-                    
-                   
+          
                     <input type="hidden" value="irinsertespecie" name="todo"/>
                     <input type="submit" value="Insertar otra especie">
-                   
         
                 </form>
+            
+             <form action="controlador" method="post" id="irinsertanimal">
+          
+                    <input type="hidden" value="irinsertanimal" name="todo"/>
+                    <input type="submit" value="Insertar un animal">
+        
+                </form>
+            <form action="controlador" method="post" id="irinsertplantacion">
+          
+                    <input type="hidden" value="irinsertplantacion" name="todo"/>
+                    <input type="submit" value="Insertar una plantación">
+        
+                </form>
+            
             
             
         <%

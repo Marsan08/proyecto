@@ -379,6 +379,72 @@ public class Toolbox {
         return validar;
 
     }
+     
+      public static int pagricola(int idparcela) {
+
+        Connection conn = null;
+        Statement stmt = null;
+        int validar = 0;
+        int id = 0;
+        try {
+
+            conn=realizaConexion();
+            stmt = (Statement) conn.createStatement();
+
+            String sqlStr = "SELECT * FROM pagricola WHERE idparcela='" + idparcela + "';";
+            ResultSet rset = stmt.executeQuery(sqlStr);
+
+            while (rset.next()) {
+                validar = rset.getInt("idpagricola");
+                System.out.println("ENTRA");
+            }
+
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("NO ENTRA");
+        }
+        return validar;
+
+    }
+      
+      public static int pganadera(int idparcela) {
+
+        Connection conn = null;
+        Statement stmt = null;
+        int validar = 0;
+        int id = 0;
+        try {
+
+            conn=realizaConexion();
+            stmt = (Statement) conn.createStatement();
+
+            String sqlStr = "SELECT * FROM pganadera WHERE idparcela='" + idparcela + "';";
+            ResultSet rset = stmt.executeQuery(sqlStr);
+
+            while (rset.next()) {
+                validar = rset.getInt("idpganadera");
+                System.out.println("ENTRA");
+            }
+
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("NO ENTRA");
+        }
+        return validar;
+
+    }
 
     public static Connection Conexion() throws ClassNotFoundException, InstantiationException, SQLException {
 
@@ -424,6 +490,8 @@ public class Toolbox {
             nextPage = "/insertaranimal.jsp";
         } else if (estado.equals("irinsertplantacion")) {
             nextPage = "/insertarplantacion.jsp";
+        } else if (estado.equals("gestionanimal")) {
+            nextPage = "/menuanimales.jsp";
         }
         return nextPage;
     }
@@ -452,9 +520,12 @@ public class Toolbox {
             con.close();
         }
     }
+    
+    
 
     private Connection getConexion() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
+

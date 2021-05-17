@@ -48,7 +48,7 @@
                     <tr>
                         <td><input type="text" name="hectareas"></td>
                         <td>
-                            <p name="idpropietario" value='<%= idpropietario%>'>
+                            <p>
 
                                 <%= usuario%>
 
@@ -129,9 +129,10 @@
             </table>
             <input type="submit" name="enviar" value="Enviar">
         </form>
-        <form action="controlador" method="post">
-            <input type="hidden" name="todo" value="menu">
-            <input type="submit" name="enviar" value="Volver al menu">
+        <<form action="controlador" method="post">
+
+            <input type="hidden" value="menu" name="todo">
+            <input type="submit" value="Menú principal">
         </form>
         <% }else { %>
         <h1>NO TIENES ACCESO</h1>

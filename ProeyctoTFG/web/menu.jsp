@@ -204,6 +204,25 @@
                         <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
                     </div>
                 </div>
+                 <hr class="featurette-divider">
+
+                <div class="row featurette">
+                    <div class="col-md-7">
+                        <h2 class="featurette-heading">Gestionar animales </h2>
+                        <p class="lead"> Aquí puedes insertar o eliminar animales. </p>
+                        <form action="controlador" method="post" id="gestionanimal">
+                            <p> Gestionar animales </p>
+
+                            <input type="hidden" value="gestionanimal" name="todo" />
+                            <input type="submit" value="Animales">
+
+
+                        </form>
+                    </div>
+                    <div class="col-md-5">
+                        <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+                    </div>
+                </div>
 
                 <hr class="featurette-divider">
 
@@ -407,6 +426,26 @@
 
                             <input type="hidden" value="gestionusuarios" name="todo" />
                             <input type="submit" value="Usuarios">
+
+
+                        </form>
+                    </div>
+                    <div class="col-md-5">
+                        <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+                    </div>
+                </div>
+                
+                <hr class="featurette-divider">
+
+                <div class="row featurette">
+                    <div class="col-md-7">
+                        <h2 class="featurette-heading">Gestionar animales </h2>
+                        <p class="lead"> Aquí puedes insertar o eliminar animales. </p>
+                        <form action="controlador" method="post" id="gestionanimal">
+                            <p> Gestionar animales </p>
+
+                            <input type="hidden" value="gestionanimal" name="todo" />
+                            <input type="submit" value="Animales">
 
 
                         </form>

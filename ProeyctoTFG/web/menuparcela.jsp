@@ -103,8 +103,8 @@
 
         <form action="controlador" method="post">
 
-            <input type="hidden" value="menu" name="menu">
-            <input type="submit" value="MENU">
+            <input type="hidden" value="menu" name="todo">
+            <input type="submit" value="Menú principal">
         </form>
 
 
@@ -188,10 +188,10 @@
         
     
 
-        <form action="controlador" method="post">
+     <form action="controlador" method="post">
 
-            <input type="hidden" value="menu" name="menu">
-            <input type="submit" value="MENU">
+            <input type="hidden" value="menu" name="todo">
+            <input type="submit" value="Menú principal">
         </form>
 
 
@@ -278,10 +278,9 @@
 
         <form action="controlador" method="post">
 
-            <input type="hidden" value="menu" name="menu">
-            <input type="submit" value="MENU">
+            <input type="hidden" value="menu" name="todo">
+            <input type="submit" value="Menú principal">
         </form>
-
 
 
 <% }else  {%>

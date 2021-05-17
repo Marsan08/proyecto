@@ -6,15 +6,19 @@
     String user = (String) session.getAttribute("usuario");
     String pass = (String) session.getAttribute("contra");
     if ((Boolean) session.getAttribute("usuarioValido")) {
-        if (controladores.Toolbox.rol(user, pass) == 1) {
-%>
-<html>
+        %>
+        <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Menú</title>
     </head>
 
     <body>
+        
+        <%
+        if (controladores.Toolbox.rol(user, pass) == 1) {
+%>
+
         <header><p>Bienvenido propietario <%= user%> </p></header>
 
 
@@ -82,28 +86,19 @@
         %>
 
 
-        <form action="controlador" method="post">
+      <form action="controlador" method="post">
 
             <input type="hidden" value="menu" name="todo">
-            <input type="submit" value="MENU">
+            <input type="submit" value="Menú principal">
         </form>
-
     <footer>PIE DE PAGINA</footer>
 
-    </body>
 
-</html>
 
 
 <% } else if (controladores.Toolbox.rol(user, pass) == 2) {
 %>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Menú</title>
-    </head>
 
-    <body>
         <header><p>Bienvenido adminitrador <%= user%> </p></header>
 
 
@@ -171,30 +166,18 @@
         %>
 
 
-        <form action="controlador" method="post">
+       <form action="controlador" method="post">
 
             <input type="hidden" value="menu" name="todo">
-            <input type="submit" value="Volver al menú">
+            <input type="submit" value="Menú principal">
         </form>
-
     <footer>PIE DE PAGINA</footer>
 
-    </body>
-
-</html>
 
 <% } else if(controladores.Toolbox.rol(user, pass)== 3){%>
 
 
-<html>
-    <head>
 
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Error de acceso</title>
-
-    </head>
-    
-    <boby>
         
         <header><P>Bienvenido jornalero <%=user%></p> </header>
 
@@ -203,36 +186,15 @@
     
     <footer>PIE DE PAGINA</footer>
 
-</body>
-
-
-
-
-</html>
 
 
 <% } else { %>
 
-<html>
 
-    <body>
-
-    <head>
-
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Error de acceso</title>
-
-    </head>
+   
 
     <h1>No tienes permisoshhh <%=  user%>  </h1>
     <a href="index.jsp">Inicio</a>
-
-</body>
-
-
-
-
-</html>
 
 
 
@@ -240,16 +202,6 @@
 }
 } else { %>
 
-<html>
-
-    <body>
-
-    <head>
-
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Error de acceso</title>
-
-    </head>
 
     <h1>El usuario no es valido.</h1>
     <a href="index.jsp">Inicio</a>

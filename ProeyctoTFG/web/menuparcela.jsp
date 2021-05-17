@@ -216,7 +216,7 @@
 
     </head>
 
-    <h1>No tienes permisoshhh <%=  user%>  </h1>
+    <h1>No tienes permisos <%=  user%>  </h1>
     <a href="index.jsp">Inicio</a>
 
 </body>

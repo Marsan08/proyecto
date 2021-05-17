@@ -136,6 +136,9 @@ public class controlador extends HttpServlet {
 
                     estado = "gestionparcelas";
                 } else if (estado.equals("ejecutarbparcela")) {
+                    
+                 
+                    
 
                     Connection conn = null;
                     Statement stmt = null;
@@ -161,6 +164,41 @@ public class controlador extends HttpServlet {
 
                     estado = "gestionparcelas";
                 } else if (estado.equals("ejecutarbespecie")) {
+                    
+                    
+                 
+                    try {
+                        Connection conn2 = controladores.Toolbox.Conexion();
+                        Statement stmt2 = conn2.createStatement();
+                        String sqlStr2 = "delete from eagricola where idespecie=" + Integer.parseInt(request.getParameter("idespecie")) + ";";
+                        int state2 = stmt2.executeUpdate(sqlStr2);
+
+                        if (stmt2 != null) {
+                            stmt2.close();
+                        }
+                        if (conn2 != null) {
+                            conn2.close();
+                        }
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    
+                    
+                    try {
+                        Connection conn3 = controladores.Toolbox.Conexion();
+                        Statement stmt3 = conn3.createStatement();
+                        String sqlStr3 = "delete from eganadera where idespecie=" + Integer.parseInt(request.getParameter("idespecie")) + ";";
+                        int state3 = stmt3.executeUpdate(sqlStr3);
+
+                        if (stmt3 != null) {
+                            stmt3.close();
+                        }
+                        if (conn3 != null) {
+                            conn3.close();
+                        }
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
 
                     Connection conn = controladores.Toolbox.Conexion();
                     Statement stmt = conn.createStatement();
@@ -173,6 +211,9 @@ public class controlador extends HttpServlet {
                     if (conn != null) {
                         conn.close();
                     }
+                    
+                   
+                    
 
                     estado = "gestionespecies";
                 } else if (estado.equals("ejercutariusuario")) {
@@ -257,6 +298,49 @@ public class controlador extends HttpServlet {
                         }
                     } catch (Exception ex) {
                         ex.printStackTrace();
+                    }
+                    
+                    int idespecie = controladores.Toolbox.idespecie(nombre);
+
+                    if (idtipo == 1) {
+
+                        try {
+                            Connection conn2 = controladores.Toolbox.Conexion();
+
+                            Statement stmt2 = conn2.createStatement();
+
+                            String sqlStr2 = "insert into eagricola(idespecie, nombreespecie) values(" + idespecie + ", '" + nombre + "');";
+                            int state2 = stmt2.executeUpdate(sqlStr2);
+
+                            if (stmt2 != null) {
+                                stmt2.close();
+                            }
+                            if (conn2 != null) {
+                                conn2.close();
+                            }
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                    } else if (idtipo == 2) {
+                        
+                          try {
+                        Connection conn2 = controladores.Toolbox.Conexion();
+
+                        Statement stmt2 = conn2.createStatement();
+
+                        String sqlStr2 = "insert into eganadera(idespecie, nombreespecie) values(" + idespecie + ", '" + nombre + "');";
+                        int state2 = stmt2.executeUpdate(sqlStr2);
+
+                        if (stmt2 != null) {
+                            stmt2.close();
+                        }
+                        if (conn2 != null) {
+                            conn2.close();
+                        }
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                       
                     }
 
                     estado = "gestionespecies";

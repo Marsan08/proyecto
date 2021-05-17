@@ -178,6 +178,43 @@ public class Toolbox {
         return validar;
 
     }
+    
+    public static int idespecie(String nombre) {
+
+        Connection conn = null;
+        Statement stmt = null;
+        int validar = 0;
+        int id = 0;
+        try {
+            conn=realizaConexion();
+            stmt = (Statement) conn.createStatement();
+            String sqlStr = "SELECT * FROM especie WHERE nombreespecie='" + nombre + "';";
+            ResultSet rset = stmt.executeQuery(sqlStr);
+
+            while (rset.next()) {
+                id = rset.getInt("idespecie");
+                System.out.println(id);
+            }
+            sqlStr = "SELECT * FROM especie WHERE nombreespecie='" + nombre + "';";
+            rset = stmt.executeQuery(sqlStr);
+            while (rset.next()) {
+                validar = rset.getInt("idespecie");
+                System.out.println("ENTRA");
+            }
+
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("NO ENTRA");
+        }
+        return validar;
+
+    }
 
     public static int idProp(int iduser) {
 

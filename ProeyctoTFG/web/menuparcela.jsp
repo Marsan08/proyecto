@@ -189,15 +189,7 @@
 
         %>
         
-        <form action="controlador" method="post" id="irinsertparcela">
-        
-                    
-                   
-                    <input type="hidden" value="irinsertparcela" name="todo"/>
-                    <input type="submit" value="Insertar otra parcela">
-                   
-        
-                </form>
+    
 
         <form action="controlador" method="post">
 

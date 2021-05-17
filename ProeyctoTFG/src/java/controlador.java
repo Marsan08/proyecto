@@ -280,11 +280,15 @@ public class controlador extends HttpServlet {
 
                     estado = "menu";
                 }else if (estado.equals("insertanimal")) {
+                    
+                        char sexo = request.getParameter("sexo").charAt(0);
+                        int idespecie = Integer.parseInt(request.getParameter("idespecie"));
+                        int idparcela = Integer.parseInt(request.getParameter("idparcela"));
                         
                         Connection conn  = controladores.Toolbox.Conexion();
                    
                         Statement stmt = conn.createStatement();
-                        String sqlStr = "insert into animal(sexo, ideganadera, idparcela) values();";
+                        String sqlStr = "insert into animal(sexo, ideganadera, idparcela) values('" + sexo + "' , " + idespecie + ", " + idparcela +");";
                         int state = stmt.executeUpdate(sqlStr);
 
                         if (stmt != null) {
@@ -295,7 +299,7 @@ public class controlador extends HttpServlet {
                         }
                     
 
-                    estado = "menu";
+                    estado = "irinsertanimal";
                 } else if (estado.equals("ejecutarbusuario")) {
                     Connection conn = null;
                     Statement stmt = null;

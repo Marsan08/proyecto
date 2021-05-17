@@ -58,8 +58,7 @@
                     <tr>
 
                         <td><%=rset.getString("nombreespecie")%></td>
-                        <td><%=rset.getString("tipoespecie.nombre")%></td>
-                        <td><input type="radio" name="idespecie" value="<%=rset.getInt("idespecie")%>"></td>
+                        <td><input type="radio" name="idespecie" value="<%=rset.getInt("ideganadera")%>"></td>
                     </tr>
 
                     <%
@@ -76,7 +75,7 @@
 
                 Statement stmt2 = conn2.createStatement();
 
-                String sqlStr2 = "SELECT * FROM parcela INNER JOIN propietario ON parcela.idpropietario = propietario.idpropietario INNER JOIN tipoparcela ON parcela.idtipoparcela = tipoparcela.idtipoparcela + tipoparcela.nombretipo INNER JOIN estado ON parcela.idestado = estado.idestado + estado.nombrestado ;";
+                String sqlStr2 = "SELECT * FROM pganadera";
 
                 System.out.println("La consulta sql es " + sqlStr2);
 
@@ -88,13 +87,7 @@
             <table>
                 <thead>
                     <tr>
-
-                        <th>ID de la parcela</th>
-                        <th>Hectáreas de la parcela</th>
-                        <th>ID propietario</th>
-                        <th>ID estado</th>
-                        <th>Tipo de parcela</th>
-                        <th>Referencia</th>
+                        <th>Referencia de la parcela</th>
                         <th>Seleccionar parcela</th>
 
                     </tr>
@@ -106,13 +99,9 @@
                     %>
                     <tr>
 
-                        <td><%=rset2.getInt("idparcela")%></td>
-                        <td><%=rset2.getInt("hectareas")%></td>
-                        <td><%=rset2.getString("propietario.nombre")%></td>
-                        <td><%=rset2.getString("estado.nombrestado")%></td>
-                        <td><%=rset2.getString("tipoparcela.nombretipo")%></td>
+                      
                         <td><%=rset2.getInt("referencia")%></td>
-                        <td><input type="radio" name="idparcela" value="<%=rset2.getInt("idparcela")%>"></td>
+                        <td><input type="radio" name="idparcela" value="<%=rset2.getInt("idpganadera")%>"></td>
 
                         
 

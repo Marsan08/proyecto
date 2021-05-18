@@ -14,6 +14,28 @@ and open the template in the editor.
 .color4 {color: #d5d85f;}
 .color5 {color: #f8efcb;}*/
 
+a {
+    text-decoration: black;
+}
+
+#saludoli{
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+}
+#saludo{
+    color:  #9d9d9d;
+}
+.nav{
+    display : flex;
+    flex-direction: row;
+    font-family:'Montserrat', sans-serif;
+    
+   color: black;
+    
+}
+
 #login{
     
     background-image: url("img/fondo.jpg");
@@ -34,6 +56,7 @@ and open the template in the editor.
 html{
     
     font-family:'Montserrat', sans-serif;
+ 
 }
 body{
     display: flex;
@@ -65,7 +88,7 @@ h1 {
 
 
     .boton {
-	    background-color: #b1d7e0;
+    background-color: #b1d7e0;
     padding: 10px;
     font-family: 'Montserrat', sans-serif;
     border-radius: 10px;
@@ -109,6 +132,20 @@ footer{
      font-style: oblique;
     font-size: small;
     
+    
+    
+}
+
+.navbar-nav {
+    
+    display: flex;
+    flex-direction: row;
+   
+
+}
+
+container{
+    font-family: 'Montserrat', sans-serif;
     
     
 }

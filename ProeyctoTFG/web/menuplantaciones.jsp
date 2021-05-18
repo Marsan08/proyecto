@@ -55,11 +55,6 @@
                 <%
                     while (rset.next()) {
 
-                        session.setAttribute("idplantacion", rset.getInt("idplantacion"));
-                        session.setAttribute("fplantacion", rset.getDate("fplantacion"));
-                        session.setAttribute("nombrespecie", rset.getString("eagricola.nombreespecie"));
-                        session.setAttribute("referencia", rset.getInt("pagricola.referencia"));
-                        
 
                 %>
                 <tr>

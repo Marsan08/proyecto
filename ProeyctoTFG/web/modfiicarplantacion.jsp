@@ -39,12 +39,16 @@
 
 
         <%  
+            Connection conn = controladores.Toolbox.Conexion();
+
+            Statement stmt = conn.createStatement();
             
-           
-                       int idplantacion = (Integer) session.getAttribute("idplantacion");
-                       Date fplantacion = (Date) session.getAttribute("fplantacion");
-                       String nombrespecie = (String) session.getAttribute("nombrespecie");
-                       int referencia = (Integer) session.getAttribute("referencia");
+            int idplantacion = Integer.parseInt(request.getParameter("idplantacion"));
+
+            String sqlStr = "SELECT * FROM plantacion INNER JOIN pagricola ON plantacion.idparcela = pagricola.idpagricola INNER JOIN eagricola ON plantacion.ideagricola = eagricola.ideagricola WHERE plantacion.idplantacion = " + idplantacion + ";";
+            System.out.println("La consulta sql es " + sqlStr);
+
+            ResultSet rset = stmt.executeQuery(sqlStr);
 
         %>
 
@@ -68,10 +72,10 @@
                     <tr>
 
                         <td><%=idplantacion%></td>
-                        <td><%=fplantacion%></td>
+                        <td><%=rset.getDate("fplantacion")%></td>
                         <td><input type="date" name="fecha"/></td>
-                        <td><%=nombrespecie%></td>
-                        <td><%=referencia%></td>
+                        <td><%=rset.getString("eagricola.nombreespecie")%></td>
+                        <td><%=rset.getInt("pagricola.referencia")%></td>
                      
                         
                     </tr>
@@ -87,7 +91,9 @@
         </form>
 
 
-        <% } else if (controladores.Toolbox.rol(user, pass) == 2) {
+        <% conn.close(); rset.close();  stmt.close(); } else if (controladores.Toolbox.rol(user, pass) == 2) {
+
+
 
 
         %>

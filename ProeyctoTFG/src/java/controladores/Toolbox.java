@@ -2,6 +2,8 @@ package controladores;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.DriverManager;
 
 import java.sql.PreparedStatement;
@@ -25,25 +27,30 @@ public class Toolbox {
     private static String loginBD = "admin";
     private static String passwordBD = "admin";
     
-    /**
-     * metodo que realiza la conexion a la base de datos gestionParcelas
-     * @return una conexion a la base de datos gestionParcelas
-     * @throws ClassNotFoundException
-     * @throws InstantiationException
-     * @throws IllegalAccessException
-     * @throws SQLException 
-     */
-    private static Connection realizaConexion() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
-        Class.forName("com.mysql.jdbc.Driver").newInstance();
-        String url = "jdbc:mysql://localhost/gestionparcelas";
-        return (Connection) DriverManager.getConnection(url, loginBD, passwordBD);
+    
+    public static String encriptaContrasena(String contrasena) {
+        String contrasenaenc = "";
+        try {
+            MessageDigest mensaje = MessageDigest.getInstance("SHA");
+            byte[] textoArrayBytes = contrasena.getBytes();
+            mensaje.update(textoArrayBytes);
+            contrasenaenc = mensaje.digest().toString();
+
+            while (contrasenaenc.length() < 32) {
+                contrasenaenc = "0" + contrasenaenc;
+            }
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+        return contrasenaenc;
     }
+    
     
     public static boolean validacion(String user, String pass) {
         java.sql.Connection conn = null;
         java.sql.Statement stmt = null;
         try {
-            conn=realizaConexion();
+            conn=Conexion();
             stmt = (Statement) conn.createStatement();
             String sqlStr = "SELECT * FROM usuario where nombre='" + user + "' and pass='" + pass + "';";
             //PARA DEPURACIÓN
@@ -74,7 +81,7 @@ public class Toolbox {
         int validar = 0;
         int id = 0;
         try {
-            conn=realizaConexion();
+            conn=Conexion();
             stmt = (Statement) conn.createStatement();
             String sqlStr = "SELECT * FROM usuario WHERE nombre='" + user + "' and pass='" + pass + "'";
             ResultSet rset = stmt.executeQuery(sqlStr);
@@ -111,7 +118,7 @@ public class Toolbox {
         int validar = 0;
         int id = 0;
         try {
-            conn=realizaConexion();
+            conn=Conexion();
             stmt = (Statement) conn.createStatement();
             String sqlStr = "SELECT * FROM usuario WHERE nombre='" + user + "'";
             ResultSet rset = stmt.executeQuery(sqlStr);
@@ -149,7 +156,7 @@ public class Toolbox {
         int validar = 0;
         int id = 0;
         try {
-            conn=realizaConexion();
+            conn=Conexion();
             stmt = (Statement) conn.createStatement();
             String sqlStr = "SELECT * FROM parcela WHERE referencia=" + referencia + ";";
             ResultSet rset = stmt.executeQuery(sqlStr);
@@ -186,7 +193,7 @@ public class Toolbox {
         int validar = 0;
         int id = 0;
         try {
-            conn=realizaConexion();
+            conn=Conexion();
             stmt = (Statement) conn.createStatement();
             String sqlStr = "SELECT * FROM especie WHERE nombreespecie='" + nombre + "';";
             ResultSet rset = stmt.executeQuery(sqlStr);
@@ -224,7 +231,7 @@ public class Toolbox {
         int id = 0;
         try {
 
-            conn=realizaConexion();
+            conn=Conexion();
             stmt = (Statement) conn.createStatement();
 
             String sqlStr = "SELECT * FROM propietario WHERE idusuario='" + iduser + "';";
@@ -257,7 +264,7 @@ public class Toolbox {
         int id = 0;
         try {
 
-            conn=realizaConexion();
+            conn=Conexion();
             stmt = (Statement) conn.createStatement();
 
             String sqlStr = "SELECT * FROM admin WHERE idusuario='" + iduser + "';";
@@ -290,7 +297,7 @@ public class Toolbox {
         int id = 0;
         try {
 
-            conn=realizaConexion();
+            conn=Conexion();
             stmt = (Statement) conn.createStatement();
 
             String sqlStr = "SELECT * FROM jornalero WHERE idusuario='" + iduser + "';";
@@ -323,7 +330,7 @@ public class Toolbox {
         int id = 0;
         try {
 
-            conn=realizaConexion();
+            conn=Conexion();
             stmt = (Statement) conn.createStatement();
 
             String sqlStr = "SELECT * FROM admin WHERE idusuario='" + iduser + "';";
@@ -355,7 +362,7 @@ public class Toolbox {
         int id = 0;
         try {
 
-            conn=realizaConexion();
+            conn=Conexion();
             stmt = (Statement) conn.createStatement();
 
             String sqlStr = "SELECT * FROM jornalero WHERE idusuario='" + iduser + "';";
@@ -388,7 +395,7 @@ public class Toolbox {
         int id = 0;
         try {
 
-            conn=realizaConexion();
+            conn=Conexion();
             stmt = (Statement) conn.createStatement();
 
             String sqlStr = "SELECT * FROM pagricola WHERE idparcela='" + idparcela + "';";
@@ -421,7 +428,7 @@ public class Toolbox {
         int id = 0;
         try {
 
-            conn=realizaConexion();
+            conn=Conexion();
             stmt = (Statement) conn.createStatement();
 
             String sqlStr = "SELECT * FROM pganadera WHERE idparcela='" + idparcela + "';";
@@ -445,7 +452,14 @@ public class Toolbox {
         return validar;
 
     }
-
+    /**
+     * metodo que realiza la conexion a la base de datos gestionParcelas
+     * @return una conexion a la base de datos gestionParcelas
+     * @throws ClassNotFoundException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     * @throws SQLException 
+     */
     public static Connection Conexion() throws ClassNotFoundException, InstantiationException, SQLException {
 
         Connection conn = null;

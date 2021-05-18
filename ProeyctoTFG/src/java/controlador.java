@@ -55,7 +55,7 @@ public class controlador extends HttpServlet {
             if (estado != null) {
                 if (estado.equals("autenticado")) {
                     String user = request.getParameter("user");
-                    String pass = request.getParameter("pass");
+                    String pass = controladores.Toolbox.encriptaContrasena(request.getParameter("pass"));
                     if (controladores.Toolbox.validacion(user, pass)) {
                         request.setAttribute("usuario", user);
                         estado = "menu";
@@ -257,7 +257,7 @@ public class controlador extends HttpServlet {
                     String email = request.getParameter("email");
                     String dni = request.getParameter("dni");
                     int telefono = Integer.parseInt(request.getParameter("telefono"));
-                    String contrasena = request.getParameter("contrasena");
+                    String contrasena = controladores .Toolbox.encriptaContrasena(request.getParameter("contrasena"));
                     int idrol = Integer.parseInt(request.getParameter("idrol"));
 
                     try {
@@ -495,7 +495,20 @@ public class controlador extends HttpServlet {
                     }
                     //VUELVE A MENUPARCELAS
                     estado = "gestionplantaciones";
-                } else if (estado.equals("cerrar")) {
+                } else if(estado.equals("modificacontrasena")){
+                    String nuevaContrasena=controladores.Toolbox.encriptaContrasena(request.getParameter("contrasena"));
+                    int idusuario=controladores.Toolbox.idUser("nombre");
+                    Connection conn = controladores.Toolbox.Conexion();
+                    Statement stmt = conn.createStatement();
+                    String sqlStr="UPDATE `usuario` SET `pass` = '"+nuevaContrasena+"' WHERE `usuario`.`idUsuario` = "+idusuario+";";
+                    int state = stmt.executeUpdate(sqlStr);
+                    if (stmt != null) {
+                        stmt.close();
+                    }
+                    if (conn != null) {
+                        conn.close();
+                    }
+                }else if (estado.equals("cerrar")) {
                     session.invalidate();
                     session = request.getSession(true);
                     estado = null;

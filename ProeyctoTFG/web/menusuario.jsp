@@ -181,7 +181,7 @@
         
         <header><P>Bienvenido jornalero <%=user%></p> </header>
 
-    <h1>No tienes permisoshhh <%=  user%>  </h1>
+    <h1>No tienes permisos <%=  user%>  </h1>
     <a href="index.jsp">Inicio</a>
     
     <footer>PIE DE PAGINA</footer>
@@ -193,7 +193,7 @@
 
    
 
-    <h1>No tienes permisoshhh <%=  user%>  </h1>
+    <h1>No tienes permisos <%=  user%>  </h1>
     <a href="index.jsp">Inicio</a>
 
 

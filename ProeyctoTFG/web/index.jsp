@@ -36,6 +36,9 @@ and open the template in the editor.
 
     <!-- Custom styles for this template -->
     <link href="css/carousel.css" rel="stylesheet">
+    <link href="css.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400&display=swap" rel="stylesheet">
 </head>
 
 
@@ -46,7 +49,7 @@ and open the template in the editor.
         session.setAttribute("usuarioValido", false);
     %>
 
-    <body>
+    <body id="login">
         <header></header>
         <div>
             <h1>Bienvenido a Gestiona tu parcela</h1>
@@ -63,17 +66,17 @@ and open the template in the editor.
                 <br>
                 <br>
                 <input type="submit" name="Enviar" value="Enviar" class="boton">
-                <div id="pie">
-                    <p>Si no puede iniciar sesi&oacute;n por favor contacte con su administrador o propietario.</p>
-                </div>
+                
             </form>
+          
         </div>
         <footer>
-            <p class="pull-right"><a href="#">Back to top</a></p>
-            <p>&copy; 2016 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+              <div id="pie">
+                    <p>Si no puede iniciar sesi&oacute;n por favor contacte con su administrador o propietario.</p>
+                </div>
         </footer>
 
-        </div>
+        
         <!-- /.container -->
 
 

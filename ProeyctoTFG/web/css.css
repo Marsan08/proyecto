@@ -14,9 +14,26 @@ and open the template in the editor.
 .color4 {color: #d5d85f;}
 .color5 {color: #f8efcb;}*/
 
-html{
-    font-family: arial;
+#login{
     
+    background-image: url("img/fondo.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+   
+}
+
+.carousel-inner{
+    
+    width: 800px;
+    height: 400px;
+    
+}
+
+html{
+    
+    font-family:'Montserrat', sans-serif;
 }
 body{
     display: flex;
@@ -26,36 +43,72 @@ body{
     flex-direction: column;
     
 }
+
+h1 {
+    font-size: 60px;
+    font-family: 'Montserrat', fantasy;
+}
 #inicio { 
     margin: 50px;
     display: flex;
     align-content: center;
     justify-content: center;
     align-items: center;
-    background-color: #f8efcb;
+  background-color: rgba(255, 255, 255, 0.65);
     width: 50%;
     height: 50%;
-     flex-direction: column
+     flex-direction: column;
+    
+    padding-block-end: 50px;
 
 }
+
+
+    .boton {
+	    background-color: #b1d7e0;
+    padding: 10px;
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 10px;
+    font-size: 13px;
+	
+}
+.boton:hover {
+	background-color:#5d88a0;
+}
+
+#pie{
+   
+    margin-top: 50px;
+    margin-bottom: 20px;
+
+}
+
 
 .form {
      display: flex;
     align-content: center;
     justify-content: center;
     align-items: center;
-    background-color: #f8efcb;
     width: 50%;
     height: 50%;
      flex-direction: column
     
 }
 
-.boton {
-font-family: arial;
-background-color: #5d930a;
-border-radius: 67px 66px 66px 66px;
--webkit-border-radius: 67px 66px 66px 66px;
--moz-border-radius: 67px 66px 66px 66px;
-margin: 2px;
+footer{
+ margin: 50px;
+    display: flex;
+    align-content: flex-end;
+    justify-content: center;
+    align-items: flex-end;
+    background-color: rgba(255, 255, 255, 0.65);
+    width: 50%;
+    height: 50%;
+    flex-direction: row;
+    flex-wrap: nowrap;
+     font-style: oblique;
+    font-size: small;
+    
+    
+    
 }

@@ -52,6 +52,10 @@
 
         <!-- Custom styles for this template -->
         <link href="css/carousel.css" rel="stylesheet">
+        <link href="css.css" rel="stylesheet">
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     </head>
 
 
@@ -69,23 +73,24 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <a class="navbar-brand"><p>Bienvenido propietario <%= user%></p></a>
+                            
                         </div>
                         <div id="navbar" class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
-                                <li class="active"><a href="#">Home</a></li>
-                                <li><a href="#">About</a></li>
-                                <li><a href="#">Contact</a></li>
+                                <li><p>Bienvenido propietario <%= user%></p></li>
+                                <li class="active"><a href="menu.jsp">Inicio</a></li>
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Páginas <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#">Action</a></li>
-                                        <li><a href="#">Another action</a></li>
-                                        <li><a href="#">Something else here</a></li>
+                                        <li><a href="menuparcela.jsp">Parcelas</a></li>
+                                        <li><a href="menuespecie.jsp">Especies</a></li>
+                                        <li><a href="#">Animales</a></li>
+                                        <li><a href="#">Plantaciones</a></li>
+                                        <li><a href="menusuario">Usuarios</a></li>
                                         <li role="separator" class="divider"></li>
-                                        <li class="dropdown-header">Nav header</li>
-                                        <li><a href="#">Separated link</a></li>
-                                        <li><a href="#">One more separated link</a></li>
+                                        <li class="dropdown-header">Otros</li>
+                                        
+                                        <li><a href="#">Salir</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -95,42 +100,54 @@
 
             </div>
         </div>
-        <h1>Bienvenido propietario
-            <%= user%>
-        </h1>
+       
+<div class="container">
+  <h2>Carousel Example</h2>
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
 
-        <div id="myCarousel" class="carousel slide" data-ride="carousel">
-            <!-- Indicators -->
-            <ol class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1"></li>
-                <li data-target="#myCarousel" data-slide-to="2"></li>
-            </ol>
-            <div class="carousel-inner" role="listbox">
-                <div class="item active">
-                    <img class="first-slide" src="img/carrusel1.jpg" alt="First slide">
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
 
-                </div>
-                <div class="item">
-                    <img class="second-slide" src="img/carrusel2.jpg" alt="Second slide">
+      <div class="item active">
+        <img src="img/carrusel1.jpg" alt="Los Angeles" style="width:100%;">
+        <div class="carousel-caption">
+         
+        </div>
+      </div>
 
+      <div class="item">
+        <img src="img/carrusel2.jpg" alt="Chicago" style="width:100%;">
+        <div class="carousel-caption">
+         
+        </div>
+      </div>
+    
+      <div class="item">
+        <img src="img/carrusel3.jpg" alt="New York" style="width:100%;">
+        <div class="carousel-caption">
+          
+        </div>
+      </div>
+  
+    </div>
 
-                </div>
-                <div class="item">
-                    <img class="third-slide" src="img/carrusel3.jpg" alt="Third slide">
-
-
-                </div>
-                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </div>
-            <!-- /.carousel -->
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+      <span class="sr-only">Anterior</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <span class="sr-only">Siguiente</span>
+    </a>
+  </div>
+</div>
 
 
             <!-- Marketing messaging and featurettes
@@ -147,7 +164,7 @@
                 <div class="row featurette">
                     <div class="col-md-7 col-md-push-5">
                         <h2 class="featurette-heading">Gestionar parcelas</h2>
-                        <p class="lead">En este lugar puedes ver tus parcelas, asi como borrarlas y/o modioficarlas.</p>
+                        <p class="lead">En este lugar puedes ver tus parcelas, asi como borrarlas y/o modificarlas.</p>
                         <form action="controlador" method="post" id="gestionparcelas">
 
                             <p> Gestionar parcelas </p>
@@ -196,45 +213,6 @@
 
                             <input type="hidden" value="gestionusuarios" name="todo" />
                             <input type="submit" value="Usuarios">
-
-
-                        </form>
-                    </div>
-                    <div class="col-md-5">
-                        <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
-                    </div>
-                </div>
-                 <hr class="featurette-divider">
-
-                <div class="row featurette">
-                    <div class="col-md-7">
-                        <h2 class="featurette-heading">Gestionar animales </h2>
-                        <p class="lead"> Aquí puedes insertar o eliminar animales. </p>
-                        <form action="controlador" method="post" id="gestionanimal">
-                            <p> Gestionar animales </p>
-
-                            <input type="hidden" value="gestionanimal" name="todo" />
-                            <input type="submit" value="Animales">
-
-
-                        </form>
-                    </div>
-                    <div class="col-md-5">
-                        <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
-                    </div>
-                </div>
-                 
-                  <hr class="featurette-divider">
-
-                <div class="row featurette">
-                    <div class="col-md-7">
-                        <h2 class="featurette-heading">Gestionar plantaciones </h2>
-                        <p class="lead"> Aquí puedes insertar o modificar plantaciones. </p>
-                        <form action="controlador" method="post" id="gestionplantaciones">
-                            <p> Gestionar plantaciones </p>
-
-                            <input type="hidden" value="gestionplantaciones" name="todo" />
-                            <input type="submit" value="Plantaciones">
 
 
                         </form>
@@ -454,47 +432,6 @@
                         <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
                     </div>
                 </div>
-                
-                <hr class="featurette-divider">
-
-                <div class="row featurette">
-                    <div class="col-md-7">
-                        <h2 class="featurette-heading">Gestionar animales </h2>
-                        <p class="lead"> Aquí puedes insertar o eliminar animales. </p>
-                        <form action="controlador" method="post" id="gestionanimal">
-                            <p> Gestionar animales </p>
-
-                            <input type="hidden" value="gestionanimal" name="todo" />
-                            <input type="submit" value="Animales">
-
-
-                        </form>
-                    </div>
-                    <div class="col-md-5">
-                        <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
-                    </div>
-                </div>
-                
-                <hr class="featurette-divider">
-
-                <div class="row featurette">
-                    <div class="col-md-7">
-                        <h2 class="featurette-heading">Gestionar plantaciones </h2>
-                        <p class="lead"> Aquí puedes insertar o modificar plantaciones. </p>
-                        <form action="controlador" method="post" id="gestionplantaciones">
-                            <p> Gestionar plantaciones </p>
-
-                            <input type="hidden" value="gestionplantaciones" name="todo" />
-                            <input type="submit" value="Plantaciones">
-
-
-                        </form>
-                    </div>
-                    <div class="col-md-5">
-                        <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
-                    </div>
-                </div>
-
 
                 <hr class="featurette-divider">
 
@@ -688,47 +625,8 @@
                         <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
                     </div>
                 </div>
-                
-                 <hr class="featurette-divider">
 
-                <div class="row featurette">
-                    <div class="col-md-7">
-                        <h2 class="featurette-heading">Gestionar animales </h2>
-                        <p class="lead"> Aquí puedes insertar o eliminar animales. </p>
-                        <form action="controlador" method="post" id="gestionanimal">
-                            <p> Gestionar animales </p>
-
-                            <input type="hidden" value="gestionanimal" name="todo" />
-                            <input type="submit" value="Animales">
-
-
-                        </form>
-                    </div>
-                    <div class="col-md-5">
-                        <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
-                    </div>
-                </div>
-
-              <hr class="featurette-divider">
-
-                <div class="row featurette">
-                    <div class="col-md-7">
-                        <h2 class="featurette-heading">Gestionar plantaciones </h2>
-                        <p class="lead"> Aquí puedes insertar o modificar plantaciones. </p>
-                        <form action="controlador" method="post" id="gestionplantaciones">
-                            <p> Gestionar plantaciones </p>
-
-                            <input type="hidden" value="gestionplantaciones" name="todo" />
-                            <input type="submit" value="Plantaciones">
-
-
-                        </form>
-                    </div>
-                    <div class="col-md-5">
-                        <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
-                    </div>
-                </div>
-
+              
        
 
                 <hr class="featurette-divider">

@@ -28,6 +28,7 @@ public class Toolbox {
     private static String passwordBD = "admin";
     
     
+
     public static String encriptaContrasena(String contrasena) {
         String contrasenaenc = "";
         try {
@@ -186,6 +187,8 @@ public class Toolbox {
 
     }
     
+    
+    
     public static int idespecie(String nombre) {
 
         Connection conn = null;
@@ -206,6 +209,80 @@ public class Toolbox {
             rset = stmt.executeQuery(sqlStr);
             while (rset.next()) {
                 validar = rset.getInt("idespecie");
+                System.out.println("ENTRA");
+            }
+
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("NO ENTRA");
+        }
+        return validar;
+
+    }
+
+    public static int ideganadera(int idespecie) {
+
+        Connection conn = null;
+        Statement stmt = null;
+        int validar = 0;
+        int id = 0;
+        try {
+            conn=Conexion();
+            stmt = (Statement) conn.createStatement();
+            String sqlStr = "SELECT * FROM eganadera WHERE idespecie=" + idespecie + ";";
+            ResultSet rset = stmt.executeQuery(sqlStr);
+
+            while (rset.next()) {
+                id = rset.getInt("ideganadera");
+                System.out.println(id);
+            }
+            sqlStr = "SELECT * FROM eganadera WHERE idespecie=" + idespecie + ";";
+            rset = stmt.executeQuery(sqlStr);
+            while (rset.next()) {
+                validar = rset.getInt("ideganadera");
+                System.out.println("ENTRA");
+            }
+
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("NO ENTRA");
+        }
+        return validar;
+
+    }
+    
+    public static int ideagricola(int idespecie) {
+
+        Connection conn = null;
+        Statement stmt = null;
+        int validar = 0;
+        int id = 0;
+        try {
+            conn=Conexion();
+            stmt = (Statement) conn.createStatement();
+            String sqlStr = "SELECT * FROM eagricola WHERE idespecie=" + idespecie + ";";
+            ResultSet rset = stmt.executeQuery(sqlStr);
+
+            while (rset.next()) {
+                id = rset.getInt("ideagricola");
+                System.out.println(id);
+            }
+            sqlStr = "SELECT * FROM eagricola WHERE idespecie=" + idespecie + ";";
+            rset = stmt.executeQuery(sqlStr);
+            while (rset.next()) {
+                validar = rset.getInt("ideagricola");
                 System.out.println("ENTRA");
             }
 
@@ -498,7 +575,7 @@ public class Toolbox {
             nextPage = "/insertarespecies.jsp";
         } else if (estado.equals("irinsertparcela")) {
             nextPage = "/insertarparcela.jsp";
-        } else if (estado.equals("modificarparcela")) {
+        } else if (estado.equals("modificarparcela")) {         
             nextPage = "/modificaparcela.jsp";
         } else if (estado.equals("irinsertanimal")) {
             nextPage = "/insertaranimal.jsp";

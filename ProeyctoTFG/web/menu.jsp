@@ -7,18 +7,24 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
-<%
+<%  
+    //En el menu principal se toman las variables de sesion usuario y contraseña
+    //Tambien se verifica que la variable de sesion usuarioValido es true, esto significa que el usuario se encuenta dentro de la base de datos
     session = request.getSession();
-
-    String user = request.getParameter("user");
-    String pass = request.getParameter("pass");
-    session.setAttribute("usuario", user);
-    session.setAttribute("contra", pass);
+    String sessionId = session.getId();
     String usuario = (String) session.getAttribute("usuario");
     String contra = (String) session.getAttribute("contra");
-    session.getAttribute("contra");
     if ((Boolean) session.getAttribute("usuarioValido")) {
         %>
+        
+        <!-- PAGINA DE MENU 
+        
+        Este archivo es común para los tres roles, en los cuales se toman el mismo head donde se referencian los estilos
+        A lo largo de la pagina se realiza una validacion por rol de los usuarios por la funcion rol() creada en el Toolbox
+        Los usuarios se separan por roles para tener distintos menús dado que no todos tienen las mismas funcionalidades
+        
+        
+        -->
         <html>
 
     <head>
@@ -51,7 +57,7 @@
 
         <!-- Custom styles for this template -->
         
-        <link href="css.css" rel="stylesheet">
+        <link href="css/css.css" rel="stylesheet">
         
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -63,15 +69,17 @@
 <body style="width: auto">
 
         <%
+            
+        //Aqui se comprueba si el usuario y la contraseña introducida se corresponden con el rol 1 que seria el de propietario de las parcelas
         if (controladores.Toolbox.rol(usuario, contra) == 1) {
 %>
 
-      
+      <!-- barra de navegacion fija creada con Boostrap que tiene como active la pagina de inicio que es en la que nos encontramos-->
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Bienvenido <%=user%></a>
+      <a class="navbar-brand" href="#">Bienvenido <%=usuario%></a>
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a href="menu.jsp">Inicio</a></li>
@@ -86,13 +94,9 @@
 </nav>
 
   
-<div class="container-fluid text-center" style="margin-top: 100px">    
+<div class="container-fluid text-center" style="margin-top: 100px; background-color: rgba(255, 255, 255, 0.8); padding: 30px;">    
   <div class="row content">
-    <div class="col-sm-2 sidenav">
-      <p><a href="#">Link</a></p>
-      <p><a href="#">Link</a></p>
-      <p><a href="#">Link</a></p>
-    </div>
+    
     <div class="col-sm-8 text-left"> 
          
 
@@ -100,18 +104,18 @@
 <div class="container" >
  
   <div id="myCarousel" class="carousel slide" data-ride="carousel" style="width: 100%">
-    <!-- Indicators -->
+    <!-- indicadores -->
     <ol class="carousel-indicators">
       <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
       <li data-target="#myCarousel" data-slide-to="1"></li>
       <li data-target="#myCarousel" data-slide-to="2"></li>
     </ol>
 
-    <!-- Wrapper for slides -->
+    <!-- Imagenes del carrousel -->
     <div class="carousel-inner">
 
       <div class="item active">
-        <img src="img/carrusel1.jpg" alt="Campo" style="width:100%;">
+        <img  src="img/carrusel1.jpg" alt="Campo" style="width:100%;">
         <div class="carousel-caption">
          
         </div>
@@ -133,7 +137,7 @@
   
     </div>
 
-    <!-- Left and right controls -->
+    <!-- Controles de el carrousel -->
     <a class="left carousel-control" href="#myCarousel" data-slide="prev">
       <span class="glyphicon glyphicon-chevron-left"></span>
       <span class="sr-only">Anterior</span>
@@ -146,14 +150,10 @@
 </div>
 
 
-            <!-- Marketing messaging and featurettes
-          ================================================== -->
-            <!-- Wrap the rest of the page in another container to center all the content. -->
-
             <div class="container marketing">
 
 
-                <!-- START THE FEATURETTES -->
+                <!-- MENU CON IMAGENES Y REFERENCIADO LOS INPUT PARA DAR VALOR AL PARAMETRO TODO -->
 
                 <hr class="featurette-divider">
 
@@ -166,14 +166,14 @@
                             <p> Gestionar parcelas </p>
 
                             <input type="hidden" value="gestionparcelas" name="todo" />
-                            <input type="submit" value="Parcelas">
+                            <input type="submit" value="Parcelas" class="boton">
 
 
                         </form>
 
                     </div>
                     <div class="col-md-5 ">
-                        <img class="featurette-image img-responsive center-block" src="img/parcela.jpg" alt="Generic placeholder image">
+                        <img class="featurette-image img-responsive center-block imgmenu" src="img/parcela.jpg" alt="Generic placeholder image">
                     </div>
                 </div>
 
@@ -188,13 +188,13 @@
                             <p> Gestionar especies </p>
 
                             <input type="hidden" value="gestionespecies" name="todo" />
-                            <input type="submit" value="Especies">
+                            <input type="submit" value="Especies" class="boton">
 
 
                         </form>
                     </div>
                     <div class="col-md-5">
-                        <img class="featurette-image img-responsive center-block" src="img/especies.jpg" alt="Generic placeholder image">
+                        <img class="featurette-image img-responsive center-block imgmenu" src="img/especies.jpg" alt="Generic placeholder image">
                     </div>
                 </div>
 
@@ -208,13 +208,13 @@
                             <p> Gestionar usuarios </p>
 
                             <input type="hidden" value="gestionusuarios" name="todo" />
-                            <input type="submit" value="Usuarios">
+                            <input type="submit" value="Usuarios" class="boton">
 
 
                         </form>
                     </div>
                     <div class="col-md-5">
-                        <img class="featurette-image img-responsive center-block" src="img/jornalero.jpg" alt="Generic placeholder image">
+                        <img class="featurette-image img-responsive center-block imgmenu" src="img/jornalero.jpg" alt="Generic placeholder image">
                     </div>
                 </div>
  <hr class="featurette-divider">
@@ -227,13 +227,13 @@
                             <p> Gestionar animales </p>
 
                             <input type="hidden" value="gestionanimal" name="todo" />
-                            <input type="submit" value="Animales">
+                            <input type="submit" value="Animales" class="boton">
 
 
                         </form>
                     </div>
                     <div class="col-md-5">
-                        <img class="featurette-image img-responsive center-block" src="img/cabra.jpg" alt="Generic placeholder image">
+                        <img class="featurette-image img-responsive center-block imgmenu" src="img/cabra.jpg" alt="Generic placeholder image">
                     </div>
                 </div>
                  
@@ -247,13 +247,13 @@
                             <p> Gestionar plantaciones </p>
 
                             <input type="hidden" value="gestionplantaciones" name="todo" />
-                            <input type="submit" value="Plantaciones">
+                            <input type="submit" value="Plantaciones" class="boton">
 
 
                         </form>
                     </div>
                     <div class="col-md-5">
-                        <img class="featurette-image img-responsive center-block" src="img/plantacion.jpg" alt="Generic placeholder image">
+                        <img class="featurette-image img-responsive center-block imgmenu" src="img/plantacion.jpg" alt="Generic placeholder image">
                     </div>
                 </div>
 
@@ -264,20 +264,16 @@
              
             </div>
     </div>
-    <div class="col-sm-2 sidenav" >
-      <div class="well">
-        <p>ADS</p>
-      </div>
-      <div class="well">
-        <p>ADS</p>
-      </div>
-    </div>
+    
   </div>
 </div>
 
-<footer class="container-fluid text-center">
-  <p>Footer Text</p>
-</footer>
+ <footer>
+     
+     <!-- VUELVE ARRIBA DEL TODO DE LA PAGINA -->
+        <p class="pull-right"><a href="#">Arriba</a></p>
+        <p>Gestiona tu parcela</a></p>
+    </footer>
 
             <!-- /.container -->
 
@@ -296,7 +292,11 @@
             <script src="js/ie10-viewport-bug-workaround.js"></script>
   
 
-<% } else if (controladores.Toolbox.rol(usuario, contra) == 2) {
+<% // LOS ROLES 2 Y 3 FUNCIONAN IGUAL QUE EL 1 CON LA DIFERENCIA DE QUE EL ROL 3 SOLO TIENE COMO MENU PARCELAS, ANIMALES Y PLANTACIONES
+    
+    
+    
+    } else if (controladores.Toolbox.rol(usuario, contra) == 2) {
 %>
 
 
@@ -304,7 +304,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Bienvenido <%=user%></a>
+      <a class="navbar-brand" href="#">Bienvenido <%=usuario%></a>
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a href="menu.jsp">Inicio</a></li>
@@ -319,14 +319,9 @@
 </nav>
 
   
-<div class="container-fluid text-center" style="margin-top: 100px">    
+<div class="container-fluid text-center"  style="margin-top: 100px; background-color: rgba(255, 255, 255, 0.8); padding: 30px;">    
   <div class="row content">
-    <div class="col-sm-2 sidenav">
-      <p><a href="#">Link</a></p>
-      <p><a href="#">Link</a></p>
-      <p><a href="#">Link</a></p>
-    </div>
-    <div class="col-sm-8 text-left"> 
+        <div class="col-sm-8 text-left"> 
          
 
        
@@ -399,14 +394,14 @@
                             <p> Gestionar parcelas </p>
 
                             <input type="hidden" value="gestionparcelas" name="todo" />
-                            <input type="submit" value="Parcelas">
+                            <input type="submit" value="Parcelas" class="boton">
 
 
                         </form>
 
                     </div>
                     <div class="col-md-5 ">
-                        <img class="featurette-image img-responsive center-block" src="img/parcela.jpg" alt="Generic placeholder image">
+                        <img class="featurette-image img-responsive center-block imgmenu" src="img/parcela.jpg" alt="Generic placeholder image">
                     </div>
                 </div>
 
@@ -421,13 +416,13 @@
                             <p> Gestionar especies </p>
 
                             <input type="hidden" value="gestionespecies" name="todo" />
-                            <input type="submit" value="Especies">
+                            <input type="submit" value="Especies" class="boton">
 
 
                         </form>
                     </div>
                     <div class="col-md-5">
-                        <img class="featurette-image img-responsive center-block" src="img/especies.jpg" alt="Generic placeholder image">
+                        <img class="featurette-image img-responsive center-block imgmenu" src="img/especies.jpg" alt="Generic placeholder image">
                     </div>
                 </div>
 
@@ -441,13 +436,13 @@
                             <p> Gestionar usuarios </p>
 
                             <input type="hidden" value="gestionusuarios" name="todo" />
-                            <input type="submit" value="Usuarios">
+                            <input type="submit" value="Usuarios" class="boton">
 
 
                         </form>
                     </div>
                     <div class="col-md-5">
-                        <img class="featurette-image img-responsive center-block" src="img/jornalero.jpg" alt="Generic placeholder image">
+                        <img class="featurette-image img-responsive center-block imgmenu" src="img/jornalero.jpg" alt="Generic placeholder image">
                     </div>
                 </div>
  <hr class="featurette-divider">
@@ -460,13 +455,13 @@
                             <p> Gestionar animales </p>
 
                             <input type="hidden" value="gestionanimal" name="todo" />
-                            <input type="submit" value="Animales">
+                            <input type="submit" value="Animales" class="boton">
 
 
                         </form>
                     </div>
                     <div class="col-md-5">
-                        <img class="featurette-image img-responsive center-block" src="img/cabra.jpg" alt="Generic placeholder image">
+                        <img class="featurette-image img-responsive center-block imgmenu" src="img/cabra.jpg" alt="Generic placeholder image">
                     </div>
                 </div>
                  
@@ -480,13 +475,13 @@
                             <p> Gestionar plantaciones </p>
 
                             <input type="hidden" value="gestionplantaciones" name="todo" />
-                            <input type="submit" value="Plantaciones">
+                            <input type="submit" value="Plantaciones" class="boton">
 
 
                         </form>
                     </div>
                     <div class="col-md-5">
-                        <img class="featurette-image img-responsive center-block" src="img/plantacion.jpg" alt="Generic placeholder image">
+                        <img class="featurette-image img-responsive center-block imgmenu" src="img/plantacion.jpg" alt="Generic placeholder image">
                     </div>
                 </div>
 
@@ -497,20 +492,14 @@
              
             </div>
     </div>
-    <div class="col-sm-2 sidenav" >
-      <div class="well">
-        <p>ADS</p>
-      </div>
-      <div class="well">
-        <p>ADS</p>
-      </div>
-    </div>
+    
   </div>
 </div>
+ <footer>
+        <p class="pull-right"><a href="#">Arriba</a></p>
+        <p>Gestiona tu parcela</a></p>
+    </footer>
 
-<footer class="container-fluid text-center">
-  <p>Footer Text</p>
-</footer>
 
             <!-- /.container -->
 
@@ -536,7 +525,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Bienvenido <%=user%></a>
+      <a class="navbar-brand" href="#">Bienvenido <%=usuario%></a>
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a href="menu.jsp">Inicio</a></li>
@@ -550,14 +539,9 @@
 </nav>
 
   
-<div class="container-fluid text-center" style="margin-top: 100px">    
+<div class="container-fluid text-center"  style="margin-top: 100px; background-color: rgba(255, 255, 255, 0.8); padding: 30px;">    
   <div class="row content">
-    <div class="col-sm-2 sidenav">
-      <p><a href="#">Link</a></p>
-      <p><a href="#">Link</a></p>
-      <p><a href="#">Link</a></p>
-    </div>
-    <div class="col-sm-8 text-left"> 
+        <div class="col-sm-8 text-left"> 
          
 
        
@@ -630,14 +614,14 @@
                             <p> Gestionar parcelas </p>
 
                             <input type="hidden" value="gestionparcelas" name="todo" />
-                            <input type="submit" value="Parcelas">
+                            <input type="submit" value="Parcelas" class="boton">
 
 
                         </form>
 
                     </div>
                     <div class="col-md-5 ">
-                        <img class="featurette-image img-responsive center-block" src="img/parcela.jpg" alt="Generic placeholder image">
+                        <img class="featurette-image img-responsive center-block imgmenu" src="img/parcela.jpg" alt="Generic placeholder image">
                     </div>
                 </div>
 
@@ -653,13 +637,13 @@
                             <p> Gestionar animales </p>
 
                             <input type="hidden" value="gestionanimal" name="todo" />
-                            <input type="submit" value="Animales">
+                            <input type="submit" value="Animales" class="boton">
 
 
                         </form>
                     </div>
                     <div class="col-md-5">
-                        <img class="featurette-image img-responsive center-block" src="img/cabra.jpg" alt="Generic placeholder image">
+                        <img class="featurette-image img-responsive center-block imgmenu" src="img/cabra.jpg" alt="Generic placeholder image">
                     </div>
                 </div>
                  
@@ -673,13 +657,13 @@
                             <p> Gestionar plantaciones </p>
 
                             <input type="hidden" value="gestionplantaciones" name="todo" />
-                            <input type="submit" value="Plantaciones">
+                            <input type="submit" value="Plantaciones" class="boton">
 
 
                         </form>
                     </div>
                     <div class="col-md-5">
-                        <img class="featurette-image img-responsive center-block" src="img/plantacion.jpg" alt="Generic placeholder image">
+                        <img class="featurette-image img-responsive center-block imgmenu" src="img/plantacion.jpg" alt="Generic placeholder image">
                     </div>
                 </div>
 
@@ -690,20 +674,14 @@
              
             </div>
     </div>
-    <div class="col-sm-2 sidenav" >
-      <div class="well">
-        <p>ADS</p>
-      </div>
-      <div class="well">
-        <p>ADS</p>
-      </div>
-    </div>
+   
   </div>
 </div>
+ <footer>
+        <p class="pull-right"><a href="#">Arriba</a></p>
+        <p>Gestiona tu parcela</a></p>
+    </footer>
 
-<footer class="container-fluid text-center">
-  <p>Footer Text</p>
-</footer>
 
             <!-- /.container -->
 
@@ -734,8 +712,8 @@
 
     <!-- FOOTER -->
     <footer>
-        <p class="pull-right"><a href="#">Back to top</a></p>
-        <p>&copy; 2016 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+        <p class="pull-right"><a href="#">Arriba</a></p>
+        <p>Gestiona tu parcela</a></p>
     </footer>
 
 </div>

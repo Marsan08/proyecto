@@ -46,18 +46,39 @@ public class controlador extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             //PRINCIPIO DEL CONTROLADOR, AQUI SE VERIFICA SI EL USUARIO EL VALIDO Y SI EL ATRIBUTO ESTADO TIENE ALGUN VALOR
             HttpSession session = request.getSession(true);
+            
+            //Se obtiene la variable estado, esta nos permite navegar por el controlador
             String estado = (String) session.getAttribute("estado");
+            
+            //Aquí se verifica que el parametro todo es distinto de null, si es así se se da como valor a estado todo,
+            //por tanto cada vez que queramos cambiar de pagina igualamos el parametro a la referencia que tiene en el Toolbox.nextPage();
             if (request.getParameter("todo") != null) {
                 estado = request.getParameter("todo");
             }
+            
+            //Se imprime la variable estado para sacar por consola su valor
             System.out.println(estado);
             String nextPage;
+            
+            //Se inicializa la variable nextPage que será el resultado de la navegación
+            
+            //si el estado no es negativo se verifican los posibles valores de estado para poder ejecutar las funciones correspondientes
             if (estado != null) {
+                
+                //Si el estado es autenticado, es al iniciar la página
                 if (estado.equals("autenticado")) {
+                    
+                    //Se capturan los parametros user y pass (usuario y contraseña) que ha metido el usuario en el login
                     String user = request.getParameter("user");
-                    String pass = controladores.Toolbox.encriptaContrasena(request.getParameter("pass"));
+                    String pass = request.getParameter("pass");
+                    
+                    //Estas variables se pasan por la funcion de validacion y si valida (si devuelve true) se crean variables de sesion con los datos del usuario (user y pass)
                     if (controladores.Toolbox.validacion(user, pass)) {
                         request.setAttribute("usuario", user);
+                        session.setAttribute("usuario", user);
+                        session.setAttribute("contra", pass);
+                        
+                        //Cuando se inicia sesion estado toma valor a menu, esta varible se envia al final del controlador a Toolbox.nextPage() para dirigirnos a el menu principal
                         estado = "menu";
                         session.setAttribute("usuarioValido", true);
                     } else {
@@ -68,7 +89,9 @@ public class controlador extends HttpServlet {
 
                     //INSERTAR PARCELA
                 } else if (estado.equals("ejecutarpinsert")) {
-
+                    
+                    //Se capturan los valores pasados por parametros y se intenta hacer la conexion a la base de datos dentro de un try-catch
+                    
                     int hectareas = Integer.parseInt(request.getParameter("hectareas"));
                     String user = (String) session.getAttribute("usuario");
                     int iduser = controladores.Toolbox.idUser(user);
@@ -78,10 +101,13 @@ public class controlador extends HttpServlet {
                     int referencia = Integer.parseInt(request.getParameter("referencia"));
 
                     try {
+                        
+                        //metodo creado en el Toolbox, que devuelve un objeto de tipo connection con la conexion a nuestra BD
                         Connection conn = controladores.Toolbox.Conexion();
 
                         Statement stmt = conn.createStatement();
-
+                        
+                        //se crea la consulta de insercion de la parcela, el id de la parcela es autoincremental
                         String sqlStr = "insert into parcela(hectareas, idpropietario, idestado, idtipoparcela, referencia) values(" + hectareas + ", " + idpropietario + ", " + idestado + ", " + idtipoparcela + ", " + referencia + ");";
                         int state = stmt.executeUpdate(sqlStr);
 
@@ -94,9 +120,14 @@ public class controlador extends HttpServlet {
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
-
+                    
+                    //metodo creado en el Toolbox que devuelve el id de la parcela cuando le pasamos su referencia
                     int idparcela = controladores.Toolbox.idparcela(referencia);
-
+                    
+                    
+                    //Hay dos tipos de parcelas que estan relacionadas con Parcela, estas son pagricola y pganadera, 
+                    //al crear la parcela le hemos tenido que asignar un tipo, por tanto se introduce los datos de la parcela creada tambien en las parcelas hijas de esta
+                    
                     //SI EL TIPO DE PARCELA ES 1 POR TANTO ES AGRICOLA Y SE AÑADE EN PAGRICOLA
                     if (idtipoparcela == 1) {
 
@@ -144,9 +175,12 @@ public class controlador extends HttpServlet {
                     //SE VUELVE AL MENUPARCELAS
                     estado = "gestionparcelas";
 
-                    //SE BORRA LA PARCEÑA
+                    //SE BORRA LA PARCELA
                 } else if (estado.equals("ejecutarbparcela")) {
-
+                    
+                        
+                    //La parcela tiene una relacion padre hijo con las parcelas agricolas y ganaderas por tanto hay que borrar antes la parcela de las tablas agricola o ganadera
+                    
                     //PRIMERO SE INTENTA BORRAR LAS PARCELAS AGRICOLAS QUE TENGAN COMO IDPARCELA LA QUE QUEREMOS BORRAR
                     try {
                         Connection conn2 = controladores.Toolbox.Conexion();
@@ -199,12 +233,33 @@ public class controlador extends HttpServlet {
                     }
                     //SE VUELVE A MENUPARCELA
                     estado = "gestionparcelas";
-
+                    
+                    
+                    
                     //SE BORRA LA ESPECIE
                 } else if (estado.equals("ejecutarbespecie")) {
-
+                    
+                    //Se borra la especie agricola o ganadera antes de borrar la especie al ser un borrado en cascada, ademas tambien debemos de borrar antes los animales o las plantaciones realacionadas
                     //PRIMERO SE INTENTA BORRAR LA ESPECIE AGRICOLA QUE TENGA COMO IDESPECIE LA ESPECIE QUE QUEREMOS BORRAR
                     try {
+                        
+                             try {
+                        
+                        Connection conn3 = controladores.Toolbox.Conexion();
+                        Statement stmt3 = conn3.createStatement();
+                        String sqlStr3 = "delete from plantacion where ideagricola=" + controladores.Toolbox.ideagricola(Integer.parseInt(request.getParameter("idespecie"))) + ";";
+                        int state3 = stmt3.executeUpdate(sqlStr3);
+
+                        if (stmt3 != null) {
+                            stmt3.close();
+                        }
+                        if (conn3 != null) {
+                            conn3.close();
+                        }
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                             
                         Connection conn2 = controladores.Toolbox.Conexion();
                         Statement stmt2 = conn2.createStatement();
                         String sqlStr2 = "delete from eagricola where idespecie=" + Integer.parseInt(request.getParameter("idespecie")) + ";";
@@ -221,6 +276,25 @@ public class controlador extends HttpServlet {
                     }
                     //TAMBIEN SE INTENTA BORRAR LA ESPECIE GANADERA QUE TENGA COMO IDESPECIE LA QUE QUEREMOS BORRAR
                     try {
+                       
+                         
+                          try {
+                        
+                        Connection conn3 = controladores.Toolbox.Conexion();
+                        Statement stmt3 = conn3.createStatement();
+                        String sqlStr3 = "delete from animal where ideganadera=" + controladores.Toolbox.ideganadera(Integer.parseInt(request.getParameter("idespecie"))) + ";";
+                        int state3 = stmt3.executeUpdate(sqlStr3);
+
+                        if (stmt3 != null) {
+                            stmt3.close();
+                        }
+                        if (conn3 != null) {
+                            conn3.close();
+                        }
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                        
                         Connection conn3 = controladores.Toolbox.Conexion();
                         Statement stmt3 = conn3.createStatement();
                         String sqlStr3 = "delete from eganadera where idespecie=" + Integer.parseInt(request.getParameter("idespecie")) + ";";

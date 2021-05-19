@@ -13,6 +13,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Menú</title>
          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+         <link rel="stylesheet" href="css/css.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -68,8 +69,8 @@
       <a class="navbar-brand" href="#">Bienvenido <%=user%></a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="menu.jsp">Inicio</a></li>
-      <li><a href="menuparcela.jsp">Parcelas</a></li>
+      <li><a href="menu.jsp">Inicio</a></li>
+      <li class="active"><a href="menuparcela.jsp">Parcelas</a></li>
       <li><a href="menuespecies.jsp">Especies</a></li>
       <li><a href="menuanimales.jsp">Animales</a></li>
       <li><a href="menuplantaciones.jsp">Plantaciones</a></li>
@@ -79,14 +80,59 @@
   </div>
 </nav>
 
-<div class="container-fluid text-center" style="margin-top: 70px">    
+<div class="container-fluid text-center" style="margin-top: 100px; background-color: rgba(255, 255, 255, 0.8); padding: 30px;">    
   <div class="row content">
-    <div class="col-sm-2 sidenav">
-      <p><a href="#">Link</a></p>
-      <p><a href="#">Link</a></p>
-      <p><a href="#">Link</a></p>
-    </div>
+    
     <div class="col-sm-8 text-left"> 
+               
+<div class="container" >
+ 
+  <div id="myCarousel" class="carousel slide" data-ride="carousel" style="width: 100%">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+
+      <div class="item active">
+        <img src="img/carrusel1.jpg" alt="Campo" style="width:100%;">
+        <div class="carousel-caption">
+         
+        </div>
+      </div>
+
+      <div class="item">
+        <img src="img/carrusel2.jpg" alt="Vacas" style="width:100%;">
+        <div class="carousel-caption">
+         
+        </div>
+      </div>
+    
+      <div class="item">
+        <img src="img/carrusel3.jpg" alt="Vacas" style="width:100%;">
+        <div class="carousel-caption">
+          
+        </div>
+      </div>
+  
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+      <span class="sr-only">Anterior</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <span class="sr-only">Siguiente</span>
+    </a>
+  </div>
+</div>
+
     
     
     
@@ -104,6 +150,10 @@
             
             
         %> 
+        
+        <div class="centrar">
+        <div class="centrartabla">
+        
         <h1 style="margin-top: 70px;">Parcelas</h1>
         <table class="table table-hover">
             <thead>
@@ -111,7 +161,7 @@
 
                     <th>ID de la parcela</th>
                     <th>Hectáreas de la parcela</th>
-                    <th>ID propietario</th>
+                    <th>Nombre del propietario</th>
                     <th>ID estado</th>
                     <th>Tipo de parcela</th>
                     <th>Referencia</th>
@@ -132,12 +182,11 @@
                     <td><%=rset.getString("estado.nombrestado")%></td>
                     <td><%=rset.getString("tipoparcela.nombretipo")%></td>
                     <td><%=rset.getInt("referencia")%></td>
-                    <td><form action="controlador" method="post"><input type="hidden" value="modificarparcela" name="todo"><input type="hidden" value='<%=rset.getInt("idparcela")%>' name="idparcela"><input type="submit" value="Modificar"></form></td>
-                        <td><form action="controlador" method="post"><input type="hidden" value="ejecutarbparcela" name="todo"><input type="hidden" value='<%=rset.getInt("idparcela")%>' name="idparcela"><input type="submit" value="Borrar"></form></td>
+                    <td><form action="controlador" method="post"><input type="hidden" value="modificarparcela" name="todo"><input type="hidden" value='<%=rset.getInt("idparcela")%>' name="idparcela"><input type="submit" value="Modificar" class="boton"></form></td>
+                    <td><form action="controlador" method="post"><input type="hidden" value="ejecutarbparcela" name="todo"><input type="hidden" value='<%=rset.getInt("idparcela")%>' name="idparcela"><input type="submit" value="Borrar" class="boton"> </form></td>
                 </tr>
 
                 <%
-
                     }
                 %>
             </tbody>
@@ -151,12 +200,20 @@
 
         %>
         
+        <div class="insermenu" style="    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    align-content: center;
+    flex-wrap: wrap;
+    width: 50%">
+        
         <form action="controlador" method="post" id="irinsertparcela">
         
                     
                    
                     <input type="hidden" value="irinsertparcela" name="todo"/>
-                    <input type="submit" value="Insertar otra parcela">
+                    <input type="submit" value="Insertar otra parcela" class="boton">
                    
         
                 </form>
@@ -164,21 +221,17 @@
         <form action="controlador" method="post">
 
             <input type="hidden" value="menu" name="todo">
-            <input type="submit" value="Menú principal">
+            <input type="submit" value="Menú principal" class="boton">
         </form>
+            
+        </div>
     
-    
+        </div>
+        </div>
     </div>
         
         
-         <div class="col-sm-2 sidenav">
-      <div class="well">
-        <p>ADS</p>
-      </div>
-      <div class="well">
-        <p>ADS</p>
-      </div>
-    </div>
+       
   </div>
 </div>
 
@@ -191,8 +244,8 @@
       <a class="navbar-brand" href="#">Bienvenido <%=user%></a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="menu.jsp">Inicio</a></li>
-      <li><a href="menuparcela.jsp">Parcelas</a></li>
+      <li><a href="menu.jsp">Inicio</a></li>
+      <li class="active"><a href="menuparcela.jsp">Parcelas</a></li>
       <li><a href="menuespecies.jsp">Especies</a></li>
       <li><a href="menuanimales.jsp">Animales</a></li>
       <li><a href="menuplantaciones.jsp">Plantaciones</a></li>
@@ -202,14 +255,57 @@
   </div>
 </nav>
 
-<div class="container-fluid text-center" style="margin-top: 70px">    
+<div class="container-fluid text-center" style="margin-top: 100px; background-color: rgba(255, 255, 255, 0.8); padding: 30px;">    
   <div class="row content">
-    <div class="col-sm-2 sidenav">
-      <p><a href="#">Link</a></p>
-      <p><a href="#">Link</a></p>
-      <p><a href="#">Link</a></p>
+        <div class="col-sm-8 text-left"> 
+            
+            <div class="container" >
+ 
+  <div id="myCarousel" class="carousel slide" data-ride="carousel" style="width: 100%">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+
+      <div class="item active">
+        <img src="img/carrusel1.jpg" alt="Campo" style="width:100%;">
+        <div class="carousel-caption">
+         
+        </div>
+      </div>
+
+      <div class="item">
+        <img src="img/carrusel2.jpg" alt="Vacas" style="width:100%;">
+        <div class="carousel-caption">
+         
+        </div>
+      </div>
+    
+      <div class="item">
+        <img src="img/carrusel3.jpg" alt="Vacas" style="width:100%;">
+        <div class="carousel-caption">
+          
+        </div>
+      </div>
+  
     </div>
-    <div class="col-sm-8 text-left"> 
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+      <span class="sr-only">Anterior</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <span class="sr-only">Siguiente</span>
+    </a>
+  </div>
+</div>
     
     
      <%
@@ -229,7 +325,12 @@
             
             
         %> 
-         <h1 style="margin-top: 70px;">Parcelas</h1>
+        
+         
+        <div class="centrar">
+        <div class="centrartabla">
+        
+        <h1 style="margin-top: 70px;">Parcelas</h1>
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -241,18 +342,12 @@
                     <th>Tipo de parcela</th>
                     <th>Referencia</th>
                     <th>Modificar</th>
-                   
+                  
                 </tr>
             </thead>
             <tbody> 
                 <%
                     while (rset.next()) {
-                        session.setAttribute("idparcela", rset.getInt("idparcela"));
-                        session.setAttribute("hectareas", rset.getInt("hectareas"));
-                        session.setAttribute("nombreprop", rset.getString("propietario.nombre"));
-                        session.setAttribute("nombrestado", rset.getString("estado.nombrestado"));
-                        session.setAttribute("nombretipo", rset.getString("tipoparcela.nombretipo"));
-                        session.setAttribute("referencia", rset.getInt("referencia"));
                         
                 %>
                 <tr>
@@ -263,8 +358,8 @@
                     <td><%=rset.getString("estado.nombrestado")%></td>
                     <td><%=rset.getString("tipoparcela.nombretipo")%></td>
                     <td><%=rset.getInt("referencia")%></td>
-                    <td><form action="controlador" method="post"><input type="hidden" value="modificarparcela" name="todo"><input type="hidden" value='<%=rset.getInt("idparcela")%>' name="idparcela"><input type="submit" value="Modificar"></form></td>
-                       
+                    <td><form action="controlador" method="post"><input type="hidden" value="modificarparcela" name="todo"><input type="hidden" value='<%=rset.getInt("idparcela")%>' name="idparcela"><input type="submit" value="Modificar" class="boton"></form></td>
+                      
                 </tr>
 
                 <%
@@ -282,29 +377,32 @@
 
         %>
         
+        <div class="insermenu" style="    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    align-content: center;
     
+    width: 50%">
+        
+       
 
-     <form action="controlador" method="post">
+        <form action="controlador" method="post">
 
             <input type="hidden" value="menu" name="todo">
-            <input type="submit" value="Menú principal">
+            <input type="submit" value="Menú principal" class="boton">
         </form>
+            
+        </div>
     
-    
-    
-    
+        </div>
+        </div>
     </div>
-    <div class="col-sm-2 sidenav">
-      <div class="well">
-        <p>ADS</p>
-      </div>
-      <div class="well">
-        <p>ADS</p>
-      </div>
-    </div>
+        
+        
+       
   </div>
 </div>
-
 
 
 <% } else if (controladores.Toolbox.rol(user, pass) == 3) {
@@ -317,8 +415,8 @@
       <a class="navbar-brand" href="#">Bienvenido <%=user%></a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="menu.jsp">Inicio</a></li>
-      <li><a href="menuparcela.jsp">Parcela</a></li>
+      <li><a href="menu.jsp">Inicio</a></li>
+      <li class="active"><a href="menuparcela.jsp">Parcela</a></li>
      
       <li><a href="menuanimales.jsp">Animales</a></li>
       <li><a href="menuplantaciones.jsp">Plantaciones</a></li>
@@ -328,17 +426,59 @@
   </div>
 </nav>
 
-<div class="container-fluid text-center" style="margin-top: 70px">    
+<div class="container-fluid text-center" style="margin-top: 100px; background-color: rgba(255, 255, 255, 0.8); padding: 30px;">    
   <div class="row content">
-    <div class="col-sm-2 sidenav">
-      <p><a href="#">Link</a></p>
-      <p><a href="#">Link</a></p>
-      <p><a href="#">Link</a></p>
-    </div>
+    
     <div class="col-sm-8 text-left"> 
     
     
-   
+   <div class="container" >
+ 
+  <div id="myCarousel" class="carousel slide" data-ride="carousel" style="width: 100%">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+
+      <div class="item active">
+        <img src="img/carrusel1.jpg" alt="Campo" style="width:100%;">
+        <div class="carousel-caption">
+         
+        </div>
+      </div>
+
+      <div class="item">
+        <img src="img/carrusel2.jpg" alt="Vacas" style="width:100%;">
+        <div class="carousel-caption">
+         
+        </div>
+      </div>
+    
+      <div class="item">
+        <img src="img/carrusel3.jpg" alt="Vacas" style="width:100%;">
+        <div class="carousel-caption">
+          
+        </div>
+      </div>
+  
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+      <span class="sr-only">Anterior</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <span class="sr-only">Siguiente</span>
+    </a>
+  </div>
+</div>
 
         <%
            Connection conn = controladores.Toolbox.Conexion();
@@ -357,7 +497,11 @@
             
             
         %> 
-         <h1 style="margin-top: 70px;">Parcelas</h1>
+        
+        <div class="centrar">
+        <div class="centrartabla">
+        
+        <h1 style="margin-top: 70px;">Parcelas</h1>
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -375,12 +519,6 @@
             <tbody> 
                 <%
                     while (rset.next()) {
-                        session.setAttribute("idparcela", rset.getInt("idparcela"));
-                        session.setAttribute("hectareas", rset.getInt("hectareas"));
-                        session.setAttribute("nombreprop", rset.getString("propietario.nombre"));
-                        session.setAttribute("nombrestado", rset.getString("estado.nombrestado"));
-                        session.setAttribute("nombretipo", rset.getString("tipoparcela.nombretipo"));
-                        session.setAttribute("referencia", rset.getInt("referencia"));
                         
                 %>
                 <tr>
@@ -391,9 +529,8 @@
                     <td><%=rset.getString("estado.nombrestado")%></td>
                     <td><%=rset.getString("tipoparcela.nombretipo")%></td>
                     <td><%=rset.getInt("referencia")%></td>
-                    <td><form action="controlador" method="post"><input type="hidden" value="modificarparcela" name="todo"><input type="hidden" value='<%=rset.getInt("idparcela")%>' name="idparcela"><input type="submit" value="Modificar"></form></td>
-                       
-                </tr>
+                    <td><form action="controlador" method="post"><input type="hidden" value="modificarparcela" name="todo"><input type="hidden" value='<%=rset.getInt("idparcela")%>' name="idparcela"><input type="submit" value="Modificar" class="boton"></form></td>
+                      </tr>
 
                 <%
 
@@ -409,28 +546,32 @@
             conn.close();
 
         %>
-        
+       <div class="insermenu" style="    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    align-content: center;
     
+    width: 50%">
+        
+       
 
         <form action="controlador" method="post">
 
             <input type="hidden" value="menu" name="todo">
-            <input type="submit" value="Menú principal">
+            <input type="submit" value="Menú principal" class="boton">
         </form>
+            
+        </div>
     
-    
+        </div>
+        </div>
     </div>
-    <div class="col-sm-2 sidenav">
-      <div class="well">
-        <p>ADS</p>
-      </div>
-      <div class="well">
-        <p>ADS</p>
-      </div>
-    </div>
+        
+        
+       
   </div>
 </div>
-
 
 <% }else  {%>
 

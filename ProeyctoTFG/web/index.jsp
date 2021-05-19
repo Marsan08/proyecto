@@ -4,6 +4,17 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
+
+<!-- PRINCIPIO DEL PROGRAMA INDEX
+
+En está página se comprueba que el usuario ingresa los datos adecuadamente, 
+los datos introducidos en el formulario de login van al principio del controlador donde se realiza la verificación 
+sobre la base de datos con los métodos creados en el Toolbox de validacion y de encriptado de contraseña.
+
+
+Se han utilizado estilos de Boostrap además de ingresar algunos estilos manualmente para un mejor diseño de la página.
+
+-->
 <html>
 
 <head>
@@ -35,20 +46,18 @@ and open the template in the editor.
     <![endif]-->
 
     <!-- Custom styles for this template -->
-    <link href="css/carousel.css" rel="stylesheet">
-    <link href="css.css" rel="stylesheet">
+    
+    <link href="css/css.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400&display=swap" rel="stylesheet">
 </head>
-
-
-<%
+<%      
+        //Aquí se inicia la sesion y se restablecen por si acaso los valores de estado (que nos servirá para navegar por el controlador) y de usuario valido.
         session = request.getSession();
         String sessionId = session.getId();
         session.setAttribute("estado", "autenticado");
         session.setAttribute("usuarioValido", false);
     %>
-
     <body id="login">
         <header></header>
         <div>

@@ -133,23 +133,7 @@
   </div>
 </div>
 
-    
-    
-    
-    
-        <%
-           Connection conn = controladores.Toolbox.Conexion();
-
-            Statement stmt = conn.createStatement();
-
-            String sqlStr = "SELECT * FROM parcela INNER JOIN propietario ON parcela.idpropietario = propietario.idpropietario INNER JOIN tipoparcela ON parcela.idtipoparcela = tipoparcela.idtipoparcela + tipoparcela.nombretipo INNER JOIN estado ON parcela.idestado = estado.idestado + estado.nombrestado";
-
-            System.out.println("La consulta sql es " + sqlStr);
-
-            ResultSet rset = stmt.executeQuery(sqlStr);
-            
-            
-        %> 
+  
         
         <div class="centrar">
         <div class="centrartabla">
@@ -171,34 +155,29 @@
             </thead>
             <tbody> 
                 <%
-                    while (rset.next()) {
-                        
-                %>
-                <tr>
                     
-                    <td><%=rset.getInt("idparcela")%></td>
-                    <td><%=rset.getInt("hectareas")%></td>
-                    <td><%=rset.getString("propietario.nombre")%></td>
-                    <td><%=rset.getString("estado.nombrestado")%></td>
-                    <td><%=rset.getString("tipoparcela.nombretipo")%></td>
-                    <td><%=rset.getInt("referencia")%></td>
-                    <td><form action="controlador" method="post"><input type="hidden" value="modificarparcela" name="todo"><input type="hidden" value='<%=rset.getInt("idparcela")%>' name="idparcela"><input type="submit" value="Modificar" class="boton"></form></td>
-                    <td><form action="controlador" method="post"><input type="hidden" value="ejecutarbparcela" name="todo"><input type="hidden" value='<%=rset.getInt("idparcela")%>' name="idparcela"><input type="submit" value="Borrar" class="boton"> </form></td>
-                </tr>
-
-                <%
+                    int iduser = controladores.Toolbox.idUser(user);
+                    int idprop = controladores.Toolbox.idProp(iduser);
+                    ClasesBD.PropietarioBD.cargarParcelas(idprop);
+   
+                    for (int i = 0; i < ClasesBD.PropietarioBD.parcelasSize(); i++){
+                        out.println("<tr>");
+                        out.println("<td>" + ClasesBD.PropietarioBD.getId(i) + "</td>");
+                        out.println("<td>" + ClasesBD.PropietarioBD.getHectareas(i) + "</td>");
+                        out.println("<td>" + user + "</td>");
+                        out.println("<td>" + ClasesBD.PropietarioBD.getEstado(i) + "</td>");
+                        out.println("<td>" + ClasesBD.PropietarioBD.getTipo(i) + "</td>");
+                        out.println("<td>" + ClasesBD.PropietarioBD.getReferencia(i) + "</td>");
+                        out.println("<td><form action='controlador' method='post'><input type='hidden' value='modificarplantacion' name='todo'><input type='hidden' value="+ ClasesBD.PropietarioBD.getId(i) +" name='idplantacion'><input type='submit' value='Modificar' class='boton'> </form> </td>");
+                        out.println("<td><form action='controlador' method='post'><input type='hidden' value='ejecutarbplantacion' name='todo'><input type='hidden' value=" + ClasesBD.PropietarioBD.getId(i) +" name='idplantacion'><input type='submit' value='Borrar' class='boton'></form></td>");
+                        out.print("</tr>");
+                        
                     }
                 %>
             </tbody>
         </table>
 
-        <%
-            //Cierre de recursos 
-            rset.close();
-            stmt.close();
-            conn.close();
-
-        %>
+    
         
         <div class="insermenu" style="    display: flex;
     justify-content: space-between;
@@ -306,26 +285,6 @@
     </a>
   </div>
 </div>
-    
-    
-     <%
-           Connection conn = controladores.Toolbox.Conexion();
-
-            Statement stmt = conn.createStatement();
-            
-            int iduser = controladores.Toolbox.idUser(user);
-            
-            int idparcela = controladores.Toolbox.parcelaAdmin(iduser);
-
-            String sqlStr = "SELECT * FROM parcela INNER JOIN propietario ON parcela.idpropietario = propietario.idpropietario INNER JOIN tipoparcela ON parcela.idtipoparcela = tipoparcela.idtipoparcela + tipoparcela.nombretipo INNER JOIN estado ON parcela.idestado = estado.idestado + estado.nombrestado WHERE parcela.idparcela = "+ idparcela +";";
-
-            System.out.println("La consulta sql es " + sqlStr);
-
-            ResultSet rset = stmt.executeQuery(sqlStr);
-            
-            
-        %> 
-        
          
         <div class="centrar">
         <div class="centrartabla">
@@ -347,35 +306,25 @@
             </thead>
             <tbody> 
                 <%
-                    while (rset.next()) {
-                        
-                %>
-                <tr>
                     
-                    <td><%=rset.getInt("idparcela")%></td>
-                    <td><%=rset.getInt("hectareas")%></td>
-                    <td><%=rset.getString("propietario.nombre")%></td>
-                    <td><%=rset.getString("estado.nombrestado")%></td>
-                    <td><%=rset.getString("tipoparcela.nombretipo")%></td>
-                    <td><%=rset.getInt("referencia")%></td>
-                    <td><form action="controlador" method="post"><input type="hidden" value="modificarparcela" name="todo"><input type="hidden" value='<%=rset.getInt("idparcela")%>' name="idparcela"><input type="submit" value="Modificar" class="boton"></form></td>
-                      
-                </tr>
-
-                <%
-
+                     int iduser = controladores.Toolbox.idUser(user);
+                    int idjor = controladores.Toolbox.idJornalero(iduser);
+                    ClasesBD.JornaleroBD.cargarParcelas(idjor);
+                      for (int i = 0; i < ClasesBD.JornaleroBD.parcelasSize(); i++){
+                        out.println("<tr>");
+                        out.println("<td>" + ClasesBD.JornaleroBD.getId(i) + "</td>");
+                        out.println("<td>" + ClasesBD.JornaleroBD.getHectareas(i) + "</td>");
+                        out.println("<td>" + user + "</td>");
+                        out.println("<td>" + ClasesBD.JornaleroBD.getEstado(i) + "</td>");
+                        out.println("<td>" + ClasesBD.JornaleroBD.getTipo(i) + "</td>");
+                        out.println("<td>" + ClasesBD.JornaleroBD.getReferencia(i) + "</td>");
+                        out.println("<td><form action='controlador' method='post'><input type='hidden' value='modificarplantacion' name='todo'><input type='hidden' value="+ ClasesBD.JornaleroBD.getId(i) +" name='idplantacion'><input type='submit' value='Modificcar' class='boton'> </form> </td>");
+                        out.print("</tr>");
+                        
                     }
                 %>
             </tbody>
         </table>
-
-        <%
-            //Cierre de recursos 
-            rset.close();
-            stmt.close();
-            conn.close();
-
-        %>
         
         <div class="insermenu" style="    display: flex;
     justify-content: center;

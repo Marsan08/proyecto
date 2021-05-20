@@ -171,15 +171,8 @@
 
                                                     //CERRAMOS LA CONSULTA ANTERIOR
                                                     //CREAMOS UNA CONSULTA QUE SAQUE LOS ESTADOS COMO EN EL TIPO DE PARCELA
-                                                    Connection conn2 = controladores.Toolbox.Conexion();
-
-                                                    Statement stmt2 = conn2.createStatement();
-
-                                                    String sqlStr = "SELECT * FROM tipoparcela";
-
-                                                    System.out.println("La consulta sql es " + sqlStr);
-
-                                                    ResultSet rset = stmt2.executeQuery(sqlStr);
+                                                   
+                                                    for 
 
                                                     //MIENTRAS HAYA ESTADOS SE SACAN (SE SACA EL NOMBRE Y SE GUARDA EL VALOR)
                                                     while (rset.next()) {

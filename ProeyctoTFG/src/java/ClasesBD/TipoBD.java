@@ -60,6 +60,8 @@ public class TipoBD {
        return listaTipos.get(idtipo).getNombre();
        
    }
+
+
    
     
 }

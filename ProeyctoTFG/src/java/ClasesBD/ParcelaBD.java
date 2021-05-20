@@ -65,6 +65,117 @@ public class ParcelaBD {
         }
 
     }
+    
+     public static void insertarAgricola(int idparcela, int referencia) throws ClassNotFoundException, InstantiationException, SQLException {
+
+        Connection conn = controladores.Toolbox.Conexion();
+        Statement stmt = conn.createStatement();
+
+        String sqlStr = "insert into pagricola(idparcela, referencia) values(" + idparcela + ", " + referencia + ");";
+        int state = stmt.executeUpdate(sqlStr);
+
+        if (stmt != null) {
+            stmt.close();
+        }
+        if (conn != null) {
+            conn.close();
+        }
+
+    }
+     
+      public static void insertarGanadera(int idparcela, int referencia) throws ClassNotFoundException, InstantiationException, SQLException {
+
+        Connection conn = controladores.Toolbox.Conexion();
+        Statement stmt = conn.createStatement();
+
+        String sqlStr = "insert into pganadera(idparcela, referencia) values(" + idparcela + ", " + referencia + ");";
+        int state = stmt.executeUpdate(sqlStr);
+
+        if (stmt != null) {
+            stmt.close();
+        }
+        if (conn != null) {
+            conn.close();
+        }
+
+    }
+      
+      
+      public static void borrar(int idparcela) throws ClassNotFoundException, InstantiationException, SQLException{
+          
+        Connection conn = controladores.Toolbox.Conexion();
+        Statement stmt = conn.createStatement();
+
+        String sqlStr = "delete from parcela where idparcela=" + idparcela + ";";
+        int state = stmt.executeUpdate(sqlStr);
+
+        if (stmt != null) {
+            stmt.close();
+        }
+        if (conn != null) {
+            conn.close();
+        }
+          
+          
+          
+      }
+      
+      public static void borrarPAgricola(int idparcela) throws ClassNotFoundException, InstantiationException, SQLException{
+          
+        Connection conn = controladores.Toolbox.Conexion();
+        Statement stmt = conn.createStatement();
+
+        String sqlStr = "delete from pagricola where idparcela=" + idparcela + ";";
+        int state = stmt.executeUpdate(sqlStr);
+
+        if (stmt != null) {
+            stmt.close();
+        }
+        if (conn != null) {
+            conn.close();
+        }
+          
+          
+          
+      }
+      
+      public static void borrarPGanadera(int idparcela) throws ClassNotFoundException, InstantiationException, SQLException{
+          
+        Connection conn = controladores.Toolbox.Conexion();
+        Statement stmt = conn.createStatement();
+
+        String sqlStr = "delete from pganadera where idparcela=" + idparcela + ";";
+        int state = stmt.executeUpdate(sqlStr);
+
+        if (stmt != null) {
+            stmt.close();
+        }
+        if (conn != null) {
+            conn.close();
+        }
+          
+          
+          
+      }
+      
+      public static void borrarTrabaja(int idparcela) throws ClassNotFoundException, InstantiationException, SQLException{
+          
+        Connection conn = controladores.Toolbox.Conexion();
+        Statement stmt = conn.createStatement();
+
+        String sqlStr = "delete from trabaja where idparcela=" + idparcela + ";";
+        int state = stmt.executeUpdate(sqlStr);
+
+        if (stmt != null) {
+            stmt.close();
+        }
+        if (conn != null) {
+            conn.close();
+        }
+          
+          
+          
+      }
 
     public static int parcelasSize() {
         return listaParcelas.size();

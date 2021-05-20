@@ -112,44 +112,12 @@ public class controlador extends HttpServlet {
                     //SI EL TIPO DE PARCELA ES 1 POR TANTO ES AGRICOLA Y SE AÑADE EN PAGRICOLA
                     if (idtipoparcela == 1) {
 
-                        try {
-                            Connection conn2 = controladores.Toolbox.Conexion();
-
-                            Statement stmt2 = conn2.createStatement();
-
-                            String sqlStr2 = "insert into pagricola(idparcela, referencia) values(" + idparcela + ", " + referencia + ");";
-                            int state2 = stmt2.executeUpdate(sqlStr2);
-
-                            if (stmt2 != null) {
-                                stmt2.close();
-                            }
-                            if (conn2 != null) {
-                                conn2.close();
-                            }
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                        }
+                        ClasesBD.ParcelaBD.insertarAgricola(idparcela, referencia);
 
                         //SI EL TIPO DE PARCELA ES 2 ES GANADERA Y POR TANTO SE AÑADE A PGANADERA
                     } else if (idtipoparcela == 2) {
 
-                        try {
-                            Connection conn2 = controladores.Toolbox.Conexion();
-
-                            Statement stmt2 = conn2.createStatement();
-
-                            String sqlStr2 = "insert into pganadera(idparcela, referencia) values(" + idparcela + ", " + referencia + ");";
-                            int state2 = stmt2.executeUpdate(sqlStr2);
-
-                            if (stmt2 != null) {
-                                stmt2.close();
-                            }
-                            if (conn2 != null) {
-                                conn2.close();
-                            }
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                        }
+                       ClasesBD.ParcelaBD.insertarGanadera(idparcela, referencia);
 
                     }
 
@@ -159,56 +127,27 @@ public class controlador extends HttpServlet {
                     //SE BORRA LA PARCELA
                 } else if (estado.equals("ejecutarbparcela")) {
                     
+                    int idparcela  = Integer.parseInt(request.getParameter("idparcela"));
                         
                     //La parcela tiene una relacion padre hijo con las parcelas agricolas y ganaderas por tanto hay que borrar antes la parcela de las tablas agricola o ganadera
                     
                     //PRIMERO SE INTENTA BORRAR LAS PARCELAS AGRICOLAS QUE TENGAN COMO IDPARCELA LA QUE QUEREMOS BORRAR
                     try {
-                        Connection conn2 = controladores.Toolbox.Conexion();
-                        Statement stmt2 = conn2.createStatement();
-                        String sqlStr2 = "delete from pagricola where idparcela=" + Integer.parseInt(request.getParameter("idparcela")) + ";";
-                        int state2 = stmt2.executeUpdate(sqlStr2);
-
-                        if (stmt2 != null) {
-                            stmt2.close();
-                        }
-                        if (conn2 != null) {
-                            conn2.close();
-                        }
+                        ClasesBD.ParcelaBD.borrarPAgricola(idparcela);
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
 
                     //TAMBIEN SE INTENTA BORRAR LAS PARCELAS GANADERAS QUE TENGAN COMO IDPARCELA LA QUE QUEREMOS BORRAR
                     try {
-                        Connection conn3 = controladores.Toolbox.Conexion();
-                        Statement stmt3 = conn3.createStatement();
-                        String sqlStr3 = "delete from pganadera where idparcela=" + Integer.parseInt(request.getParameter("idparcela")) + ";";
-                        int state3 = stmt3.executeUpdate(sqlStr3);
-
-                        if (stmt3 != null) {
-                            stmt3.close();
-                        }
-                        if (conn3 != null) {
-                            conn3.close();
-                        }
+                        ClasesBD.ParcelaBD.borrarPGanadera(idparcela);
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
 
                     //DESPUES DE BORRAR LA PARCELA EN PAGRICOLA O PGANADERA SE BORRA EN PARCELA DEBIDO A QUE HAY QUE HACER UN BORRADO EN CASCADA POR QUE TIENEN UNA REALCION PADRE HIJO
                     try {
-                        Connection conn = controladores.Toolbox.Conexion();
-                        Statement stmt = conn.createStatement();
-                        String sqlStr = "delete from parcela where idparcela=" + Integer.parseInt(request.getParameter("idparcela")) + ";";
-                        int state = stmt.executeUpdate(sqlStr);
-
-                        if (stmt != null) {
-                            stmt.close();
-                        }
-                        if (conn != null) {
-                            conn.close();
-                        }
+                       ClasesBD.ParcelaBD.borrar(idparcela);
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }

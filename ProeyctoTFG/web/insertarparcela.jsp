@@ -61,6 +61,9 @@
                     int iduser = controladores.Toolbox.idUser(usuario);
 
                     int idpropietario = controladores.Toolbox.idProp(iduser);
+                    
+                    ClasesBD.EstadoBD.cargarEstados();
+                    ClasesBD.TipoBD.cargarTipos();
 
 
         %>
@@ -171,52 +174,32 @@
 
                                                     //CERRAMOS LA CONSULTA ANTERIOR
                                                     //CREAMOS UNA CONSULTA QUE SAQUE LOS ESTADOS COMO EN EL TIPO DE PARCELA
-                                                   
-                                                    for 
+                                                    for (int i = 0; i < ClasesBD.TipoBD.tiposSize(); i++) {
+
+                                                        out.println("<option value=" + ClasesBD.TipoBD.getId(i) + "> " + ClasesBD.TipoBD.getNombre(i) + "</option>");
+
+                                                    }
 
                                                     //MIENTRAS HAYA ESTADOS SE SACAN (SE SACA EL NOMBRE Y SE GUARDA EL VALOR)
-                                                    while (rset.next()) {
+
                                                 %>
 
-                                                <option value='<%=rset.getInt("idtipoparcela")%>'> <%=rset.getString("nombretipo")%>
 
-                                                </option>
 
-                                                <% }
-                                                    rset.close();
-                                                    stmt2.close();
-                                                    conn2.close();
+                                                <%
                                                 %>
                                             </select>
                                         </td>
 
                                         <td>
                                             <select name="idestado">
-                                                <%
-                                                    //CERRAMOS LA CONSULTA ANTERIOR
+                                                <%                                                    //CERRAMOS LA CONSULTA ANTERIOR
                                                     //CREAMOS UNA CONSULTA QUE SAQUE LOS ESTADOS COMO EN EL TIPO DE PARCELA
-                                                    Connection conn = controladores.Toolbox.Conexion();
+                                                  for (int i = 0; i < ClasesBD.EstadoBD.estadosSize(); i++) {
 
-                                                    Statement stmt = conn.createStatement();
+                                                        out.println("<option value=" + ClasesBD.EstadoBD.getId(i) + "> " + ClasesBD.EstadoBD.getNombre(i) + "</option>");
 
-                                                    String sqlStr3 = "SELECT * FROM estado";
-
-                                                    System.out.println("La consulta sql es " + sqlStr3);
-
-                                                    ResultSet rset3 = stmt.executeQuery(sqlStr3);
-
-                                                    //MIENTRAS HAYA ESTADOS SE SACAN (SE SACA EL NOMBRE Y SE GUARDA EL VALOR)
-                                                    while (rset3.next()) {
-                                                %>
-
-                                                <option value='<%=rset3.getInt("idestado")%>'> <%=rset3.getString("nombrestado")%>
-
-                                                </option>
-
-                                                <% }
-                                                    rset3.close();
-                                                    stmt.close();
-                                                    conn.close();
+                                                    }
                                                 %>
                                             </select>
                                         </td>
@@ -255,7 +238,7 @@
     <h1>NO TIENES ACCESO</h1>
     <a href="index.jsp">Inicio</a>
     <% }
-        } else { %>
+    } else { %>
     <h1>NO TIENES ACCESO</h1>
     <a href="index.jsp">Inicio</a>
     <% }%>

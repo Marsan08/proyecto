@@ -99,28 +99,9 @@ public class controlador extends HttpServlet {
                     int idestado = Integer.parseInt(request.getParameter("idestado"));
                     int idtipoparcela = Integer.parseInt(request.getParameter("idtipoparcela"));
                     int referencia = Integer.parseInt(request.getParameter("referencia"));
-
-                    try {
-                        
-                        //metodo creado en el Toolbox, que devuelve un objeto de tipo connection con la conexion a nuestra BD
-                        Connection conn = controladores.Toolbox.Conexion();
-
-                        Statement stmt = conn.createStatement();
-                        
-                        //se crea la consulta de insercion de la parcela, el id de la parcela es autoincremental
-                        String sqlStr = "insert into parcela(hectareas, idpropietario, idestado, idtipoparcela, referencia) values(" + hectareas + ", " + idpropietario + ", " + idestado + ", " + idtipoparcela + ", " + referencia + ");";
-                        int state = stmt.executeUpdate(sqlStr);
-
-                        if (stmt != null) {
-                            stmt.close();
-                        }
-                        if (conn != null) {
-                            conn.close();
-                        }
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
                     
+                    ClasesBD.ParcelaBD.insertar(hectareas, idpropietario, idestado, idtipoparcela, referencia);
+                  
                     //metodo creado en el Toolbox que devuelve el id de la parcela cuando le pasamos su referencia
                     int idparcela = controladores.Toolbox.idparcela(referencia);
                     

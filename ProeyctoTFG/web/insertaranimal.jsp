@@ -74,9 +74,9 @@
                 </div>
                 <ul class="nav navbar-nav">
                     <li><a href="menu.jsp">Inicio</a></li>
-                    <li class="active"><a href="menuparcela.jsp">Parcelas</a></li>
+                    <li><a href="menuparcela.jsp">Parcelas</a></li>
                     <li><a href="menuespecies.jsp">Especies</a></li>
-                    <li><a href="menuanimales.jsp">Animales</a></li>
+                    <li class="active"><a href="menuanimales.jsp">Animales</a></li>
                     <li><a href="menuplantaciones.jsp">Plantaciones</a></li>
                     <li><a href="menusuarios.jsp">Usuarios</a></li>
                 </ul>
@@ -313,8 +313,8 @@
     </div>
     <ul class="nav navbar-nav">
       <li><a href="menu.jsp">Inicio</a></li>
-      <li class="active" ><a href="menuparcela.jsp">Parcela</a></li>
-      <li><a href="menuanimales.jsp">Animales</a></li>
+      <li  ><a href="menuparcela.jsp">Parcela</a></li>
+      <li class="active"><a href="menuanimales.jsp">Animales</a></li>
       <li><a href="menuplantaciones.jsp">Plantaciones</a></li>
      
     </ul>

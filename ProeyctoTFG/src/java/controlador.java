@@ -131,6 +131,16 @@ public class controlador extends HttpServlet {
                         
                     //La parcela tiene una relacion padre hijo con las parcelas agricolas y ganaderas por tanto hay que borrar antes la parcela de las tablas agricola o ganadera
                     
+                    //Se deben de borrar tambien las filas de la tabla trabaja que estan relacionadas con el jornalero
+                    
+                    try {
+                        ClasesBD.ParcelaBD.borrarTrabaja(idparcela);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    
+                    
+                            
                     //PRIMERO SE INTENTA BORRAR LAS PARCELAS AGRICOLAS QUE TENGAN COMO IDPARCELA LA QUE QUEREMOS BORRAR
                     try {
                         ClasesBD.ParcelaBD.borrarPAgricola(idparcela);

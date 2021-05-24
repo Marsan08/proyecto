@@ -156,8 +156,7 @@
         <input type="hidden" name="todo" value="ejecutarUpdateParcela">
         <h1 style="margin-top: 70px;">Modificar esta parcela</h1>
         <table class="table table-hover">
-        
-            <table border="1" width="2" cellspacing="2" cellpadding="2">
+       
                 <thead>
                     <tr>
 

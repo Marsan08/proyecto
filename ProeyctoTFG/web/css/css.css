@@ -18,6 +18,15 @@ a {
     text-decoration: black;
 }
 
+#tablasinsert {
+    
+    display: flex;
+    align-content: center;
+    flex-direction: row;
+    justify-content: center;
+    align-items: baseline;
+    
+}
 #saludoli{
     display: flex;
     align-content: center;

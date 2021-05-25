@@ -4,6 +4,7 @@
     Author     : Luis
 --%>
 
+<%@page import="java.util.Iterator"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.DriverManager"%>
@@ -69,7 +70,16 @@
 
         <%        if (controladores.Toolbox.rol(user, pass) == 1) {
             
-                    int idparcela = Integer.parseInt(request.getParameter("idparcela"));
+                    int iduser = controladores.Toolbox.idUser(user);
+                    int idprop = controladores.Toolbox.idProp(iduser);
+                    ClasesBD.PropietarioBD.cargarParcelas(idprop);
+          
+            
+                    int parcela = Integer.parseInt(request.getParameter("idparcela"));
+                    
+                    out.println("el id de la parcela es " + request.getParameter("idparcela")); 
+                    
+                 
                 
                  
 
@@ -175,61 +185,56 @@
                     <tr>
 
                     
-                    <td><% ClasesBD.ParcelaBD.getHectareas(idparcela);
+                    <td><% ClasesBD.PropietarioBD.getHectareas(parcela);
                         %></td>
-                    <td><% ClasesBD.ParcelaBD.getIdProp(idparcela); %></td>
-                    <td><% ClasesBD.ParcelaBD.getTipo(idparcela); %></td>
-                    <td><% ClasesBD.ParcelaBD.getReferencia(idparcela); %></td>
+                    <td><%= idprop %></td>
+                    <td><% ClasesBD.PropietarioBD.getTipo(parcela); %></td>
+                    <td><% ClasesBD.PropietarioBD.getReferencia(parcela); %></td>
                         <td><select name="idestado">
 
 
                                 <%
                                  
                                                     //CREAMOS UNA CONSULTA QUE SAQUE LOS ESTADOS COMO EN EL TIPO DE PARCELA
-                                                  for (int i = 0; i < ClasesBD.EstadoBD.estadosSize(); i++) {
+                                                    ClasesBD.EstadoBD.cargarEstados();
+                                                  for (int i=0; i<ClasesBD.EstadoBD.estadosSize();i++){
 
                                                         out.println("<option value=" + ClasesBD.EstadoBD.getId(i) + "> " + ClasesBD.EstadoBD.getNombre(i) + "</option>");
 
-                                                    }
+                                                  }
                                                 %>
                                 %>                            </select>
                         </td>
                     </tr>
                 </tbody>
             </table>
-                                 <div class="insermenu" style="    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: row;
-    align-content: center;
-    flex-wrap: wrap;
-    width: 50%">
-                                
-            <input type="submit" value="Cambiar estado">
+       <div class="insermenu" style="    display: flex;
+                                 justify-content: center;
+                                 align-items: center;
+                                 flex-direction: row;
+                                 align-content: center;
+                                 flex-wrap: wrap;
+                                 width: 100%;">
+                                <input type="submit" name="enviar" value="Aceptar y cambiar" class="boton">
+                            </div>
+                        </form>
 
-        </form>
-                                
-                                </div>
-                                 <div class="insermenu" style="    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: row;
-    align-content: center;
-    flex-wrap: wrap;
-    width: 50%">
-        <form action="controlador" method="post">
+                        <form action="controlador" method="post">
 
-            <input type="hidden" value="menu" name="todo">
-            <input type="submit" value="Menú principal">
-        </form>
-                                 </div>
-                                </div>
+                            <input type="hidden" value="menu" name="todo">
+                            <input type="submit" value="Menú principal" class="boton">
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
-  </div>
-                                </
 
-        <% } else if (controladores.Toolbox.rol(user, pass) == 2) {
+        <% 
+
+} else if (controladores.Toolbox.rol(user, pass) == 2) {
                  int idparcela = Integer.parseInt(request.getParameter("idparcela"));
                 
                  
@@ -270,11 +275,11 @@
                                 <%
                                  
                                                     //CREAMOS UNA CONSULTA QUE SAQUE LOS ESTADOS COMO EN EL TIPO DE PARCELA
-                                                  for (int i = 0; i < ClasesBD.EstadoBD.estadosSize(); i++) {
+                                                 
 
-                                                        out.println("<option value=" + ClasesBD.EstadoBD.getId(i) + "> " + ClasesBD.EstadoBD.getNombre(i) + "</option>");
+                                                        out.println("<option value=" + ClasesBD.EstadoBD.getId(idparcela) + "> " + ClasesBD.EstadoBD.getNombre(idparcela) + "</option>");
 
-                                                    }
+                                                    
                                                 %>
                                 %>                            </select>
                         </td>

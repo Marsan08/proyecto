@@ -59,6 +59,7 @@
     <body>
         <%
         if (controladores.Toolbox.rol(user, pass) == 1) {
+            
 %>
 
       
@@ -133,19 +134,6 @@
   </div>
 </div>
 
-
-
-        <%
-            Connection conn = controladores.Toolbox.Conexion();
-
-            Statement stmt = conn.createStatement();
-
-            String sqlStr = "SELECT * FROM animal INNER JOIN pganadera ON animal.idparcela = pganadera.idpganadera INNER JOIN eganadera ON animal.ideganadera = eganadera.ideganadera;";
-            System.out.println("La consulta sql es " + sqlStr);
-
-            ResultSet rset = stmt.executeQuery(sqlStr);
-        %>
-        
         <div class="centrar">
         <div class="centrartabla">
         
@@ -164,20 +152,17 @@
             </thead>
             <tbody> 
                 <%
-                    while (rset.next()) {
-                %>
-                <tr>
-
-                    <td><%=rset.getString("sexo")%></td>
-                    <td><%=rset.getString("eganadera.nombreespecie")%></td>
-                    <td><%=rset.getString("pganadera.referencia")%></td>
-
-                    <td><form action="controlador" method="post"><input type="hidden" value="ejecutarbanimal" name="todo"><input type="hidden" value='<%=rset.getInt("idanimal")%>' name="idanimal"><input type="submit" value="Borrar"></form></td>
-
-
-                </tr>
-
-                <%
+                    ClasesBD.AnimalBD.cargarAnimal();
+                    ClasesBD.ParcelaBD.cargarParcelas();
+                    ClasesBD.EGanaderaBD.cargarEGanadera();
+                    for( int i = 0 ; i < ClasesBD.AnimalBD.AnimalesSize(); i++){
+                     out.println("<tr>");
+                        
+                        out.println("<td>" + ClasesBD.AnimalBD.getSexo(i) + "</td>");
+                        out.println("<td>" + ClasesBD.AnimalBD.getIdeganadera(i) + "</td>");
+                        out.println("<td>" + ClasesBD.ParcelaBD.getReferencia(ClasesBD.AnimalBD.getIdparcela(i)) + "</td>");
+                        out.println("<td><form action='controlador' method='post'><input type='hidden' value='ejecutarbaniaml' name='todo'><input type='hidden' value=" + ClasesBD.AnimalBD.getId(i) +" name='idanimal'><input type='submit' value='Borrar' class='boton'></form></td>");
+                        out.print("</tr>");
                     }
                 %>
             </tbody>
@@ -195,7 +180,7 @@
         <form action="controlador" method="post" id="irinsertanimal">
 
             <input type="hidden" value="irinsertanimal" name="todo"/>
-            <input type="submit" value="Insertar un animal">
+            <input type="submit" value="Insertar un animal" class="boton">
 
         </form>
             
@@ -203,7 +188,7 @@
      <form action="controlador" method="post">
 
             <input type="hidden" value="menu" name="todo">
-            <input type="submit" value="Menú principal">
+            <input type="submit" value="Menú principal" class="boton">
         </form>
             
               </div>
@@ -219,10 +204,7 @@
      
 
         <%
-            //Cierre de recursos 
-            rset.close();
-            stmt.close();
-            conn.close();
+   
 
 } else if (controladores.Toolbox.rol(user, pass) == 2) {
 %>

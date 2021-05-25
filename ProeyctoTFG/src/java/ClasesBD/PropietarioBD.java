@@ -78,8 +78,9 @@ public class PropietarioBD {
         return listaParcelas.size();
     }
     
-   public static int getId(int idparcela) {
-      return listaParcelas.get(idparcela).getIdparcela();
+   public static int getId(int idparcela) throws ClassNotFoundException, InstantiationException, SQLException {
+        return listaParcelas.get(idparcela).getIdparcela();
+        
    }
    
    public static int getHectareas(int idparcela){

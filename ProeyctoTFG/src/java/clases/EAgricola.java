@@ -12,6 +12,32 @@ package clases;
 public class EAgricola extends Especie{
     
     private int ideagricola;
+    
+    private int idespecie;
+    
+    private String nombreespecie;
+
+    public int getIdespecie() {
+        return idespecie;
+    }
+
+    public void setIdespecie(int idespecie) {
+        this.idespecie = idespecie;
+    }
+
+    public String getNombreespecie() {
+        return nombreespecie;
+    }
+
+    public void setNombreespecie(String nombreespecie) {
+        this.nombreespecie = nombreespecie;
+    }
+
+    public EAgricola(int ideagricola, int idespecie, String nombreespecie) {
+        this.ideagricola = ideagricola;
+        this.idespecie = idespecie;
+        this.nombreespecie = nombreespecie;
+    }
 
     public int getIdeagricola() {
         return ideagricola;
@@ -24,14 +50,11 @@ public class EAgricola extends Especie{
     public EAgricola() {
     }
 
-    public EAgricola(int ideagricola, int idespecie, String nombreespecie, int tipo) {
-        super(idespecie, nombreespecie, tipo);
-        this.ideagricola = ideagricola;
-    }
 
     public EAgricola(int ideagricola) {
         this.ideagricola = ideagricola;
     }
+    
     
     
     

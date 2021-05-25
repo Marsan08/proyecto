@@ -283,27 +283,15 @@ public class controlador extends HttpServlet {
                     //VUELVE A MENUSUARIO
                     estado = "gestionusuarios";
                     //INSERTA ANIMAL
-                } else if (estado.equals("insertanimal")) {
+                } else if (estado.equals("insertaranimal")) {
 
                     char sexo = request.getParameter("sexo").charAt(0);
                     int idespecie = Integer.parseInt(request.getParameter("idespecie"));
                     int idparcela = Integer.parseInt(request.getParameter("idparcela"));
 
-                    Connection conn = controladores.Toolbox.Conexion();
-
-                    Statement stmt = conn.createStatement();
-                    String sqlStr = "insert into animal(sexo, ideganadera, idparcela) values('" + sexo + "' , " + idespecie + ", " + idparcela + ");";
-                    int state = stmt.executeUpdate(sqlStr);
-
-                    if (stmt != null) {
-                        stmt.close();
-                    }
-                    if (conn != null) {
-                        conn.close();
-                    }
-
+                    ClasesBD.AnimalBD.insertAnimal(sexo, idespecie, idparcela);
                     //VUELVE A MENUANIMAL
-                    estado = "irinsertanimal";
+                    estado = "gestionanimal";
 
                     //INSERTA PLANTACIONES
                 } else if (estado.equals("inserplantacion")) {

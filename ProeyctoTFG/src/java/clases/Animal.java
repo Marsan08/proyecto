@@ -11,10 +11,37 @@ package clases;
  */
 public class Animal {
     
+    private int idanimal;
     
     private char sexo;
     
-    private int idanimal;
+    private int idparcela;
+    
+    private int ideganadera;
+
+    public Animal(int idanimal, char sexo, int idparcela, int ideganadera) {
+        this.idanimal = idanimal;
+        this.sexo = sexo;
+        this.idparcela = idparcela;
+        this.ideganadera = ideganadera;
+    }
+
+    public int getIdparcela() {
+        return idparcela;
+    }
+
+    public void setIdparcela(int idparcela) {
+        this.idparcela = idparcela;
+    }
+
+    public int getIdeganadera() {
+        return ideganadera;
+    }
+
+    public void setIdeganadera(int ideganadera) {
+        this.ideganadera = ideganadera;
+    }
+    
 
     public char getSexo() {
         return sexo;

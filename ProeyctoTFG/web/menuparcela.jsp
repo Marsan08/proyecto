@@ -169,8 +169,9 @@
                         out.println("<td>" + ClasesBD.PropietarioBD.getTipo(i) + "</td>");
                         out.println("<td>" + ClasesBD.PropietarioBD.getReferencia(i) + "</td>");
                         int idparcela = ClasesBD.PropietarioBD.getId(i);
-                        out.println("<td><form action='controlador' method='post'><input type='hidden' value='modificarparcela' name='todo'><input type='hidden' value="+ idparcela +" name='idparcela'><input type='submit' value='Modificar' class='boton'> </form> </td>");
-                        out.println("<td><form action='controlador' method='post'><input type='hidden' value='ejecutarbparcela' name='todo'><input type='hidden' value=" + idparcela +" name='idparcela'><input type='submit' value='Borrar' class='boton'></form></td>");
+                        
+                        out.println("<td><form action='controlador' method='post'><input type='hidden' value='modificarparcela' name='todo'><input type='hidden' value="+ ClasesBD.PropietarioBD.getId(i) +" name='idparcela'><input type='submit' value='Modificar' class='boton'> </form> </td>");
+                        out.println("<td><form action='controlador' method='post'><input type='hidden' value='ejecutarbparcela' name='todo'><input type='hidden' value=" + ClasesBD.PropietarioBD.getId(i) +" name='idparcela'><input type='submit' value='Borrar' class='boton'></form></td>");
                         out.print("</tr>");
                         
                     }

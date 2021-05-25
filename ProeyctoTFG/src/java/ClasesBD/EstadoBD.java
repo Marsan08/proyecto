@@ -56,9 +56,9 @@ public class EstadoBD {
       return listaEstados.get(idestado).getIdestado();
    }
    
-   public static String getNombre(int idestado){
+   public static String getNombre(int idestado) {
        return listaEstados.get(idestado).getNombre();
-       
+        
    }
    
     

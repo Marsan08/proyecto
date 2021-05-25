@@ -24,6 +24,16 @@ public class ParcelaBD {
 
     private static ArrayList<Parcela> listaParcelas = new ArrayList<Parcela>();
 
+    public static ArrayList<Parcela> getListaParcelas() {
+        return listaParcelas;
+    }
+
+    public static void setListaParcelas(ArrayList<Parcela> listaParcelas) {
+        ParcelaBD.listaParcelas = listaParcelas;
+    }
+    
+    
+
     public static void cargarParcelas() throws ClassNotFoundException, SQLException, InstantiationException {
 
         listaParcelas = new ArrayList<Parcela>();

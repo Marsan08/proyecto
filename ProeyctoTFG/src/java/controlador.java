@@ -138,9 +138,7 @@ public class controlador extends HttpServlet {
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
-                    
-                    
-                            
+                   
                     //PRIMERO SE INTENTA BORRAR LAS PARCELAS AGRICOLAS QUE TENGAN COMO IDPARCELA LA QUE QUEREMOS BORRAR
                     try {
                         ClasesBD.ParcelaBD.borrarPAgricola(idparcela);

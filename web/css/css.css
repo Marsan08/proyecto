@@ -1,0 +1,245 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 14-may-2021, 14:29:59
+    Author     : msantin
+*/
+/*
+.color1 {color: #122514;}
+.color2 {color: #125562;}
+.color3 {color: #5d930a;}
+.color4 {color: #d5d85f;}
+.color5 {color: #f8efcb;}*/
+
+a {
+    text-decoration: black;
+}
+
+#tablasinsert {
+    
+    display: flex;
+    align-content: center;
+    flex-direction: row;
+    justify-content: center;
+    align-items: baseline;
+    
+}
+#saludoli{
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+}
+#saludo{
+    color:  #9d9d9d;
+}
+.nav{
+    display : flex;
+    flex-direction: row;
+    font-family:'Montserrat', sans-serif;
+
+    color: black;
+
+}
+
+#login{
+
+    background-image: url("../img/fondo.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+
+}
+
+.carousel-inner{
+
+    width: 800px;
+    height: 400px;
+
+}
+
+html{
+
+    font-family:'Montserrat', sans-serif;
+
+}
+body{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+h1 {
+    font-size: 60px;
+    font-family: 'Montserrat', fantasy;
+}
+#inicio { 
+    margin: 50px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.65);
+    width: 50%;
+    height: 50%;
+    flex-direction: column;
+
+    padding-block-end: 50px;
+
+}
+
+
+.boton {
+    background-color: #b1d7e0;
+    padding: 10px;
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 10px;
+    font-size: 13px;
+    border: 1.5px solid;
+
+}
+.boton:hover {
+    background-color:#5d88a0;
+}
+
+#pie{
+
+    margin-top: 50px;
+    margin-bottom: 20px;
+
+}
+
+
+.form {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 50%;
+    flex-direction: column
+
+}
+
+footer{
+    margin: 50px;
+    display: flex;
+    align-content: flex-end;
+    justify-content: center;
+    align-items: flex-end;
+    background-color: rgba(255, 255, 255, 0.65);
+    width: 50%;
+    height: 50%;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    font-style: oblique;
+    font-size: small;
+
+
+
+}
+
+.navbar-nav {
+
+    display: flex;
+    flex-direction: row;
+
+
+}
+
+.row-content{
+    font-family: 'Montserrat', sans-serif;
+    background-color: white;
+
+
+}
+
+body{
+    background-image: url("../img/fondo.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+
+}
+
+.imgmenu {
+
+ height: 250px;
+width: 250px;
+object-fit: cover;
+border-radius: 50%;
+
+}
+
+.col-md-7 {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+    
+}
+
+.centrartabla{
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 40px;
+}
+
+.centrar{
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    width: 150%;
+    
+}
+.boton{
+  -webkit-border-radius: 28;
+    -moz-border-radius: 28;
+    border-radius: 28px;
+    font-family: Arial;
+    color: #000000;
+    font-size: 14px;
+    background: #dff0d8;
+    padding: 5px 10px 5px 10px;
+    text-decoration: none;
+    
+    
+}
+
+.boton:hover{
+    
+    background:#b6f0d8;
+    text-decoration: none;
+    
+}
+ 
+
+th{
+    
+  background-color: #dff0d8;
+    
+    
+}
+
+.insermenu{ 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    align-content: center;
+    flex-wrap: wrap;
+    width: 50%
+}

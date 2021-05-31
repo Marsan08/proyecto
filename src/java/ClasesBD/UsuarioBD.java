@@ -41,7 +41,7 @@ public class UsuarioBD {
 
         while (rset.next()) {
 
-            Parcela p = new Parcela(rset.getInt("idparcela"), rset.getInt("hectareas"), rset.getInt("idpropietario"), rset.getInt("idtipoparcela"), rset.getInt("referencia"));
+            Parcela p = new Parcela(rset.getInt("idparcela"), rset.getInt("hectareas"), rset.getInt("idpropietario"), rset.getInt("idestado"), rset.getInt("idtipoparcela"), rset.getInt("referencia"));
             listaParcelas.add(p);
 
         }
@@ -521,6 +521,9 @@ public class UsuarioBD {
         return listaParcelas.get(idparcela).getReferencia();
     }
 
+    public static int getEstado(int idparcela) {
+        return listaParcelas.get(idparcela).getIdestado();
+    }
 
     public static int getTipo(int idparcela) {
         return listaParcelas.get(idparcela).getIdtipoparcela();

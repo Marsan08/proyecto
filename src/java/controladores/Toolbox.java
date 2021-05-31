@@ -188,9 +188,6 @@ public class Toolbox {
             
         }else if (estado.equals("asignarparcela")) {
             nextPage = "/asignaparcela.jsp";
-            
-        }else if (estado.equals("desasignarparcela")) {
-            nextPage = "/desasignaparcela.jsp";
         }
         
         

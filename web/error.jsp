@@ -58,32 +58,26 @@ Se han utilizado estilos de Boostrap además de ingresar algunos estilos manualme
         session.setAttribute("estado", "autenticado");
         session.setAttribute("usuarioValido", false);
     %>
-    <body id="login">
+    
+    <body id="error" style="display: flex; align-content: center; align-items: center; justify-content: center;">
         <header></header>
-        <div>
-            <h1>Bienvenido a Gestiona tu parcela</h1>
-        </div>
+        
 
-        <div id="inicio">
-
-            <h3> Iniciar sesi&oacute;n </h3>
-            <form action="controlador" method="post" class="form">
-                <p>Nombre de usuario </p>
-                <input type="text" name="user">
-                <p>Contrase&ntilde;a </p>
-                <input type="password" name="pass">
+        <div id="inicio" style="display: flex; align-content: center; align-items: center; justify-content: center;">
+            
+            <h2> No puedes entrar aquí </h2>
+            
+            <p> ¡Vaya! Has intentado entrar en una página en la que no tienes acceso.
                 <br>
                 <br>
-                <input type="submit" name="Enviar" value="Enviar" class="boton">
+                Por seguridad si tenía una sesión iniciada se ha cerrado y debes volver a iniciarla </p>
+            <form action="index.jsp">
                 
+            <input type="submit" class="boton" value=" Inicio ">
+            
             </form>
-          
-        </div>
-        <footer>
-              <div id="pie">
-                    <p>Si no puede iniciar sesi&oacute;n por favor contacte con su propietario para que cambie su contraseña o le habilite un usuario si no dispone de él.</p>
-                </div>
-        </footer>
+        </div> 
+     
 
         
         <!-- /.container -->

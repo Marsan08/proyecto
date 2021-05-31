@@ -75,12 +75,22 @@
                 <ul class="nav navbar-nav">
                     <li><a href="menu.jsp">Inicio</a></li>
                     <li><a href="menuparcela.jsp">Parcelas</a></li>
-                    <li><a href="menuespecies.jsp">Especies</a></li>
+                    <li><a href="menuespecie.jsp">Especies</a></li>
                     <li><a href="menuanimales.jsp">Animales</a></li>
                     <li><a href="menuplantaciones.jsp">Plantaciones</a></li>
                     <li  class="active"><a href="menusuario.jsp">Usuarios</a></li>
                 </ul>
-                <ul
+                 <ul class="salir" style="float: right; margin: 10px; ">
+                    <li><form method="post" action="controlador"><input type="submit" name="todo" value="Cerrar" class="salir" style="-webkit-border-radius:20px;
+                                                                        -webkit-border-radius: 20px;
+                                                                        -moz-border-radius: 20px;
+                                                                        color: #FFFFFF;
+                                                                        padding: 10px;
+                                                                        border-style-hover: solid;
+                                                                        border-width-hover: 1;
+                                                                        background-color: #e67e7e;
+                                                                        border: none;"></li></form>
+                </ul>
         </div>
     </nav>
 
@@ -144,7 +154,7 @@
                         <h1 style="margin-top: 70px;">Modificar contraseña</h1>
                         <br>
 
-                        <form action="controlador" method="post">
+                        <form action="controlador" method="post" id="modificarusuario">
                             <input type="hidden" name="todo" value="ejecutarUpdateusuario">
                             <div id="tablasinsert" style="
                                  display: flex;
@@ -179,7 +189,7 @@
                                                 out.println("<td>" + ClasesBD.UsuarioBD.sacarEmail(idusuario) + "</td>");
                                                 out.println("<td>" + ClasesBD.UsuarioBD.sacarDni(idusuario) + "</td>");
                                                 out.println("<td>" + ClasesBD.UsuarioBD.sacarTlfn(idusuario) + "</td>");
-                                                out.println("<td> <input type='password' name='pass'> </td>");
+                                                out.println("<td> <input type='password' name='pass' id='cambiausuario'> </td>");
                                                 out.println("</tr>");
                                             %>
 
@@ -194,8 +204,7 @@
                                  align-content: center;
                                  flex-wrap: wrap;
                                  width: 100%;">
-                                <input type="submit" name="enviar" value="Aceptar y cambiar" class="boton">
-
+                                <div id="divmusuario"> <input type="submit" name="enviar" value="Aceptar y cambiar" class="boton"> </div>
                             </div>
                         </form>
 
@@ -213,6 +222,16 @@
             </div>
         </div>
     </div>
+
+       <footer style="color: black;
+    margin: 50px;
+    background-color: rgba(255, 255, 255, 0.65);
+    width: 50%;
+    height: 5%;
+    font-size: small;">
+            <p class="pull-right"><a href="#">Arriba</a></p>
+            <p>  Gestiona tu parcela es una página creada para ayudar a la gestión de las parcelas agricoganaderas. </p>
+        </footer>
 
 
     <% } else if (controladores.Toolbox.rol(user, pass) == 2) { // jornalero
@@ -232,7 +251,17 @@
                 <li><a href="menuplantaciones.jsp">Plantaciones</a></li>
 
             </ul>
-            <ul
+             <ul class="salir" style="float: right; margin: 10px; ">
+                    <li><form method="post" action="controlador"><input type="submit" name="todo" value="Cerrar" class="salir" style="-webkit-border-radius:20px;
+                                                                        -webkit-border-radius: 20px;
+                                                                        -moz-border-radius: 20px;
+                                                                        color: #FFFFFF;
+                                                                        padding: 10px;
+                                                                        border-style-hover: solid;
+                                                                        border-width-hover: 1;
+                                                                        background-color: #e67e7e;
+                                                                        border: none;"></li></form>
+                </ul>
     </div>
 </nav>
 
@@ -294,7 +323,7 @@
                     <h1 style="margin-top: 70px;">Modificar contraseña</h1>
                     <br>
 
-                    <form action=" controlador" method="post">
+                    <form action=" controlador" method="post" id="modificarusuario">
                         <input type="hidden" name="todo" value="ejecutarUpdateusuario">
                         <div id="tablasinsert" style="
                              display: flex;
@@ -305,74 +334,88 @@
                              ">
                             <div style="margin: 5px;">
 
-                           <table class="table table-hover">
-                                        <thead>
-                                            <tr>
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
 
-                                                <th>Nombre</th>     
-                                                <th>Email</th>
-                                                <th>DNI</th>
-                                                <th>Telefono</th>
-                                                <th>Contraseña</th>
+                                            <th>Nombre</th>     
+                                            <th>Email</th>
+                                            <th>DNI</th>
+                                            <th>Telefono</th>
+                                            <th>Contraseña</th>
 
 
-                                            </tr>
-                                        </thead>
-                                        <tbody> 
-                                            <%
-                                                int idusuario = Integer.parseInt(request.getParameter("idusuario"));
+                                        </tr>
+                                    </thead>
+                                    <tbody> 
+                                        <%
+                                            int idusuario = Integer.parseInt(request.getParameter("idusuario"));
 
-                                                session.setAttribute("iduser", idusuario);
+                                            session.setAttribute("iduser", idusuario);
 
-                                                out.println("<tr>");
-                                                out.println("<td>" + ClasesBD.UsuarioBD.sacarNombre(idusuario) + "</td>");
-                                                out.println("<td>" + ClasesBD.UsuarioBD.sacarEmail(idusuario) + "</td>");
-                                                out.println("<td>" + ClasesBD.UsuarioBD.sacarDni(idusuario) + "</td>");
-                                                out.println("<td>" + ClasesBD.UsuarioBD.sacarTlfn(idusuario) + "</td>");
-                                                out.println("<td> <input type='password' name='pass'> </td>");
-                                                out.println("</tr>");
-                                            %>
+                                            out.println("<tr>");
+                                            out.println("<td>" + ClasesBD.UsuarioBD.sacarNombre(idusuario) + "</td>");
+                                            out.println("<td>" + ClasesBD.UsuarioBD.sacarEmail(idusuario) + "</td>");
+                                            out.println("<td>" + ClasesBD.UsuarioBD.sacarDni(idusuario) + "</td>");
+                                            out.println("<td>" + ClasesBD.UsuarioBD.sacarTlfn(idusuario) + "</td>");
+                                            out.println("<td> <input type='password' name='pass' id='cambiausuario'> </td>");
+                                            out.println("</tr>");
+                                        %>
 
-                                        </tbody>
-                                    </table>
-                                </div>
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="insermenu" style="    display: flex;
-                                 justify-content: center;
-                                 align-items: center;
-                                 flex-direction: row;
-                                 align-content: center;
-                                 flex-wrap: wrap;
-                                 width: 100%;">
-                                <input type="submit" name="enviar" value="Aceptar y cambiar" class="boton">
+                        </div>
+                        <div class="insermenu" style="    display: flex;
+                             justify-content: center;
+                             align-items: center;
+                             flex-direction: row;
+                             align-content: center;
+                             flex-wrap: wrap;
+                             width: 100%;">
+                            <div id="divmusuario"><input type="submit" name="enviar" value="Aceptar y cambiar" class="boton"></div>
 
-                            </div>
-                        </form>
+                        </div>
+                    </form>
 
-                        <br>
+                    <br>
 
 
-                        <form action="controlador" method="post">
+                    <form action="controlador" method="post">
 
-                            <input type="hidden" value="menu" name="todo">
-                            <input type="submit" value="Menú principal" class="boton">
-                        </form>
-                    </div>
+                        <input type="hidden" value="menu" name="todo">
+                        <input type="submit" value="Menú principal" class="boton">
+                    </form>
                 </div>
-
             </div>
+
         </div>
     </div>
+</div>
+
+    <footer style="color: black;
+    margin: 50px;
+    background-color: rgba(255, 255, 255, 0.65);
+    width: 50%;
+    height: 5%;
+    font-size: small;">
+            <p class="pull-right"><a href="#">Arriba</a></p>
+            <p>  Gestiona tu parcela es una página creada para ayudar a la gestión de las parcelas agricoganaderas. </p>
+        </footer>
 
 
 <% } else { %>
 
-<h1>NO TIENES ACCESO</h1>
-<a href="index.jsp">Inicio</a>
+<META HTTP-EQUIV="REFRESH" CONTENT="1;error.jsp">
 
-<% }
-            }%>
+<% }  } else { %>
 
-
+    
+    <META HTTP-EQUIV="REFRESH" CONTENT="1;error.jsp">
+    
+    <% } %>
+    
+    
+<script type="module" src="js/validaModificarUsuario.js"></script>
 </body>
 </html>

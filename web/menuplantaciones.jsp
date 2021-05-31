@@ -66,7 +66,7 @@
         <nav class="navbar navbar-inverse navbar-fixed-top" >
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Bienvenido <%=user%></a>
+                    <a class="navbar-brand" href="menu.jsp">Bienvenido <%=user%></a>
                 </div>
                 <ul class="nav navbar-nav">
                     <li><a href="menu.jsp">Inicio</a></li>
@@ -76,7 +76,17 @@
                     <li class="active"><a href="menuplantaciones.jsp">Plantaciones</a></li>
                     <li><a href="menusuario.jsp">Usuarios</a></li>
                 </ul>
-                <ul
+                 <ul class="salir" style="float: right; margin: 10px; ">
+                    <li><form method="post" action="controlador"><input type="submit" name="todo" value="Cerrar" class="salir" style="-webkit-border-radius:20px;
+                                                                        -webkit-border-radius: 20px;
+                                                                        -moz-border-radius: 20px;
+                                                                        color: #FFFFFF;
+                                                                        padding: 10px;
+                                                                        border-style-hover: solid;
+                                                                        border-width-hover: 1;
+                                                                        background-color: #e67e7e;
+                                                                        border: none;"></li></form>
+                </ul>
         </div>
     </nav>
 
@@ -158,8 +168,7 @@
                                     ClasesBD.PlantacionBD.cargarPlantacion();
                                     ClasesBD.ParcelaBD.cargarParcelas();
                                     for (int i = 0; i < ClasesBD.PlantacionBD.PlantacionSize(); i++) {
-                                        
-                                        
+
                                         int idparcela = ClasesBD.PAgricolaBD.sacarIdparcela(ClasesBD.PlantacionBD.getIdparcela(i));
 
                                         out.println("<tr>");
@@ -172,9 +181,9 @@
                                         out.println("<td><form action='controlador' method='post'><input type='hidden' value='ejecutarbplantacion' name='todo'><input type='hidden' value=" + ClasesBD.PlantacionBD.getId(i) + " name='idplantacion'><input type='submit' value='Borrar' class='boton'></form></td>");
                                         out.print("</tr>");
                                     }
- %>
- 
-            
+                                %>
+
+
                             </tbody>
                         </table>
 
@@ -212,186 +221,216 @@
 
         </div>
     </div>
+
+
+       
+    <footer style="color: black;
+    margin: 50px;
+    background-color: rgba(255, 255, 255, 0.65);
+    width: 50%;
+    height: 5%;
+    font-size: small;">
+            <p class="pull-right"><a href="#">Arriba</a></p>
+            <p>  Gestiona tu parcela es una página creada para ayudar a la gestión de las parcelas agricoganaderas. </p>
+        </footer>
 
 
     <% } else if (controladores.Toolbox.rol(user, pass) == 2) {
     %>
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">Bienvenido <%=user%></a>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="menu.jsp">Bienvenido <%=user%></a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="menu.jsp">Inicio</a></li>
+                <li><a href="menuparcela.jsp">Parcela</a></li>
+                <li><a href="menuanimales.jsp">Animales</a></li>
+                <li class="active"><a href="menuplantaciones.jsp">Plantaciones</a></li>
+
+            </ul>
+             <ul class="salir" style="float: right; margin: 10px; ">
+                    <li><form method="post" action="controlador"><input type="submit" name="todo" value="Cerrar" class="salir" style="-webkit-border-radius:20px;
+                                                                        -webkit-border-radius: 20px;
+                                                                        -moz-border-radius: 20px;
+                                                                        color: #FFFFFF;
+                                                                        padding: 10px;
+                                                                        border-style-hover: solid;
+                                                                        border-width-hover: 1;
+                                                                        background-color: #e67e7e;
+                                                                        border: none;"></li></form>
+                </ul>
     </div>
-    <ul class="nav navbar-nav">
-      <li><a href="menu.jsp">Inicio</a></li>
-      <li><a href="menuparcela.jsp">Parcela</a></li>
-      <li><a href="menuanimales.jsp">Animales</a></li>
-      <li class="active"><a href="menuplantaciones.jsp">Plantaciones</a></li>
-     
-    </ul>
-    <ul
-  </div>
 </nav>
 
-    <div class="container-fluid text-center" style="margin-top: 100px; background-color: rgba(255, 255, 255, 0.8); padding: 30px;">    
-        <div class="row content">
+<div class="container-fluid text-center" style="margin-top: 100px; background-color: rgba(255, 255, 255, 0.8); padding: 30px;">    
+    <div class="row content">
 
-            <div class="col-sm-8 text-left"> 
+        <div class="col-sm-8 text-left"> 
 
-                <div class="container" >
+            <div class="container" >
 
-                    <div id="myCarousel" class="carousel slide" data-ride="carousel" style="width: 100%">
-                        <!-- Indicators -->
-                        <ol class="carousel-indicators">
-                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                            <li data-target="#myCarousel" data-slide-to="1"></li>
-                            <li data-target="#myCarousel" data-slide-to="2"></li>
-                        </ol>
+                <div id="myCarousel" class="carousel slide" data-ride="carousel" style="width: 100%">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                    </ol>
 
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner">
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
 
-                            <div class="item active">
-                                <img src="img/carrusel1.jpg" alt="Campo" style="width:100%;">
-                                <div class="carousel-caption">
+                        <div class="item active">
+                            <img src="img/carrusel1.jpg" alt="Campo" style="width:100%;">
+                            <div class="carousel-caption">
 
-                                </div>
                             </div>
-
-                            <div class="item">
-                                <img src="img/carrusel2.jpg" alt="Vacas" style="width:100%;">
-                                <div class="carousel-caption">
-
-                                </div>
-                            </div>
-
-                            <div class="item">
-                                <img src="img/carrusel3.jpg" alt="Vacas" style="width:100%;">
-                                <div class="carousel-caption">
-
-                                </div>
-                            </div>
-
                         </div>
 
-                        <!-- Left and right controls -->
-                        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left"></span>
-                            <span class="sr-only">Anterior</span>
-                        </a>
-                        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right"></span>
-                            <span class="sr-only">Siguiente</span>
-                        </a>
-                    </div>
-                </div>
+                        <div class="item">
+                            <img src="img/carrusel2.jpg" alt="Vacas" style="width:100%;">
+                            <div class="carousel-caption">
 
-                <div class="centrar">
-                    <div class="centrartabla">
+                            </div>
+                        </div>
 
-                        <h1 style="margin-top: 70px;">Plantaciones</h1>
-                        <br>
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
+                        <div class="item">
+                            <img src="img/carrusel3.jpg" alt="Vacas" style="width:100%;">
+                            <div class="carousel-caption">
 
-                                    <th>Fecha de la plantacion</th>
-                                    <th>Fecha de recogida</th>
-                                    <th>Especie de la plantacion</th>
-                                    <th>Referencia de la parcela</th>
-                                    <th>Modificar</th>
-                                    <th>Borrar</th>
-
-
-
-                                </tr>
-                            </thead>
-                            <tbody> 
-                                <%
-                                    ClasesBD.PlantacionBD.cargarPlantacion();
-                                    ClasesBD.ParcelaBD.cargarParcelas();
-                                    ClasesBD.EAgricolaBD.cargarEAgricola();;
-                                    
-                                    int iduser = ClasesBD.UsuarioBD.idUser(user);
-                                    int idjornalero = ClasesBD.JornaleroBD.idJornalero(iduser);
-                                    ClasesBD.JornaleroBD.cargarPAgricola(idjornalero);
-                                    ClasesBD.JornaleroBD.cargarPlantacionesJornalero(idjornalero);
-                                    
-                                    for (int i = 0; i < ClasesBD.JornaleroBD.plantacionesSize(); i++) {
-                                        
-                                        
-                                        int idparcela = ClasesBD.PAgricolaBD.sacarIdparcela(ClasesBD.JornaleroBD.idpagricola(i));
-                                        out.println("<tr>");
-                                        
-                                        out.println("<td>" + ClasesBD.JornaleroBD.fplantacion(i) + "</td>");
-                                        out.println("<td>" + ClasesBD.JornaleroBD.frecogida(i) + "</td>");
-                                        out.println("<td>" + ClasesBD.EAgricolaBD.getNombrePorEspecie(ClasesBD.JornaleroBD.ideagricola(i)) + "</td>");
-                                        out.println("<td>" + ClasesBD.ParcelaBD.sacarReferencia(idparcela) + "</td>");
-                                        out.println("<td><form action='controlador' method='post'><input type='hidden' value='modificarplantacion' name='todo'><input type='hidden' value=" + ClasesBD.JornaleroBD.idplantacion(i) + " name='idplantacion'><input type='submit' value='Modificar' class='boton'></form></td>");
-                                        out.println("<td><form action='controlador' method='post'><input type='hidden' value='ejecutarbplantacion' name='todo'><input type='hidden' value=" + ClasesBD.JornaleroBD.idplantacion(i) + " name='idplantacion'><input type='submit' value='Borrar' class='boton'></form></td>");
-
-                                        out.print("</tr>");
-                                    }
- %>
- 
-            
-                            </tbody>
-                        </table>
-
-                        <div class="insermenu" style="    display: flex;
-                             justify-content: space-between;
-                             align-items: center;
-                             flex-direction: row;
-                             align-content: center;
-                             flex-wrap: wrap;
-                             width: 50%">
-
-                            <form action="controlador" method="post" id="irinsertarplantacion">
-
-
-
-                                <input type="hidden" value="irinsertarplantacion" name="todo"/>
-                                <input type="submit" value="Insertar otra plantacion" class="boton">
-
-
-                            </form>
-
-                            <form action="controlador" method="post">
-
-                                <input type="hidden" value="menu" name="todo">
-                                <input type="submit" value="Menú principal" class="boton">
-                            </form>
-
+                            </div>
                         </div>
 
                     </div>
+
+                    <!-- Left and right controls -->
+                    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                        <span class="sr-only">Anterior</span>
+                    </a>
+                    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                        <span class="sr-only">Siguiente</span>
+                    </a>
                 </div>
             </div>
 
+            <div class="centrar">
+                <div class="centrartabla">
+
+                    <h1 style="margin-top: 70px;">Plantaciones</h1>
+                    <br>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+
+                                <th>Fecha de la plantacion</th>
+                                <th>Fecha de recogida</th>
+                                <th>Especie de la plantacion</th>
+                                <th>Referencia de la parcela</th>
+                                <th>Modificar</th>
+                                <th>Borrar</th>
 
 
+
+                            </tr>
+                        </thead>
+                        <tbody> 
+                            <%
+                                ClasesBD.PlantacionBD.cargarPlantacion();
+                                ClasesBD.ParcelaBD.cargarParcelas();
+                                ClasesBD.EAgricolaBD.cargarEAgricola();;
+
+                                int iduser = ClasesBD.UsuarioBD.idUser(user);
+                                int idjornalero = ClasesBD.JornaleroBD.idJornalero(iduser);
+                                ClasesBD.JornaleroBD.cargarPAgricola(idjornalero);
+                                ClasesBD.JornaleroBD.cargarPlantacionesJornalero(idjornalero);
+
+                                for (int i = 0; i < ClasesBD.JornaleroBD.plantacionesSize(); i++) {
+
+                                    int idparcela = ClasesBD.PAgricolaBD.sacarIdparcela(ClasesBD.JornaleroBD.idpagricola(i));
+                                    out.println("<tr>");
+
+                                    out.println("<td>" + ClasesBD.JornaleroBD.fplantacion(i) + "</td>");
+                                    out.println("<td>" + ClasesBD.JornaleroBD.frecogida(i) + "</td>");
+                                    out.println("<td>" + ClasesBD.EAgricolaBD.getNombrePorEspecie(ClasesBD.JornaleroBD.ideagricola(i)) + "</td>");
+                                    out.println("<td>" + ClasesBD.ParcelaBD.sacarReferencia(idparcela) + "</td>");
+                                    out.println("<td><form action='controlador' method='post'><input type='hidden' value='modificarplantacion' name='todo'><input type='hidden' value=" + ClasesBD.JornaleroBD.idplantacion(i) + " name='idplantacion'><input type='submit' value='Modificar' class='boton'></form></td>");
+                                    out.println("<td><form action='controlador' method='post'><input type='hidden' value='ejecutarbplantacion' name='todo'><input type='hidden' value=" + ClasesBD.JornaleroBD.idplantacion(i) + " name='idplantacion'><input type='submit' value='Borrar' class='boton'></form></td>");
+
+                                    out.print("</tr>");
+                                }
+                            %>
+
+
+                        </tbody>
+                    </table>
+
+                    <div class="insermenu" style="    display: flex;
+                         justify-content: space-between;
+                         align-items: center;
+                         flex-direction: row;
+                         align-content: center;
+                         flex-wrap: wrap;
+                         width: 50%">
+
+                        <form action="controlador" method="post" id="irinsertarplantacion">
+
+
+
+                            <input type="hidden" value="irinsertarplantacion" name="todo"/>
+                            <input type="submit" value="Insertar otra plantacion" class="boton">
+
+
+                        </form>
+
+                        <form action="controlador" method="post">
+
+                            <input type="hidden" value="menu" name="todo">
+                            <input type="submit" value="Menú principal" class="boton">
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
         </div>
+
+
+
     </div>
+</div>
+
+
+   
+    <footer style="color: black;
+    margin: 50px;
+    background-color: rgba(255, 255, 255, 0.65);
+    width: 50%;
+    height: 5%;
+    font-size: small;">
+            <p class="pull-right"><a href="#">Arriba</a></p>
+            <p>  Gestiona tu parcela es una página creada para ayudar a la gestión de las parcelas agricoganaderas. </p>
+        </footer>
+
+
+<% } else { %>  
+
+<META HTTP-EQUIV="REFRESH" CONTENT="1;error.jsp">
+
+<% }} else { %>
+
+
+<META HTTP-EQUIV="REFRESH" CONTENT="1;error.jsp">
+
+</body>
 
 
 
-                    <% }
-            }
 
-            
-            
-        else { %>
+</html>
 
 
-                    <h1>El usuario no es valido.</h1>
-                    <a href="index.jsp">Inicio</a>
-
-                    </body>
-
-
-
-
-                    </html>
-
-
-                    <% }%>
+<% }%>

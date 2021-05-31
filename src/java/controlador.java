@@ -94,11 +94,11 @@ public class controlador extends HttpServlet {
                     String user = (String) session.getAttribute("usuario");
                     int iduser = ClasesBD.UsuarioBD.idUser(user);
                     int idpropietario = ClasesBD.PropietarioBD.idProp(iduser);
-                    
+                    int idestado = Integer.parseInt(request.getParameter("idestado"));
                     int idtipoparcela = Integer.parseInt(request.getParameter("idtipoparcela"));
                     int referencia = Integer.parseInt(request.getParameter("referencia"));
 
-                    ClasesBD.ParcelaBD.insertar(hectareas, idpropietario, idtipoparcela, referencia);
+                    ClasesBD.ParcelaBD.insertar(hectareas, idpropietario, idestado, idtipoparcela, referencia);
 
                     //metodo creado en el Toolbox que devuelve el id de la parcela cuando le pasamos su referencia
                     int idparcela = ClasesBD.ParcelaBD.buscarPorRef(referencia);
@@ -151,7 +151,7 @@ public class controlador extends HttpServlet {
                     //Se deben de borrar tambien las filas de la tabla trabaja que estan relacionadas con el jornalero
                     try {
 
-                        ClasesBD.TrabajaBD.borrarTrabajaParcela(idparcela);
+                        ClasesBD.ParcelaBD.borrarTrabajaParcela(idparcela);
 
                     } catch (Exception ex) {
                         ex.printStackTrace();
@@ -285,15 +285,13 @@ public class controlador extends HttpServlet {
                 } else if (estado.equals("ejecutarbusuario")) {
 
                     int idusuario = Integer.parseInt(request.getParameter("idusuario"));
-                    
-                     int idpropietario = ClasesBD.PropietarioBD.idProp(idusuario);
 
                     //BORRAR DE LA TABLA TRABAJA SI ESTA EL JORNALERO
                     try {
 
                         int idjornalero = ClasesBD.JornaleroBD.idJornalero(idusuario);
 
-                        ClasesBD.TrabajaBD.borrarTrabajaJornalero(idjornalero);
+                        ClasesBD.ParcelaBD.borrarTrabajaJornalero(idjornalero);
 
                     } catch (Exception ex) {
                         ex.printStackTrace();
@@ -301,96 +299,18 @@ public class controlador extends HttpServlet {
 
                     //BORRAR EL JORNALERO
                     try {
-
                         ClasesBD.UsuarioBD.borrarJornalero(idusuario);
 
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
-                    
-                    ClasesBD.PropietarioBD.cargarParcelas(idpropietario);
-                    
-                    for (int i =0 ; i<ClasesBD.PropietarioBD.parcelasSize(); i++){
-                        
-                    int idparcela = ClasesBD.PropietarioBD.getId(i);
 
-                    //Borrar las plantaciones si hay una parcela con el idpropietario
-                    
-                       try {
-
-                        int idagricola = ClasesBD.PAgricolaBD.buscarAgricola(idparcela);
-
-                        ClasesBD.PlantacionBD.borrarPorParcela(idagricola);
-
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-
-                    //Aquí se borran los animales de esa parcela
+                    //BORRAR LOS ANIMALES POR 
                     try {
 
-                        int idganadera = ClasesBD.PGanaderaBD.buscarGanadera(idparcela);
+                        int idpropietario = ClasesBD.PropietarioBD.idProp(idusuario);
 
-                        ClasesBD.AnimalBD.borrarPorParcela(idganadera);
-
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-
-                    //Se deben de borrar tambien las filas de la tabla trabaja que estan relacionadas con el jornalero
-                    try {
-
-                        ClasesBD.TrabajaBD.borrarTrabajaParcela(idparcela);
-
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-
-                    //Aqui se borra el registro de la parcela si es agricola
-                    try {
-
-                        ClasesBD.PAgricolaBD.borrarPAgricola(idparcela);
-
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-
-                    //Aqui se borra el registro de la parcela si es ganadera
-                    try {
-
-                        ClasesBD.PGanaderaBD.borrarPGanadera(idparcela);
-
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-
-                    
-                    //BORRAR LAS PARCELAS DEL PROPIETARIO
-                    try {
-
-                            ClasesBD.ParcelaBD.borrar(idparcela);
-                        
-
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-                    
-                    }
-                    
-                    try {
-
-                            ClasesBD.UsuarioBD.borrarPropietario(idusuario);
-                        
-
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-                    
-                    
-                    try {
-
-                             ClasesBD.UsuarioBD.borrar(idusuario);
-                        
+                        ClasesBD.UsuarioBD.borrarPropietario(idusuario);
 
                     } catch (Exception ex) {
                         ex.printStackTrace();
@@ -439,23 +359,11 @@ public class controlador extends HttpServlet {
 
                     //MODIFICAR PARCELA
                 } else if (estado.equals("ejecutarUpdateParcela")) {
-                    
-                    
-                    //REVISAR SE CAMBIAR LOS ESTADOS DE DOS PARCELAS
 
                     int idestado = Integer.parseInt(request.getParameter("idestado"));
                     int idparcela = (Integer) session.getAttribute("parcela");
-                    int tipo = ClasesBD.ParcelaBD.sacarTipo(idparcela);
-                    
-                    if(tipo == 1){
 
-                    ClasesBD.PAgricolaBD.modificarA(idparcela, idestado);
-                    
-                    } else if(tipo == 2){
-                        
-                    ClasesBD.PGanaderaBD.modificarG(idparcela, idestado);
-                        
-                    }
+                    ClasesBD.ParcelaBD.modificar(idparcela, idestado);
 
                     //VUELVE A MENUPARCELAS
                     estado = "gestionparcelas";
@@ -481,25 +389,18 @@ public class controlador extends HttpServlet {
                     int idjornalero = Integer.parseInt(request.getParameter("idjornalero"));
                     int idparcela = Integer.parseInt(request.getParameter("idparcela"));
 
-                    ClasesBD.TrabajaBD.asiganarJornalero(idjornalero, idparcela);
-
-                    estado = "gestionusuarios";
-                    
-                    
-                   
-
-                }else if (estado.equals("desasignajornalero")) {
-                    int idtrabaja = Integer.parseInt(request.getParameter("idtrabaja"));
- 
-                    ClasesBD.TrabajaBD.borrarTrabaja(idtrabaja);
+                    ClasesBD.PropietarioBD.asiganarJornalero(idjornalero, idparcela);
 
                     estado = "gestionusuarios";
 
-
-                } else if (estado.equals("cerrar")) {
+                } else if (estado.equals("Cerrar")) {
                     session.invalidate();
                     session = request.getSession(true);
                     estado = null;
+                    session.setAttribute("estado", "autenticado");
+                    session.setAttribute("usuarioValido", false);
+                    session.setAttribute("usuario", null);
+                    session.setAttribute("contra", null);
                 }
             }
 

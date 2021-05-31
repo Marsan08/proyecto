@@ -71,17 +71,27 @@
         <nav class="navbar navbar-inverse navbar-fixed-top" >
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Bienvenido <%=usuario%></a>
+                    <a class="navbar-brand" href="menu.jsp">Bienvenido <%=usuario%></a>
                 </div>
                 <ul class="nav navbar-nav">
                     <li><a href="menu.jsp">Inicio</a></li>
                     <li><a href="menuparcela.jsp">Parcelas</a></li>
-                    <li><a href="menuespecies.jsp">Especies</a></li>
+                    <li><a href="menuespecie.jsp">Especies</a></li>
                     <li><a href="menuanimales.jsp">Animales</a></li>
                     <li><a href="menuplantaciones.jsp">Plantaciones</a></li>
                     <li  class="active"><a href="menusuario.jsp">Usuarios</a></li>
                 </ul>
-                <ul
+                 <ul class="salir" style="float: right; margin: 10px; ">
+                    <li><form method="post" action="controlador"><input type="submit" name="todo" value="Cerrar" class="salir" style="-webkit-border-radius:20px;
+                                                                        -webkit-border-radius: 20px;
+                                                                        -moz-border-radius: 20px;
+                                                                        color: #FFFFFF;
+                                                                        padding: 10px;
+                                                                        border-style-hover: solid;
+                                                                        border-width-hover: 1;
+                                                                        background-color: #e67e7e;
+                                                                        border: none;"></li></form>
+                </ul>
         </div>
     </nav>
 
@@ -148,7 +158,7 @@
                         <h1 style="margin-top: 70px;">Insertar jornalero</h1>
                         <br>
 
-                        <form action=" controlador" method="post">
+                        <form action=" controlador" method="post" id="validarusuario">
                             <input type="hidden" name="todo" value="ejercutariusuario">
                             <div id="tablasinsert" style="
                                  display: flex;
@@ -174,15 +184,15 @@
                                         </thead>
                                         <tbody> 
                                             <tr>
-                                                <td> <input type="text" name="nombre"> </td>
+                                                <td> <input type="text" name="nombre" id="nombreusuario"> </td>
 
-                                                <td>  <input type="text" name="email"> </td>
+                                                <td>  <input type="text" name="email" id="emailusuario"> </td>
 
-                                                <td> <input type="text" name="dni"> </td>
+                                                <td> <input type="text" name="dni" id="dniusuario"> </td>
 
-                                                <td> <input type="text" name="telefono"></td>
-                                                
-                                                <td> <input type="text" name="pass"> </td>
+                                                <td> <input type="text" name="telefono" id="tlfusuario"></td>
+
+                                                <td> <input type="password" name="pass" id="passusuario"> </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -195,13 +205,13 @@
                                  align-content: center;
                                  flex-wrap: wrap;
                                  width: 100%;">
-                                <input type="submit" name="enviar" value="Aceptar e insertar" class="boton">
+                                <div id="divusuario"> <input type="submit" name="enviar" value="Aceptar e insertar" class="boton"></div>
 
                             </div>
                         </form>
-                        
+
                         <br>
-                        
+
 
                         <form action="controlador" method="post">
 
@@ -214,15 +224,31 @@
             </div>
         </div>
     </div>
+
+
+    
+    <footer style="color: black;
+    margin: 50px;
+    background-color: rgba(255, 255, 255, 0.65);
+    width: 50%;
+    height: 5%;
+    font-size: small;">
+            <p class="pull-right"><a href="#">Arriba</a></p>
+            <p>  Gestiona tu parcela es una página creada para ayudar a la gestión de las parcelas agricoganaderas. </p>
+        </footer>
+                
     <%  } else { %>
 
-
+<META HTTP-EQUIV="REFRESH" CONTENT="1;error.jsp">
 
     <% }
-                            } else { %>
-    <h1>NO TIENES ACCESO</h1>
-    <a href="index.jsp">Inicio</a>
+    } else { %>
+   
+    <META HTTP-EQUIV="REFRESH" CONTENT="1;error.jsp">
+    
     <% }%>
+
+    <script type="module" src="js/validarUsuario.js"></script>
 </body>
 
 </html>

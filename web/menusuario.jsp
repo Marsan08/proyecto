@@ -73,7 +73,17 @@
                     <li class="active"><a href="menuplantaciones.jsp">Plantaciones</a></li>
                     <li><a href="menusuario.jsp">Usuarios</a></li>
                 </ul>
-                <ul
+                 <ul class="salir" style="float: right; margin: 10px; ">
+                    <li><form method="post" action="controlador"><input type="submit" name="todo" value="Cerrar" class="salir" style="-webkit-border-radius:20px;
+                                                                        -webkit-border-radius: 20px;
+                                                                        -moz-border-radius: 20px;
+                                                                        color: #FFFFFF;
+                                                                        padding: 10px;
+                                                                        border-style-hover: solid;
+                                                                        border-width-hover: 1;
+                                                                        background-color: #e67e7e;
+                                                                        border: none;"></li></form>
+                </ul>
         </div>
     </nav>
 
@@ -185,12 +195,6 @@
                                 <input type="submit" value="Insertar otro usuario" class="boton">
 
                             </form>
-                            
-                            <form action='controlador' method='post'>
-                                <input type='hidden' value='modificarusuario' name='todo'>
-                                <input type='hidden' name='idusuario' value="<%=idusuario%>">
-                                <input type='submit' name='modificarusuario' value='Modificar mi contraseña' class='boton'>
-                            </form>
 
                             <form action="controlador" method="post">
 
@@ -199,16 +203,12 @@
 
 
                             </form>
-                            
-                            <form action="controlador" method="post">
 
-                                <input type="hidden" value="desasignarparcela" name="todo"/>
-                                <input type="submit" value="Desasignar parcela a jornalero" class="boton">
-
-
+                            <form action='controlador' method='post'>
+                                <input type='hidden' value='modificarusuario' name='todo'>
+                                <input type='hidden' name='idusuario' value="<%=idusuario%>">
+                                <input type='submit' name='modificarusuario' value='Modificar mi contraseña' class='boton'>
                             </form>
-
-                            
 
                         </div>
 
@@ -229,26 +229,28 @@
         </div>
     </div>
 
-
+      
+    <footer style="color: black;
+    margin: 50px;
+    background-color: rgba(255, 255, 255, 0.65);
+    width: 50%;
+    height: 5%;
+    font-size: small;">
+            <p class="pull-right"><a href="#">Arriba</a></p>
+            <p>  Gestiona tu parcela es una página creada para ayudar a la gestión de las parcelas agricoganaderas. </p>
+        </footer>
 
 
     <% } else {%>
 
 
+    <META HTTP-EQUIV="REFRESH" CONTENT="1;error.jsp">
+
+    
+    <% } } else { %>
 
 
-    <h1>No tienes permisos <%=  user%>  </h1>
-    <a href="index.jsp">Inicio</a>
-
-
-
-    <%
-        }
-    } else { %>
-
-
-    <h1>El usuario no es valido.</h1>
-    <a href="index.jsp">Inicio</a>
+    <META HTTP-EQUIV="REFRESH" CONTENT="1;error.jsp">
 
 </body>
 

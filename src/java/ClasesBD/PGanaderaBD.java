@@ -158,59 +158,6 @@ public class PGanaderaBD {
 
     }
      
-     public static int sacarIdestado(int idpaganadera) throws ClassNotFoundException, InstantiationException, SQLException {
-
-        Connection conn = null;
-        com.mysql.jdbc.Statement stmt = null;
-        int validar = 0;
-        
-        try {
-            conn = Conexion();
-            stmt = (com.mysql.jdbc.Statement) conn.createStatement();
-            String sqlStr = "SELECT * FROM pganadera WHERE idpganadera=" + idpaganadera + ";";
-            ResultSet rset = stmt.executeQuery(sqlStr);
-
-            while (rset.next()) {
-                validar = rset.getInt("idestado");
-                System.out.println(validar);
-            }
-            sqlStr = "SELECT * FROM pganadera WHERE idpaganadera=" + idpaganadera + ";";
-            rset = stmt.executeQuery(sqlStr);
-            while (rset.next()) {
-                validar = rset.getInt("idestado");
-                System.out.println("ENTRA");
-            }
-
-            if (stmt != null) {
-                stmt.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            System.out.println("NO ENTRA");
-        }
-        return validar;
-
-    }
-     
-     public static void modificarG(int idparcela, int idestado) throws ClassNotFoundException, InstantiationException, SQLException {
-
-        java.sql.Connection conn = controladores.Toolbox.Conexion();
-        Statement stmt = conn.createStatement();
-        String sqlStr = "UPDATE `pganadera` SET `idestado`=" + idestado + " WHERE idparcela = " + idparcela + ";";
-        int state = stmt.executeUpdate(sqlStr);
-
-        if (stmt != null) {
-            stmt.close();
-        }
-        if (conn != null) {
-            conn.close();
-        }
-
-    }
-     
      public static void ganaderaSize(){
          listaGanadera.size();
          

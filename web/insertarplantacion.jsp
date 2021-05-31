@@ -69,17 +69,27 @@
         <nav class="navbar navbar-inverse navbar-fixed-top" >
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Bienvenido <%=user%></a>
+                    <a class="navbar-brand" href="menu.jsp">Bienvenido <%=user%></a>
                 </div>
                 <ul class="nav navbar-nav">
                     <li><a href="menu.jsp">Inicio</a></li>
                     <li><a href="menuparcela.jsp">Parcelas</a></li>
-                    <li><a href="menuespecies.jsp">Especies</a></li>
+                    <li><a href="menuespecie.jsp">Especies</a></li>
                     <li class="active"><a href="menuanimales.jsp">Animales</a></li>
                     <li><a href="menuplantaciones.jsp">Plantaciones</a></li>
                     <li><a href="menusuario.jsp">Usuarios</a></li>
                 </ul>
-                <ul
+                 <ul class="salir" style="float: right; margin: 10px; ">
+                    <li><form method="post" action="controlador"><input type="submit" name="todo" value="Cerrar" class="salir" style="-webkit-border-radius:20px;
+                                                                        -webkit-border-radius: 20px;
+                                                                        -moz-border-radius: 20px;
+                                                                        color: #FFFFFF;
+                                                                        padding: 10px;
+                                                                        border-style-hover: solid;
+                                                                        border-width-hover: 1;
+                                                                        background-color: #e67e7e;
+                                                                        border: none;"></li></form>
+                </ul>
         </div>
     </nav>
 
@@ -200,7 +210,6 @@
                                                 ClasesBD.PropietarioBD.cargarPAgricola(idpropietario);
 
                                                 for (int i = 0; i < ClasesBD.PropietarioBD.pagricolaSize(); i++) {
-                         
 
                                                     int idpagricola = ClasesBD.PropietarioBD.getIdpagricola(i);
                                                     int idagricola = ClasesBD.PropietarioBD.getIdagricola(i);
@@ -269,6 +278,17 @@
     </div>
 
 
+      
+    <footer style="color: black;
+    margin: 50px;
+    background-color: rgba(255, 255, 255, 0.65);
+    width: 50%;
+    height: 5%;
+    font-size: small;">
+            <p class="pull-right"><a href="#">Arriba</a></p>
+            <p>  Gestiona tu parcela es una página creada para ayudar a la gestión de las parcelas agricoganaderas. </p>
+        </footer>
+
     <% } else if (controladores.Toolbox.rol(user, pass) == 2) {%>
 
 
@@ -278,7 +298,7 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">Bienvenido <%=user%></a>
+                <a class="navbar-brand" href="menu.jsp">Bienvenido <%=user%></a>
             </div>
             <ul class="nav navbar-nav">
                 <li><a href="menu.jsp">Inicio</a></li>
@@ -287,7 +307,17 @@
                 <li><a href="menuplantaciones.jsp">Plantaciones</a></li>
 
             </ul>
-            <ul
+             <ul class="salir" style="float: right; margin: 10px; ">
+                    <li><form method="post" action="controlador"><input type="submit" name="todo" value="Cerrar" class="salir" style="-webkit-border-radius:20px;
+                                                                        -webkit-border-radius: 20px;
+                                                                        -moz-border-radius: 20px;
+                                                                        color: #FFFFFF;
+                                                                        padding: 10px;
+                                                                        border-style-hover: solid;
+                                                                        border-width-hover: 1;
+                                                                        background-color: #e67e7e;
+                                                                        border: none;"></li></form>
+                </ul>
     </div>
 </nav>
 
@@ -416,7 +446,7 @@
                                                 out.println("<td>" + ClasesBD.ParcelaBD.sacarReferencia(idpagricola) + "</td>");
                                                 out.println("<td> <input type='radio' name='idparcela' value=" + ClasesBD.PAgricolaBD.buscarAgricola(idagricola) + "> </td>");
                                                 out.println("</tr>");
-                                                
+
                                             }
 
                                         %> 
@@ -475,13 +505,24 @@
 
 </div>
 
+   
+    <footer style="color: black;
+    margin: 50px;
+    background-color: rgba(255, 255, 255, 0.65);
+    width: 50%;
+    height: 5%;
+    font-size: small;">
+            <p class="pull-right"><a href="#">Arriba</a></p>
+            <p>  Gestiona tu parcela es una página creada para ayudar a la gestión de las parcelas agricoganaderas. </p>
+        </footer>
 <% } else { %>
 
-<h1>NO TIENES PERMISOS</h1>
-<a href="index.jsp">Inicio</a>
+<META HTTP-EQUIV="REFRESH" CONTENT="1;error.jsp">
 
 <% }
 } else { %>
+
+<META HTTP-EQUIV="REFRESH" CONTENT="1;error.jsp">
 
 <% }%>
 </body>

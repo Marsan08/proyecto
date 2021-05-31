@@ -20,6 +20,7 @@ import java.util.ArrayList;
 public class PlantacionBD {
     
       private static ArrayList<Plantacion> listaPlantacion = new ArrayList<Plantacion>(); 
+      private static ArrayList<Animal> listaAnimales=new ArrayList<>();
     
      public static void cargarAnimal() throws ClassNotFoundException, InstantiationException, SQLException {
         
@@ -68,9 +69,7 @@ public class PlantacionBD {
                     if (conn != null) {
                         conn.close();
                     }
-
-        
-        
+       
     }
     
    public static int getId(int idanimal) {

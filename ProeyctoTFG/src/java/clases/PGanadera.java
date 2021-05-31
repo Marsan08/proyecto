@@ -24,8 +24,8 @@ public class PGanadera extends Parcela {
     public PGanadera() {
     }
 
-    public PGanadera(int idpganadera, int idparcela, int hectareas, int idpropietario, int idestado, int idtipoparcela, int referencia) {
-        super(idparcela, hectareas, idpropietario, idestado, idtipoparcela, referencia);
+    public PGanadera(int idpganadera, int idparcela, int hectareas, int idpropietario, int idestado, int idtipoparcela, int referencia,int idcoordenadas) {
+        super(idparcela, hectareas, idpropietario, idestado, idtipoparcela, referencia,idcoordenadas);
         this.idpganadera = idpganadera;
     }
 

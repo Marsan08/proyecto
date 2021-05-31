@@ -36,7 +36,7 @@ public class PropietarioBD {
         
         while(rset.next()){
             
-            Parcela p = new Parcela (rset.getInt("idparcela"), rset.getInt("hectareas"), rset.getInt("idpropietario"), rset.getInt("idestado"), rset.getInt("idtipoparcela"), rset.getInt("referencia"));
+            Parcela p = new Parcela (rset.getInt("idparcela"), rset.getInt("hectareas"), rset.getInt("idpropietario"), rset.getInt("idestado"), rset.getInt("idtipoparcela"), rset.getInt("referencia"),rset.getInt("idcoordenadas"));
             listaParcelas.add(p);
             
         }

@@ -29,23 +29,26 @@ public class Toolbox {
     
     
 
-    public static String encriptaContrasena(String contrasena) {
-        String contrasenaenc = "";
+   public static String encriptaContrasena(String contrasena) {
         try {
-            MessageDigest mensaje = MessageDigest.getInstance("SHA");
             byte[] textoArrayBytes = contrasena.getBytes();
+            MessageDigest mensaje = MessageDigest.getInstance("SHA");
             mensaje.update(textoArrayBytes);
-            contrasenaenc = mensaje.digest().toString();
-
-            while (contrasenaenc.length() < 32) {
-                contrasenaenc = "0" + contrasenaenc;
+            byte[] resumen = mensaje.digest();
+            String cadenaHexadecimal = "";
+            String apoyo;
+            for (int i = 0; i < resumen.length; i++) {
+                apoyo = Integer.toHexString(resumen[i] & 0xFF);
+                if (apoyo.length() == 1) {
+                    apoyo = "0" + apoyo;
+                }
+                cadenaHexadecimal = cadenaHexadecimal + apoyo;
             }
-        } catch (NoSuchAlgorithmException e) {
+            return cadenaHexadecimal;
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return contrasenaenc;
     }
-    
     
     public static boolean validacion(String user, String pass) {
         java.sql.Connection conn = null;
@@ -111,7 +114,7 @@ public class Toolbox {
         return validar;
 
     }
-
+    
     public static int idUser(String user) {
 
         Connection conn = null;

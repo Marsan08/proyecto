@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+import controladores.Toolbox;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -70,7 +71,7 @@ public class controlador extends HttpServlet {
                     
                     //Se capturan los parametros user y pass (usuario y contraseña) que ha metido el usuario en el login
                     String user = request.getParameter("user");
-                    String pass = request.getParameter("pass");
+                    String pass = Toolbox.encriptaContrasena(request.getParameter("pass"));
                     
                     //Estas variables se pasan por la funcion de validacion y si valida (si devuelve true) se crean variables de sesion con los datos del usuario (user y pass)
                     if (controladores.Toolbox.validacion(user, pass)) {

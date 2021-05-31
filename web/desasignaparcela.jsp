@@ -1,22 +1,21 @@
+<%@page import="java.sql.*" %>  
 <%-- 
-    Document   : insertarespecies
-    Created on : 07-may-2021, 12:47:42
+    Document   : menuespecies
+    Created on : 14/05/2021
     Author     : Mar
 --%>
-
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.Statement"%>
-<%@page import="java.sql.DriverManager"%>
-<%@page import="java.sql.Connection"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-<!DOCTYPE html>
-
+<%
+    session = request.getSession();
+    String sessionId = session.getId();
+    String user = (String) session.getAttribute("usuario");
+    String pass = (String) session.getAttribute("contra");
+    if ((Boolean) session.getAttribute("usuarioValido")) {
+%>
 
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Menú</title>
+        <title>Men�</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="css/css.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -57,17 +56,15 @@
             }
         </style>
     </head>
-    
+
     <body>
 
         <%
-            session = request.getSession();
-            String sessionId = session.getId();
-            if ((Boolean) session.getAttribute("usuarioValido")) {
-                String user = (String) session.getAttribute("usuario");
-                String pass = (String) session.getAttribute("contra");
+            if (controladores.Toolbox.rol(user, pass) == 1) {
+        %>
 
-              if (controladores.Toolbox.rol(user, pass) == 1) {%>
+
+
 
         <nav class="navbar navbar-inverse navbar-fixed-top" >
             <div class="container-fluid">
@@ -77,10 +74,10 @@
                 <ul class="nav navbar-nav">
                     <li><a href="menu.jsp">Inicio</a></li>
                     <li><a href="menuparcela.jsp">Parcelas</a></li>
-                    <li class="active"><a href="menuespecies.jsp">Especies</a></li>
+                    <li><a href="menuespecies.jsp">Especies</a></li>
                     <li><a href="menuanimales.jsp">Animales</a></li>
                     <li><a href="menuplantaciones.jsp">Plantaciones</a></li>
-                    <li><a href="menusuarios.jsp">Usuarios</a></li>
+                    <li class="active"><a href="menusuario.jsp">Usuarios</a></li>
                 </ul>
                 <ul
         </div>
@@ -138,93 +135,82 @@
                         </a>
                     </div>
                 </div>
-
-                <%
-                    Connection conn = controladores.Toolbox.Conexion();
-                    //Paso 3: Crear sentencias SQL, utilizando objetos de tipo Statement
-                    Statement stmt = conn.createStatement();
-                    //String sqlStr = "select * from libros where autor= "
-                    //        + "'" + request.getParameter("autor") + "'";
-                    String sqlStr = "SELECT * FROM especie";
-                    //PARA DEPURACIÓN
-                    System.out.println("La consulta sql es " + sqlStr);
-                    //Ejecutar la sentencia SQL a través de los objetos Statement 
-                    ResultSet rset = stmt.executeQuery(sqlStr);
-                %>
                 <div class="centrar">
                     <div class="centrartabla">
 
-                        <h1 style="margin-top: 70px;">Insertar especie</h1>
-                        <form action="controlador" method="post">
-                            <input type="hidden" name="todo" value="insertespecie">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Nombre de la especie</th>
-                                        <th>Tipo de especie</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input type="text" name="nombre"></td>
-                                        <td>
-                                            <select name="idtipo">
-                                                <option value="1">Agricola</option>
-                                                <option value="2">Ganadera</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <%
-                                        //Cierre de recursos 
-                                        rset.close();
-                                        stmt.close();
-                                        conn.close();
+                        <h1 style="margin-top: 70px;">Asignar parela a jornalero</h1>
+             
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
 
-                                    %>
-                                </tbody>
-                            </table>
+                                            <th>Nombre del jornalero</th>     
+                                            <th>Referencia de la parcela</th>
+                                            <th>Borrar</th>
 
-                            <%
-                            %>
 
-                            </tr>
-                            </tbody>
-                            </table>
+                                        </tr>
+                                    </thead>
+                                    <tbody> 
+                                        <%
+                                            ClasesBD.TrabajaBD.cargarTrabaja();;
+                                            
+                                            for ( int i = 0; i<ClasesBD.TrabajaBD.trabajaSize(); i++){
+                                                out.println("<tr>");
+                                                out.println("<td>" + ClasesBD.JornaleroBD.sacarNombre(ClasesBD.TrabajaBD.getIdJornalero(i)) + "</td>");
+                                                out.println("<td>" + ClasesBD.ParcelaBD.sacarReferencia(ClasesBD.TrabajaBD.getIdParcela(i)) + "</td>");
+                                                
+                                        out.println("<td><form action='controlador' method='post'><input type='hidden' value='desasignajornalero' name='todo'><input type='hidden' name='idtrabaja' value=" + ClasesBD.TrabajaBD.getId(i) + "><input type='submit' name='borrartrabaja' value='Borrar' class='boton'></form></td>");
+                                                out.println("</tr>");
+                                            }
 
-                            <div class="insermenu" style="    display: flex;
-                                 justify-content: center;
-                                 align-items: center;
-                                 flex-direction: row;
-                                 align-content: center;
-                                 flex-wrap: wrap;
-                                 width: 100%;">
-                                <input type="submit" name="enviar" value="Enviar" class="boton">
+                                        %>
+                                    </tbody>
+                                </table>
 
-                            </div>
-                        </form>
+        
+        <div class="insermenu" style="    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    align-content: center;
+    flex-wrap: wrap;
+    width: 50%">
+        
+  
 
-                        <form action="controlador" method="post">
+        <form action="controlador" method="post">
 
-                            <input type="hidden" value="menu" name="todo">
-                            <input type="submit" value="Menú principal" class="boton">
-                        </form>
-
-                    </div>
-                </div>
-
-            </div>
+            <input type="hidden" value="menu" name="todo">
+            <input type="submit" value="Men� principal" class="boton">
+        </form>
+            
+        </div>
+    
+        </div>
         </div>
     </div>
+        
+        
+       
+  </div>
+</div>
 
-
-<% } else { %>
-
-<h1>NO TIENES PERMISOS</h1>
-<a href="index.jsp">Inicio</a>
 
 <% }
     } else { %>
 
-<% }%>
+
+
+<h1>El usuario no es valido.</h1>
+<a href="index.jsp">Inicio</a>
+
 </body>
+
+
+
+
 </html>
+
+
+<% }%>

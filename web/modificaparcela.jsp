@@ -180,6 +180,7 @@
 
                                     <%
                                         out.println("<tr>");
+                                        //out.println(parcela);
                                         out.println("<td>" + ClasesBD.ParcelaBD.sacarHectareas(parcela) + "</td>");
                                         out.println("<td>" + ClasesBD.ParcelaBD.sacarProp(parcela) + "</td>");
                                         out.println("<td>" + ClasesBD.TipoBD.getNombre(ClasesBD.ParcelaBD.sacarTipo(parcela)) + "</td>");
@@ -188,11 +189,21 @@
                                         out.println("<td> <select name='idestado'>");
 
                                         //CREAMOS UNA CONSULTA QUE SAQUE LOS ESTADOS COMO EN EL TIPO DE PARCELA
-                                        ClasesBD.EstadoBD.cargarEstados();
-                                        for (int i = 0; i < ClasesBD.EstadoBD.estadosSize(); i++) {
+                                        if (ClasesBD.ParcelaBD.sacarTipo(parcela) == 1) {
+                                            ClasesBD.EstadoBD.cargarEstadosA();
+                                            for (int i = 0; i < ClasesBD.EstadoBD.estadosASize(); i++) {
 
-                                            out.println("<option value=" + ClasesBD.EstadoBD.getId(i) + "> " + ClasesBD.EstadoBD.getNombre(i) + "</option>");
+                                                out.println("<option value=" + ClasesBD.EstadoBD.getIdA(i) + "> " + ClasesBD.EstadoBD.getNombreA(i) + "</option>");
+                                            }
 
+                                        } else if (ClasesBD.ParcelaBD.sacarTipo(parcela) == 2) {
+
+                                            ClasesBD.EstadoBD.cargarEstadosG();
+                                            for (int i = 0; i < ClasesBD.EstadoBD.estadosGSize(); i++) {
+
+                                                out.println("<option value=" + ClasesBD.EstadoBD.getIdG(i) + "> " + ClasesBD.EstadoBD.getNombreG(i) + "</option>");
+
+                                            }
                                         }
 
                                         out.println("</select></td>");
@@ -226,9 +237,12 @@
     </div>
 
     <% } else if (controladores.Toolbox.rol(user, pass) == 2) {
+
         int idparcela = Integer.parseInt(request.getParameter("idparcela"));
 
         session.setAttribute("parcela", idparcela);
+
+        
 
     %>
 
@@ -332,11 +346,21 @@
                                     out.println("<td> <select name='idestado'>");
 
                                     //CREAMOS UNA CONSULTA QUE SAQUE LOS ESTADOS COMO EN EL TIPO DE PARCELA
-                                    ClasesBD.EstadoBD.cargarEstados();
-                                    for (int i = 0; i < ClasesBD.EstadoBD.estadosSize(); i++) {
+                                    if (ClasesBD.ParcelaBD.sacarTipo(idparcela) == 1) {
+                                        ClasesBD.EstadoBD.cargarEstadosA();
+                                        for (int i = 0; i < ClasesBD.EstadoBD.estadosASize(); i++) {
 
-                                        out.println("<option value=" + ClasesBD.EstadoBD.getId(i) + "> " + ClasesBD.EstadoBD.getNombre(i) + "</option>");
+                                            out.println("<option value=" + ClasesBD.EstadoBD.getIdA(i) + "> " + ClasesBD.EstadoBD.getNombreA(i) + "</option>");
+                                        }
 
+                                    } else if (ClasesBD.ParcelaBD.sacarTipo(idparcela) == 2) {
+
+                                        ClasesBD.EstadoBD.cargarEstadosG();
+                                        for (int i = 0; i < ClasesBD.EstadoBD.estadosGSize(); i++) {
+
+                                            out.println("<option value=" + ClasesBD.EstadoBD.getIdG(i) + "> " + ClasesBD.EstadoBD.getNombreG(i) + "</option>");
+
+                                        }
                                     }
 
                                     out.println("</select></td>");
@@ -377,7 +401,7 @@
 
 
 <% }
-    } else {%>
+} else {%>
 
 <h1>NO TIENES ACCESO</h1>
 <a href="index.jsp">Inicio</a>
@@ -387,4 +411,4 @@
 
 </html>
 
-<% } %>
+<% }%>

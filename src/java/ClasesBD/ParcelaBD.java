@@ -47,7 +47,7 @@ public class ParcelaBD {
 
         while (rset.next()) {
 
-            Parcela p = new Parcela(rset.getInt("idparcela"), rset.getInt("hectareas"), rset.getInt("idpropietario"), rset.getInt("idestado"), rset.getInt("idtipoparcela"), rset.getInt("referencia"));
+            Parcela p = new Parcela(rset.getInt("idparcela"), rset.getInt("hectareas"), rset.getInt("idpropietario"), rset.getInt("idtipoparcela"), rset.getInt("referencia"));
             listaParcelas.add(p);
 
         }
@@ -58,12 +58,12 @@ public class ParcelaBD {
 
     }
 
-    public static void insertar(int hectareas, int idpropietario, int estado, int tipo, int referencia) throws ClassNotFoundException, InstantiationException, SQLException {
+    public static void insertar(int hectareas, int idpropietario, int tipo, int referencia) throws ClassNotFoundException, InstantiationException, SQLException {
 
         Connection conn = controladores.Toolbox.Conexion();
         Statement stmt = conn.createStatement();
 
-        String sqlStr = "insert into parcela(hectareas, idpropietario, idestado, idtipoparcela, referencia) values(" + hectareas + ", " + idpropietario + ", " + estado + ", " + tipo + ", " + referencia + ");";
+        String sqlStr = "insert into parcela(hectareas, idpropietario, idtipoparcela, referencia) values(" + hectareas + ", " + idpropietario + "," + tipo + ", " + referencia + ");";
         int state = stmt.executeUpdate(sqlStr);
 
         if (stmt != null) {
@@ -92,55 +92,7 @@ public class ParcelaBD {
 
     }
 
-    public static void modificar(int idparcela, int idestado) throws ClassNotFoundException, InstantiationException, SQLException {
 
-        java.sql.Connection conn = controladores.Toolbox.Conexion();
-        Statement stmt = conn.createStatement();
-        String sqlStr = "UPDATE `parcela` SET `idestado`=" + idestado + " WHERE idparcela = " + idparcela + ";";
-        int state = stmt.executeUpdate(sqlStr);
-
-        if (stmt != null) {
-            stmt.close();
-        }
-        if (conn != null) {
-            conn.close();
-        }
-
-    }
-
-    public static void borrarTrabajaParcela(int idparcela) throws ClassNotFoundException, InstantiationException, SQLException {
-
-        Connection conn = controladores.Toolbox.Conexion();
-        Statement stmt = conn.createStatement();
-
-        String sqlStr = "delete from trabaja where idparcela=" + idparcela + ";";
-        int state = stmt.executeUpdate(sqlStr);
-
-        if (stmt != null) {
-            stmt.close();
-        }
-        if (conn != null) {
-            conn.close();
-        }
-
-    }
-    
-    public static void borrarTrabajaJornalero(int idjornalero) throws ClassNotFoundException, InstantiationException, SQLException {
-
-        Connection conn = controladores.Toolbox.Conexion();
-        Statement stmt = conn.createStatement();
-
-        String sqlStr = "delete from trabaja where idjornalero=" + idjornalero + ";";
-        int state = stmt.executeUpdate(sqlStr);
-
-        if (stmt != null) {
-            stmt.close();
-        }
-        if (conn != null) {
-            conn.close();
-        }
-
-    }
 
     public static int buscarPorRef(int referencia) throws ClassNotFoundException, InstantiationException, SQLException {
 
@@ -159,6 +111,43 @@ public class ParcelaBD {
                 System.out.println(id);
             }
             sqlStr = "SELECT * FROM parcela WHERE referencia=" + referencia + ";";
+            rset = stmt.executeQuery(sqlStr);
+            while (rset.next()) {
+                validar = rset.getInt("idparcela");
+                System.out.println("ENTRA");
+            }
+
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("NO ENTRA");
+        }
+        return validar;
+
+    }
+    
+    public static int buscarPorProp(int idpropietario) throws ClassNotFoundException, InstantiationException, SQLException {
+
+        Connection conn = null;
+        com.mysql.jdbc.Statement stmt = null;
+        int validar = 0;
+        int id = 0;
+        try {
+            conn = Conexion();
+            stmt = (com.mysql.jdbc.Statement) conn.createStatement();
+            String sqlStr = "SELECT * FROM parcela WHERE idpropietario=" + idpropietario + ";";
+            ResultSet rset = stmt.executeQuery(sqlStr);
+
+            while (rset.next()) {
+                id = rset.getInt("idparcela");
+                System.out.println(id);
+            }
+            sqlStr = "SELECT * FROM parcela WHERE idpropietario=" + idpropietario + ";";
             rset = stmt.executeQuery(sqlStr);
             while (rset.next()) {
                 validar = rset.getInt("idparcela");
@@ -317,10 +306,6 @@ public class ParcelaBD {
 
     public static int getReferencia(int idparcela) {
         return listaParcelas.get(idparcela).getReferencia();
-    }
-
-    public static int getEstado(int idparcela) {
-        return listaParcelas.get(idparcela).getIdestado();
     }
 
     public static int getTipo(int idparcela) {

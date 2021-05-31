@@ -13,6 +13,7 @@
         <title>Menú</title>
          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
          <link rel="stylesheet" href="css/css.css">
+         <script src="js/validaciones.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -66,7 +67,7 @@
 
                     int idpropietario = ClasesBD.PropietarioBD.idProp(iduser);
                     
-                    ClasesBD.EstadoBD.cargarEstados();
+                    
                     ClasesBD.TipoBD.cargarTipos();
 
 
@@ -158,13 +159,12 @@
                                         <th>Hectareas</th>
                                         <th>Propietario</th>
                                         <th>Tipo de la parcela</th>
-                                        <th>Estado de la parcela</th>
                                         <th>Referencia</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><input type="text" name="hectareas"></td>
+                                        <td><input type="text" name="hectareas" id="hectareas"></td>
                                         <td>
                                             <p>
 
@@ -195,20 +195,9 @@
                                             </select>
                                         </td>
 
+                                      
                                         <td>
-                                            <select name="idestado">
-                                                <%                                                    //CERRAMOS LA CONSULTA ANTERIOR
-                                                    //CREAMOS UNA CONSULTA QUE SAQUE LOS ESTADOS COMO EN EL TIPO DE PARCELA
-                                                  for (int i = 0; i < ClasesBD.EstadoBD.estadosSize(); i++) {
-
-                                                        out.println("<option value=" + ClasesBD.EstadoBD.getId(i) + "> " + ClasesBD.EstadoBD.getNombre(i) + "</option>");
-
-                                                    }
-                                                %>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <input type="text" name="referencia">
+                                            <input type="text" name="referencia" id="referencia">
                                         </td>
                                     </tr>
                                 </tbody>
@@ -221,11 +210,11 @@
                                  align-content: center;
                                  flex-wrap: wrap;
                                  width: 100%;">
-                                <input type="submit" name="enviar" value="Aceptar e insertar" class="boton">
+                                <div id="insertarparcela"><input type="submit" name="enviar" value="Aceptar e insertar" class="boton" id="insertarparcela"></div>
 
                             </div>
                         </form>
-
+                                            
                         <form action="controlador" method="post">
 
                             <input type="hidden" value="menu" name="todo">

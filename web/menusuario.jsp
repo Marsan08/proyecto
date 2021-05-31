@@ -185,6 +185,12 @@
                                 <input type="submit" value="Insertar otro usuario" class="boton">
 
                             </form>
+                            
+                            <form action='controlador' method='post'>
+                                <input type='hidden' value='modificarusuario' name='todo'>
+                                <input type='hidden' name='idusuario' value="<%=idusuario%>">
+                                <input type='submit' name='modificarusuario' value='Modificar mi contraseña' class='boton'>
+                            </form>
 
                             <form action="controlador" method="post">
 
@@ -193,12 +199,16 @@
 
 
                             </form>
+                            
+                            <form action="controlador" method="post">
 
-                            <form action='controlador' method='post'>
-                                <input type='hidden' value='modificarusuario' name='todo'>
-                                <input type='hidden' name='idusuario' value="<%=idusuario%>">
-                                <input type='submit' name='modificarusuario' value='Modificar mi contraseña' class='boton'>
+                                <input type="hidden" value="desasignarparcela" name="todo"/>
+                                <input type="submit" value="Desasignar parcela a jornalero" class="boton">
+
+
                             </form>
+
+                            
 
                         </div>
 

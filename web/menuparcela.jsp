@@ -163,13 +163,33 @@
    
                     for (int i = 0; i < ClasesBD.PropietarioBD.parcelasSize(); i++){
                         out.println("<tr>");
+                        //out.println( ClasesBD.PropietarioBD.getId(i));
                         out.println("<td>" + ClasesBD.PropietarioBD.getId(i) + "</td>");
                         out.println("<td>" + ClasesBD.PropietarioBD.getHectareas(i) + "</td>");
                         out.println("<td>" + user + "</td>");
-                        out.println("<td>" + ClasesBD.EstadoBD.sacarNombre(ClasesBD.PropietarioBD.getEstado(i)) + "</td>");
+                        
+                        if(ClasesBD.PropietarioBD.getTipo(i) == 1){
+                        
+                        int idparcela = ClasesBD.PropietarioBD.getId(i);
+                            
+                        int idpagricola = ClasesBD.PAgricolaBD.buscarAgricola(idparcela);
+                        
+                        out.println("<td>" + ClasesBD.EstadoBD.sacarNombreA(ClasesBD.PAgricolaBD.sacarIdestado(idpagricola)) + "</td>");
+                        
+                        }else {
+                        
+                        int idparcela = ClasesBD.PropietarioBD.getId(i);
+                            
+                        int idpganadera = ClasesBD.PGanaderaBD.buscarGanadera(idparcela);
+                        
+                        out.println("<td>" + ClasesBD.EstadoBD.sacarNombreG(ClasesBD.PGanaderaBD.sacarIdestado(idpganadera)) + "</td>");
+                        
+                        }
+                        
+                        
                         out.println("<td>" + ClasesBD.TipoBD.getNombre(ClasesBD.PropietarioBD.getTipo(i)) + "</td>");
                         out.println("<td>" + ClasesBD.PropietarioBD.getReferencia(i) + "</td>");
-                        int idparcela = ClasesBD.PropietarioBD.getId(i);
+                       //int idparcela = ClasesBD.ParcelaBD.ClasesBD.PropietarioBD.getId(i);
                         
                         out.println("<td><form action='controlador' method='post'><input type='hidden' value='modificarparcela' name='todo'><input type='hidden' value="+ ClasesBD.PropietarioBD.getId(i) +" name='idparcela'><input type='submit' value='Modificar' class='boton'> </form> </td>");
                         out.println("<td><form action='controlador' method='post'><input type='hidden' value='ejecutarbparcela' name='todo'><input type='hidden' value=" + ClasesBD.PropietarioBD.getId(i) +" name='idparcela'><input type='submit' value='Borrar' class='boton'></form></td>");
@@ -322,7 +342,24 @@
                         out.println("<td>" + ClasesBD.JornaleroBD.getId(i) + "</td>");
                         out.println("<td>" + ClasesBD.JornaleroBD.getHectareas(i) + "</td>");
                         out.println("<td>" + ClasesBD.PropietarioBD.nombreProp(ClasesBD.JornaleroBD.getId(i))+ "</td>");
-                        out.println("<td>" + ClasesBD.EstadoBD.sacarNombre(ClasesBD.JornaleroBD.getEstado(i)) + "</td>");
+                        
+                         if(ClasesBD.JornaleroBD.getTipo(i) == 1){
+                        
+                        int idparcela = ClasesBD.JornaleroBD.getId(i);
+                            
+                        int idpagricola = ClasesBD.PAgricolaBD.buscarAgricola(idparcela);
+                        
+                        out.println("<td>" + ClasesBD.EstadoBD.sacarNombreA(ClasesBD.PAgricolaBD.sacarIdestado(idpagricola)) + "</td>");
+                        
+                        }else if(ClasesBD.JornaleroBD.getTipo(i) == 2){
+                        
+                        int idparcela = ClasesBD.JornaleroBD.getId(i);
+                            
+                        int idpagricola = ClasesBD.PGanaderaBD.buscarGanadera(idparcela);
+                        
+                        out.println("<td>" + ClasesBD.EstadoBD.sacarNombreG(ClasesBD.PAgricolaBD.sacarIdestado(idpagricola)) + "</td>");
+                        
+                        }
                         out.println("<td>" + ClasesBD.TipoBD.getNombre(ClasesBD.JornaleroBD.getTipo(i)) + "</td>");
                         out.println("<td>" + ClasesBD.JornaleroBD.getReferencia(i) + "</td>");
                         out.println("<td><form action='controlador' method='post'><input type='hidden' value='modificarparcela' name='todo'><input type='hidden' value="+ ClasesBD.JornaleroBD.getId(i) +" name='idparcela'><input type='submit' value='Modificar' class='boton'> </form> </td>");

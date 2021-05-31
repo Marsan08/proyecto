@@ -47,7 +47,7 @@ public class JornaleroBD {
 
         while (rset.next()) {
 
-            Parcela p = new Parcela(rset.getInt("idparcela"), rset.getInt("hectareas"), rset.getInt("idpropietario"), rset.getInt("idestado"), rset.getInt("idtipoparcela"), rset.getInt("referencia"));
+            Parcela p = new Parcela(rset.getInt("idparcela"), rset.getInt("hectareas"), rset.getInt("idpropietario"), rset.getInt("idtipoparcela"), rset.getInt("referencia"));
             listaParcelas.add(p);
 
         }
@@ -97,7 +97,7 @@ public class JornaleroBD {
 
         while (rset.next()) {
 
-            PAgricola p = new PAgricola(rset.getInt("idpagricola"), rset.getInt("idparcela"));
+            PAgricola p = new PAgricola(rset.getInt("idpagricola"), rset.getInt("idparcela"), rset.getInt("idestado"));
             listaPagricola.add(p);
 
         }
@@ -122,7 +122,7 @@ public class JornaleroBD {
 
         while (rset.next()) {
 
-            PGanadera p = new PGanadera(rset.getInt("idpganadera"), rset.getInt("idparcela"));
+            PGanadera p = new PGanadera(rset.getInt("idpganadera"), rset.getInt("idparcela"), rset.getInt("idestado"));
             listaPganadera.add(p);
 
         }
@@ -327,6 +327,43 @@ public class JornaleroBD {
         return validar;
 
     }
+    
+    
+     public static int getPropietarioParcela(int idparcela) throws ClassNotFoundException, InstantiationException, SQLException {
+        Connection conn = null;
+        com.mysql.jdbc.Statement stmt = null;
+        int validar = 0;
+        int id = 0;
+        try {
+            conn = Conexion();
+            stmt = (com.mysql.jdbc.Statement) conn.createStatement();
+            String sqlStr = "SELECT * FROM parcela WHERE idparcela=" + idparcela + ";";
+            ResultSet rset = stmt.executeQuery(sqlStr);
+
+            while (rset.next()) {
+                id = rset.getInt("idpropietario");
+                System.out.println(id);
+            }
+            sqlStr = "SELECT * FROM parcela WHERE idparcela=" + idparcela + ";";
+            rset = stmt.executeQuery(sqlStr);
+            while (rset.next()) {
+                validar = rset.getInt("idpropietario");
+                System.out.println("ENTRA");
+            }
+
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("NO ENTRA");
+        }
+        return validar;
+    }
+
 
     public static int parcelasSize() {
 
@@ -369,6 +406,13 @@ public class JornaleroBD {
         return listaAnimal.get(idanimal).getIdparcela();
     }
     
+    public static int idestadoa(int idpagricola){
+        return listaPagricola.get(idpagricola).getIdestado();
+    }
+    
+    public static int idestadog(int idpganadera){
+        return listaPganadera.get(idpganadera).getIdestado();
+    }
     
      public static int idplantacion(int idplantacion) {
         return listaPlantacion.get(idplantacion).getIdplantacion();
@@ -427,47 +471,9 @@ public class JornaleroBD {
         return listaParcelas.get(idparcela).getHectareas();
     }
 
-    public static int getPropietarioParcela(int idparcela) throws ClassNotFoundException, InstantiationException, SQLException {
-        Connection conn = null;
-        com.mysql.jdbc.Statement stmt = null;
-        int validar = 0;
-        int id = 0;
-        try {
-            conn = Conexion();
-            stmt = (com.mysql.jdbc.Statement) conn.createStatement();
-            String sqlStr = "SELECT * FROM parcela WHERE idparcela=" + idparcela + ";";
-            ResultSet rset = stmt.executeQuery(sqlStr);
-
-            while (rset.next()) {
-                id = rset.getInt("idpropietario");
-                System.out.println(id);
-            }
-            sqlStr = "SELECT * FROM parcela WHERE idparcela=" + idparcela + ";";
-            rset = stmt.executeQuery(sqlStr);
-            while (rset.next()) {
-                validar = rset.getInt("idpropietario");
-                System.out.println("ENTRA");
-            }
-
-            if (stmt != null) {
-                stmt.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            System.out.println("NO ENTRA");
-        }
-        return validar;
-    }
-
+   
     public static int getReferencia(int idparcela) {
         return listaParcelas.get(idparcela).getReferencia();
-    }
-
-    public static int getEstado(int idparcela) {
-        return listaParcelas.get(idparcela).getIdestado();
     }
 
     public static int getTipo(int idparcela) {

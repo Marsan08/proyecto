@@ -69,7 +69,7 @@ public class controlador extends HttpServlet {
 
                     //Se capturan los parametros user y pass (usuario y contraseña) que ha metido el usuario en el login
                     String user = request.getParameter("user");
-                    String pass = request.getParameter("pass");
+                    String pass = controladores.Toolbox.encriptaContrasena(request.getParameter("pass"));
 
                     //Estas variables se pasan por la funcion de validacion y si valida (si devuelve true) se crean variables de sesion con los datos del usuario (user y pass)
                     if (controladores.Toolbox.validacion(user, pass)) {
@@ -94,11 +94,11 @@ public class controlador extends HttpServlet {
                     String user = (String) session.getAttribute("usuario");
                     int iduser = ClasesBD.UsuarioBD.idUser(user);
                     int idpropietario = ClasesBD.PropietarioBD.idProp(iduser);
-                    int idestado = Integer.parseInt(request.getParameter("idestado"));
+                
                     int idtipoparcela = Integer.parseInt(request.getParameter("idtipoparcela"));
                     int referencia = Integer.parseInt(request.getParameter("referencia"));
 
-                    ClasesBD.ParcelaBD.insertar(hectareas, idpropietario, idestado, idtipoparcela, referencia);
+                    ClasesBD.ParcelaBD.insertar(hectareas, idpropietario, idtipoparcela, referencia);
 
                     //metodo creado en el Toolbox que devuelve el id de la parcela cuando le pasamos su referencia
                     int idparcela = ClasesBD.ParcelaBD.buscarPorRef(referencia);
@@ -108,12 +108,12 @@ public class controlador extends HttpServlet {
                     //SI EL TIPO DE PARCELA ES 1 POR TANTO ES AGRICOLA Y SE AÑADE EN PAGRICOLA
                     if (idtipoparcela == 1) {
 
-                        ClasesBD.PAgricolaBD.insertarAgricola(idparcela, referencia);
+                        ClasesBD.PAgricolaBD.insertarAgricola(idparcela);
 
                         //SI EL TIPO DE PARCELA ES 2 ES GANADERA Y POR TANTO SE AÑADE A PGANADERA
                     } else if (idtipoparcela == 2) {
 
-                        ClasesBD.PGanaderaBD.insertarGanadera(idparcela, referencia);
+                        ClasesBD.PGanaderaBD.insertarGanadera(idparcela);
                     }
 
                     //SE VUELVE AL MENUPARCELAS
@@ -246,11 +246,13 @@ public class controlador extends HttpServlet {
 
                     //Se capturan los valores que se van a introducir para dar de alta el animal
                     char sexo = request.getParameter("sexo").charAt(0);
+                    out.println(sexo);
                     int idespecie = Integer.parseInt(request.getParameter("idespecie"));
                     int idparcela = Integer.parseInt(request.getParameter("idparcela"));
+                    int crotal = Integer.parseInt(request.getParameter("crotal"));
 
                     //Se llama a la funcion en la que esta la consulta insert
-                    ClasesBD.AnimalBD.insertAnimal(sexo, idespecie, idparcela);
+                    ClasesBD.AnimalBD.insertAnimal(sexo, idespecie, idparcela, crotal);
 
                     //VUELVE A MENUANIMAL
                     estado = "gestionanimal";
@@ -285,7 +287,7 @@ public class controlador extends HttpServlet {
                 } else if (estado.equals("ejecutarbusuario")) {
 
                     int idusuario = Integer.parseInt(request.getParameter("idusuario"));
-                    
+
                     //BORRAR DE LA TABLA TRABAJA SI ESTA EL JORNALERO
                     try {
 
@@ -296,7 +298,7 @@ public class controlador extends HttpServlet {
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
-                    
+
                     //BORRAR EL JORNALERO
                     try {
                         ClasesBD.UsuarioBD.borrarJornalero(idusuario);
@@ -304,7 +306,7 @@ public class controlador extends HttpServlet {
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
-                    
+
                     //BORRAR LOS ANIMALES POR 
                     try {
 
@@ -360,13 +362,24 @@ public class controlador extends HttpServlet {
                     //MODIFICAR PARCELA
                 } else if (estado.equals("ejecutarUpdateParcela")) {
 
+                     
+
                     int idestado = Integer.parseInt(request.getParameter("idestado"));
                     int idparcela = (Integer) session.getAttribute("parcela");
+                    int tipo = ClasesBD.ParcelaBD.sacarTipo(idparcela);
 
-                    ClasesBD.ParcelaBD.modificar(idparcela, idestado);
+                    if(tipo == 1){
 
+                    ClasesBD.PAgricolaBD.modificarA(idparcela, idestado);
+
+                    } else if(tipo == 2){
+
+                    ClasesBD.PGanaderaBD.modificarG(idparcela, idestado);
+
+                    }
                     //VUELVE A MENUPARCELAS
                     estado = "gestionparcelas";
+                    
                 } else if (estado.equals("ejecutarUpdatePlantacion")) {
 
                     Date fecha = Date.valueOf(request.getParameter("frecogida"));
@@ -377,11 +390,23 @@ public class controlador extends HttpServlet {
                     //VUELVE A MENUPARCELAS
                     estado = "gestionplantaciones";
                 } else if (estado.equals("ejecutarUpdateusuario")) {
-                    String pass = request.getParameter("pass");
+                    String pass = controladores.Toolbox.encriptaContrasena(request.getParameter("pass"));
                     out.println(pass);
                     int idusuario = (Integer) session.getAttribute("iduser");
 
                     ClasesBD.UsuarioBD.modificarContra(idusuario, pass);
+
+                    estado = "gestionusuarios";
+
+                }else if (estado.equals("ejecutarUpdatedatos")) {
+                    
+                    
+                    int idusuario = (Integer) session.getAttribute("iduser");
+                    String nombre =  request.getParameter("nombre");
+                    String email = request.getParameter("email");
+                    int telefono = Integer.parseInt(request.getParameter("tln"));
+
+                    ClasesBD.UsuarioBD.modificarDatos(idusuario, nombre, email, telefono);
 
                     estado = "gestionusuarios";
 
@@ -392,11 +417,24 @@ public class controlador extends HttpServlet {
                     ClasesBD.PropietarioBD.asiganarJornalero(idjornalero, idparcela);
 
                     estado = "gestionusuarios";
+                    
+                    
+                } else if(estado.equals("desasignajornalero")){
+                    
+                    int idtrabaja = Integer.parseInt(request.getParameter("idtrabaja"));
+                    
+                    ClasesBD.TrabajaBD.borrarTrabaja(idtrabaja);
+                    
+                    estado = "desasignarparcela";
 
-                } else if (estado.equals("cerrar")) {
+                } else if (estado.equals("Cerrar")) {
                     session.invalidate();
                     session = request.getSession(true);
                     estado = null;
+                    session.setAttribute("estado", "autenticado");
+                    session.setAttribute("usuarioValido", false);
+                    session.setAttribute("usuario", null);
+                    session.setAttribute("contra", null);
                 }
             }
 

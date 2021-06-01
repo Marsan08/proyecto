@@ -1,6 +1,6 @@
 <%@page import="java.sql.*" %>  
 <%-- 
-    Document   : menuespecies
+    Document   : asignar parcela a jornalero
     Created on : 14/05/2021
     Author     : Mar
 --%>
@@ -15,7 +15,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Menú</title>
+        <title>Asignar parcela</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="css/css.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -69,17 +69,28 @@
         <nav class="navbar navbar-inverse navbar-fixed-top" >
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Bienvenido <%=user%></a>
+                    <a class="navbar-brand" href="menu.jsp">Bienvenido <%=user%></a>
                 </div>
                 <ul class="nav navbar-nav">
                     <li><a href="menu.jsp">Inicio</a></li>
                     <li><a href="menuparcela.jsp">Parcelas</a></li>
-                    <li><a href="menuespecies.jsp">Especies</a></li>
+                    <li><a href="menuespecie.jsp">Especies</a></li>
                     <li><a href="menuanimales.jsp">Animales</a></li>
                     <li><a href="menuplantaciones.jsp">Plantaciones</a></li>
-                    <li class="active"><a href="menusuario.jsp">Usuarios</a></li>
+                    <li ><a href="menusuario.jsp">Usuarios</a></li>
+                    <li class="active"><a href="menutrabaja.jsp">Asignar</a></li>
                 </ul>
-                <ul
+                 <ul class="salir" style="float: right; margin: 10px; ">
+                    <li><form method="post" action="controlador"><input type="submit" name="todo" value="Cerrar" class="salir" style="-webkit-border-radius:20px;
+                                                                        -webkit-border-radius: 20px;
+                                                                        -moz-border-radius: 20px;
+                                                                        color: #FFFFFF;
+                                                                        padding: 10px;
+                                                                        border-style-hover: solid;
+                                                                        border-width-hover: 1;
+                                                                        background-color: #e67e7e;
+                                                                        border: none;"></li></form>
+                </ul>
         </div>
     </nav>
 
@@ -210,20 +221,20 @@
 
                                         </tbody>
                                     </table>
-                                            
+
                                 </div>
                             </div>
-                                            <div class="insermenu" style="    display: flex;
+                            <div class="insermenu" style="    display: flex;
                                  justify-content: center;
                                  align-items: center;
                                  flex-direction: row;
                                  align-content: center;
                                  flex-wrap: wrap;
                                  width: 100%;">
-                                            
-                                    <input type="submit" name="enviar" value="Aceptar y asignar" class="boton">
 
-                                            </div>
+                                <input type="submit" name="enviar" value="Aceptar y asignar" class="boton">
+
+                            </div>
                         </form>
 
                         <form action="controlador" method="post">
@@ -238,14 +249,27 @@
 
     </div>
 
+    
+    <footer style="color: black;
+    margin: 50px;
+    background-color: rgba(255, 255, 255, 0.65);
+    width: 50%;
+    height: 5%;
+    font-size: small;">
+            <p class="pull-right"><a href="#">Arriba</a></p>
+            <p>  Gestiona tu parcela es una página creada para ayudar a la gestión de las parcelas agricoganaderas. </p>
+        </footer>
 
-    <% }
-    } else { %>
 
 
+    <% } else { %>
 
-    <h1>El usuario no es valido.</h1>
-    <a href="index.jsp">Inicio</a>
+    <META HTTP-EQUIV="REFRESH" CONTENT="1;error.jsp">
+
+ <% }} else { %>
+
+
+<META HTTP-EQUIV="REFRESH" CONTENT="1;error.jsp">
 
 </body>
 

@@ -1,7 +1,7 @@
 <%-- 
-    Document   : modificaparcela
+    Document   : modifica plantacion
     Created on : 09-may-2021, 22:31:31
-    Author     : Luis
+    Author     : Mar
 --%>
 
 <%@page import="java.sql.Date"%>
@@ -24,7 +24,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Menú</title>
+        <title>Modificar plantación</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="css/css.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -78,17 +78,28 @@
         <nav class="navbar navbar-inverse navbar-fixed-top" >
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Bienvenido <%=user%></a>
+                    <a class="navbar-brand" href="menu.jsp">Bienvenido <%=user%></a>
                 </div>
                 <ul class="nav navbar-nav">
                     <li><a href="menu.jsp">Inicio</a></li>
-                    <li class="active"><a href="menuparcela.jsp">Parcelas</a></li>
-                    <li><a href="menuespecies.jsp">Especies</a></li>
+                    <li><a href="menuparcela.jsp">Parcelas</a></li>
+                    <li><a href="menuespecie.jsp">Especies</a></li>
                     <li><a href="menuanimales.jsp">Animales</a></li>
-                    <li><a href="menuplantaciones.jsp">Plantaciones</a></li>
+                    <li class="active"><a href="menuplantaciones.jsp">Plantaciones</a></li>
                     <li><a href="menusuario.jsp">Usuarios</a></li>
+                    <li><a href="menutrabaja.jsp">Asignar</a></li>
                 </ul>
-                <ul
+                 <ul class="salir" style="float: right; margin: 10px; ">
+                    <li><form method="post" action="controlador"><input type="submit" name="todo" value="Cerrar" class="salir" style="-webkit-border-radius:20px;
+                                                                        -webkit-border-radius: 20px;
+                                                                        -moz-border-radius: 20px;
+                                                                        color: #FFFFFF;
+                                                                        padding: 10px;
+                                                                        border-style-hover: solid;
+                                                                        border-width-hover: 1;
+                                                                        background-color: #e67e7e;
+                                                                        border: none;"></li></form>
+                </ul>
         </div>
     </nav>
 
@@ -147,7 +158,7 @@
 
                 <div class="centrar">
                     <div class="centrartabla">
-                        <form action="controlador" method="POST">
+                        <form action="controlador" method="POST" id="modificarplantacion">
                             <input type="hidden" name="todo" value="ejecutarUpdatePlantacion">
                             <h1 style="margin-top: 70px;">Modificar esta parcela</h1>
                             <br>
@@ -167,8 +178,8 @@
 
                                     <%
                                         out.println("<tr>");
-                                        out.println("<td>" + ClasesBD.PlantacionBD.sacarFPlantacion(idplantacion) + "</td>");
-                                        out.println("<td><input type='date' name='frecogida' value=" +  ClasesBD.PlantacionBD.sacarFRecogida(idplantacion) +  "></td>");
+                                        out.println("<td id='fplantacion' value=" + ClasesBD.PlantacionBD.sacarFPlantacion(idplantacion) + ">" + ClasesBD.PlantacionBD.sacarFPlantacion(idplantacion) + "</td>");
+                                        out.println("<td><input type='date' name='frecogida' value=" + ClasesBD.PlantacionBD.sacarFRecogida(idplantacion) + " id='frecogida'></td>");
                                         out.println("<td>" + ClasesBD.EAgricolaBD.getIdnombre(ClasesBD.PlantacionBD.sacarEspecie(idplantacion)) + "</td>");
 
                                         int idparcela = ClasesBD.PAgricolaBD.sacarIdparcela(ClasesBD.PlantacionBD.sacarAgricola(idplantacion));
@@ -185,7 +196,7 @@
                                  align-content: center;
                                  flex-wrap: wrap;
                                  width: 100%;">
-                                <input type="submit" name="enviar" value="Aceptar y cambiar" class="boton">
+                                <div id="divmplantacion"><input type="submit" name="enviar" value="Aceptar y cambiar" class="boton"></div>
                             </div>
                         </form>
 
@@ -201,6 +212,16 @@
             </div>
         </div>
     </div>
+
+       <footer style="color: black;
+    margin: 50px;
+    background-color: rgba(255, 255, 255, 0.65);
+    width: 50%;
+    height: 5%;
+    font-size: small;">
+            <p class="pull-right"><a href="#">Arriba</a></p>
+            <p>  Gestiona tu parcela es una página creada para ayudar a la gestión de las parcelas agricoganaderas. </p>
+        </footer>
 
     <% } else if (controladores.Toolbox.rol(user, pass) == 2) {
 
@@ -222,7 +243,17 @@
                 <li><a href="menuplantaciones.jsp">Plantaciones</a></li>
 
             </ul>
-            <ul
+             <ul class="salir" style="float: right; margin: 10px; ">
+                    <li><form method="post" action="controlador"><input type="submit" name="todo" value="Cerrar" class="salir" style="-webkit-border-radius:20px;
+                                                                        -webkit-border-radius: 20px;
+                                                                        -moz-border-radius: 20px;
+                                                                        color: #FFFFFF;
+                                                                        padding: 10px;
+                                                                        border-style-hover: solid;
+                                                                        border-width-hover: 1;
+                                                                        background-color: #e67e7e;
+                                                                        border: none;"></li></form>
+                </ul>
     </div>
 </nav>
 
@@ -301,8 +332,8 @@
 
                                 <%
                                     out.println("<tr>");
-                                    out.println("<td>" + ClasesBD.PlantacionBD.sacarFPlantacion(idplantacion) + "</td>");
-                                    out.println("<td><input type='date' name='frecogida' value=" +  ClasesBD.PlantacionBD.sacarFRecogida(idplantacion) +  "></td>");
+                                    out.println("<td id='fplantacion' value=" + ClasesBD.PlantacionBD.sacarFPlantacion(idplantacion) + ">" + ClasesBD.PlantacionBD.sacarFPlantacion(idplantacion) + "</td>");
+                                    out.println("<td><input type='date' name='frecogida' value=" + ClasesBD.PlantacionBD.sacarFRecogida(idplantacion) + " id='frecogida'></td>");
                                     out.println("<td>" + ClasesBD.EAgricolaBD.getIdnombre(ClasesBD.PlantacionBD.sacarEspecie(idplantacion)) + "</td>");
 
                                     int idparcela = ClasesBD.PAgricolaBD.sacarIdparcela(ClasesBD.PlantacionBD.sacarAgricola(idplantacion));
@@ -336,21 +367,33 @@
     </div>
 </div>
 
-<% }
-%>
+   
+    <footer style="color: black;
+    margin: 50px;
+    background-color: rgba(255, 255, 255, 0.65);
+    width: 50%;
+    height: 5%;
+    font-size: small;">
+            <p class="pull-right"><a href="#">Arriba</a></p>
+            <p>  Gestiona tu parcela es una página creada para ayudar a la gestión de las parcelas agricoganaderas. </p>
+        </footer>
+<% } else{ %>
 
-</body>
 
-</html>
-
-<%
-            } else { %>
+<META HTTP-EQUIV="REFRESH" CONTENT="1;error.jsp">
 
 
-<h1>NO TIENES ACCESO</h1>
-<a href="index.jsp">Inicio</a>
+<% }} else { %>
+
+
+<META HTTP-EQUIV="REFRESH" CONTENT="1;error.jsp">
 
 
 
 <% }%>
 
+<script type="module" src="js/validarModificarPlantacion.js"></script>
+
+</body>
+
+</html>

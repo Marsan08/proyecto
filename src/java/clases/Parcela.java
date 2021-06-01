@@ -17,8 +17,6 @@ public class Parcela {
     
     private int idpropietario;
     
-    private int idestado;
-    
     private int idtipoparcela;
     
     private int referencia;
@@ -31,11 +29,10 @@ public class Parcela {
         this.idparcela = idparcela;
     }
 
-    public Parcela(int idparcela, int hectareas, int idpropietario, int idestado, int idtipoparcela, int referencia) {
+    public Parcela(int idparcela, int hectareas, int idpropietario, int idtipoparcela, int referencia) {
         this.idparcela = idparcela;
         this.hectareas = hectareas;
         this.idpropietario = idpropietario;
-        this.idestado = idestado;
         this.idtipoparcela = idtipoparcela;
         this.referencia = referencia;
     }
@@ -59,13 +56,7 @@ public class Parcela {
         this.idpropietario = idpropietario;
     }
 
-    public int getIdestado() {
-        return idestado;
-    }
-
-    public void setIdestado(int idestado) {
-        this.idestado = idestado;
-    }
+  
 
     public int getIdtipoparcela() {
         return idtipoparcela;

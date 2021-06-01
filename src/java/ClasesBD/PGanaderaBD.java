@@ -37,7 +37,7 @@ public class PGanaderaBD {
 
         while (rset.next()) {
 
-            PGanadera p = new PGanadera(rset.getInt("idparcela"), rset.getInt("hectareas"));
+            PGanadera p = new PGanadera(rset.getInt("idpganadera"), rset.getInt("idparcela"), rset.getInt("idestado"));
             listaGanadera.add(p);
 
         }
@@ -49,12 +49,12 @@ public class PGanaderaBD {
     }
     
     
-    public static void insertarGanadera(int idparcela, int referencia) throws ClassNotFoundException, InstantiationException, SQLException {
+    public static void insertarGanadera(int idparcela) throws ClassNotFoundException, InstantiationException, SQLException {
 
         Connection conn = controladores.Toolbox.Conexion();
         Statement stmt = conn.createStatement();
 
-        String sqlStr = "insert into pganadera(idparcela, referencia) values(" + idparcela + ", " + referencia + ");";
+        String sqlStr = "insert into pganadera(idparcela) values(" + idparcela + ");";
         int state = stmt.executeUpdate(sqlStr);
 
         if (stmt != null) {
@@ -157,6 +157,78 @@ public class PGanaderaBD {
         return validar;
 
     }
+     
+     public static int sacarIdestado(int idpganadera) throws ClassNotFoundException, InstantiationException, SQLException {
+
+        Connection conn = null;
+        com.mysql.jdbc.Statement stmt = null;
+        int validar = 0;
+
+        try {
+            conn = Conexion();
+            stmt = (com.mysql.jdbc.Statement) conn.createStatement();
+            String sqlStr = "SELECT * FROM pganadera WHERE idpganadera=" + idpganadera + ";";
+            ResultSet rset = stmt.executeQuery(sqlStr);
+
+            while (rset.next()) {
+                validar = rset.getInt("idestado");
+                System.out.println(validar);
+            }
+            sqlStr = "SELECT * FROM pganadera WHERE idpganadera=" + idpganadera + ";";
+            rset = stmt.executeQuery(sqlStr);
+            while (rset.next()) {
+                validar = rset.getInt("idestado");
+                System.out.println("ENTRA");
+            }
+
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("NO ENTRA");
+        }
+        return validar;
+
+    }
+     
+      public static void modificarG(int idparcela, int idestado) throws ClassNotFoundException, InstantiationException, SQLException {
+
+        java.sql.Connection conn = controladores.Toolbox.Conexion();
+        Statement stmt = conn.createStatement();
+        String sqlStr = "UPDATE `pganadera` SET `idestado`=" + idestado + " WHERE idparcela = " + idparcela + ";";
+        int state = stmt.executeUpdate(sqlStr);
+
+        if (stmt != null) {
+            stmt.close();
+        }
+        if (conn != null) {
+            conn.close();
+        }
+           
+    }
+    
+    
+    public static void insertarGanadera(int idparcela, int referencia) throws ClassNotFoundException, InstantiationException, SQLException {
+
+        Connection conn = controladores.Toolbox.Conexion();
+        Statement stmt = conn.createStatement();
+
+        String sqlStr = "insert into pganadera(idparcela, referencia) values(" + idparcela + ", " + referencia + ");";
+        int state = stmt.executeUpdate(sqlStr);
+
+        if (stmt != null) {
+            stmt.close();
+        }
+        if (conn != null) {
+            conn.close();
+        }
+
+    }
+    
      
      public static void ganaderaSize(){
          listaGanadera.size();

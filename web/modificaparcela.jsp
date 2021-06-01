@@ -1,7 +1,7 @@
 <%-- 
-    Document   : modificaparcela
+    Document   : modificar parcela
     Created on : 09-may-2021, 22:31:31
-    Author     : Luis
+    Author     : Mar
 --%>
 
 <%@page import="java.util.Iterator"%>
@@ -94,12 +94,23 @@
                 <ul class="nav navbar-nav">
                     <li><a href="menu.jsp">Inicio</a></li>
                     <li class="active"><a href="menuparcela.jsp">Parcelas</a></li>
-                    <li><a href="menuespecies.jsp">Especies</a></li>
+                    <li><a href="menuespecie.jsp">Especies</a></li>
                     <li><a href="menuanimales.jsp">Animales</a></li>
                     <li><a href="menuplantaciones.jsp">Plantaciones</a></li>
                     <li><a href="menusuario.jsp">Usuarios</a></li>
+                    <li><a href="menutrabaja.jsp">Asignar</a></li>
                 </ul>
-                <ul
+                 <ul class="salir" style="float: right; margin: 10px; ">
+                    <li><form method="post" action="controlador"><input type="submit" name="todo" value="Cerrar" class="salir" style="-webkit-border-radius:20px;
+                                                                        -webkit-border-radius: 20px;
+                                                                        -moz-border-radius: 20px;
+                                                                        color: #FFFFFF;
+                                                                        padding: 10px;
+                                                                        border-style-hover: solid;
+                                                                        border-width-hover: 1;
+                                                                        background-color: #e67e7e;
+                                                                        border: none;"></li></form>
+                </ul>
         </div>
     </nav>
 
@@ -187,13 +198,20 @@
 
                                         out.println("<td> <select name='idestado'>");
 
-                                        //CREAMOS UNA CONSULTA QUE SAQUE LOS ESTADOS COMO EN EL TIPO DE PARCELA
-                                        ClasesBD.EstadoBD.cargarEstados();
-                                        for (int i = 0; i < ClasesBD.EstadoBD.estadosSize(); i++) {
-
-                                            out.println("<option value=" + ClasesBD.EstadoBD.getId(i) + "> " + ClasesBD.EstadoBD.getNombre(i) + "</option>");
-
+                                          //CREAMOS UNA CONSULTA QUE SAQUE LOS ESTADOS COMO EN EL TIPO DE PARCELA
+                                        if (ClasesBD.ParcelaBD.sacarTipo(parcela) == 1) {
+                                            ClasesBD.EstadoBD.cargarEstadosA();
+                                            for (int i = 0; i < ClasesBD.EstadoBD.estadosASize(); i++) {
+                                                out.println("<option value=" + ClasesBD.EstadoBD.getIdA(i) + "> " + ClasesBD.EstadoBD.getNombreA(i) + "</option>");
+                                            }
+                                        } else if (ClasesBD.ParcelaBD.sacarTipo(parcela) == 2) {
+                                            ClasesBD.EstadoBD.cargarEstadosG();
+                                            for (int i = 0; i < ClasesBD.EstadoBD.estadosGSize(); i++) {
+                                                out.println("<option value=" + ClasesBD.EstadoBD.getIdG(i) + "> " + ClasesBD.EstadoBD.getNombreG(i) + "</option>");
+                                            }
                                         }
+                                        
+                                        
 
                                         out.println("</select></td>");
                                         out.println("</tr>");
@@ -225,6 +243,16 @@
         </div>
     </div>
 
+       <footer style="color: black;
+    margin: 50px;
+    background-color: rgba(255, 255, 255, 0.65);
+    width: 50%;
+    height: 5%;
+    font-size: small;">
+            <p class="pull-right"><a href="#">Arriba</a></p>
+            <p>  Gestiona tu parcela es una página creada para ayudar a la gestión de las parcelas agricoganaderas. </p>
+        </footer>
+
     <% } else if (controladores.Toolbox.rol(user, pass) == 2) {
         int idparcela = Integer.parseInt(request.getParameter("idparcela"));
 
@@ -245,7 +273,17 @@
                 <li><a href="menuplantaciones.jsp">Plantaciones</a></li>
 
             </ul>
-            <ul
+             <ul class="salir" style="float: right; margin: 10px; ">
+                    <li><form method="post" action="controlador"><input type="submit" name="todo" value="Cerrar" class="salir" style="-webkit-border-radius:20px;
+                                                                        -webkit-border-radius: 20px;
+                                                                        -moz-border-radius: 20px;
+                                                                        color: #FFFFFF;
+                                                                        padding: 10px;
+                                                                        border-style-hover: solid;
+                                                                        border-width-hover: 1;
+                                                                        background-color: #e67e7e;
+                                                                        border: none;"></li></form>
+                </ul>
     </div>
 </nav>
 
@@ -331,13 +369,18 @@
 
                                     out.println("<td> <select name='idestado'>");
 
-                                    //CREAMOS UNA CONSULTA QUE SAQUE LOS ESTADOS COMO EN EL TIPO DE PARCELA
-                                    ClasesBD.EstadoBD.cargarEstados();
-                                    for (int i = 0; i < ClasesBD.EstadoBD.estadosSize(); i++) {
-
-                                        out.println("<option value=" + ClasesBD.EstadoBD.getId(i) + "> " + ClasesBD.EstadoBD.getNombre(i) + "</option>");
-
-                                    }
+                                     //CREAMOS UNA CONSULTA QUE SAQUE LOS ESTADOS COMO EN EL TIPO DE PARCELA
+                                        if (ClasesBD.ParcelaBD.sacarTipo(idparcela) == 1) {
+                                            ClasesBD.EstadoBD.cargarEstadosA();
+                                            for (int i = 0; i < ClasesBD.EstadoBD.estadosASize(); i++) {
+                                                out.println("<option value=" + ClasesBD.EstadoBD.getIdA(i) + "> " + ClasesBD.EstadoBD.getNombreA(i) + "</option>");
+                                            }
+                                        } else if (ClasesBD.ParcelaBD.sacarTipo(idparcela) == 2) {
+                                            ClasesBD.EstadoBD.cargarEstadosG();
+                                            for (int i = 0; i < ClasesBD.EstadoBD.estadosGSize(); i++) {
+                                                out.println("<option value=" + ClasesBD.EstadoBD.getIdG(i) + "> " + ClasesBD.EstadoBD.getNombreG(i) + "</option>");
+                                            }
+                                        }
 
                                     out.println("</select></td>");
                                     out.println("</tr>");
@@ -368,23 +411,27 @@
     </div>
 </div>
 
+    <footer style="color: black;
+    margin: 50px;
+    background-color: rgba(255, 255, 255, 0.65);
+    width: 50%;
+    height: 5%;
+    font-size: small;">
+            <p class="pull-right"><a href="#">Arriba</a></p>
+            <p>  Gestiona tu parcela es una página creada para ayudar a la gestión de las parcelas agricoganaderas. </p>
+        </footer>
+
 <%} else { %>
 
+<META HTTP-EQUIV="REFRESH" CONTENT="1;error.jsp">
 
-<h1>NO TIENES ACCESO</h1>
-<a href="index.jsp">Inicio</a>
+<% } } else {%>
 
-
-
-<% }
-    } else {%>
-
-<h1>NO TIENES ACCESO</h1>
-<a href="index.jsp">Inicio</a>
+<META HTTP-EQUIV="REFRESH" CONTENT="1;error.jsp">
 
 
 </body>
 
 </html>
 
-<% } %>
+<% }%>

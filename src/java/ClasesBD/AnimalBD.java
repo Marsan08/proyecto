@@ -35,7 +35,7 @@ public class AnimalBD {
         
          while(rset.next()){
             
-            Animal a = new Animal (rset.getInt("idanimal"), rset.getString("sexo").charAt(0), rset.getInt("idparcela"), rset.getInt("ideganadera"));
+            Animal a = new Animal (rset.getInt("idanimal"), rset.getString("sexo").charAt(0), rset.getInt("idparcela"), rset.getInt("ideganadera"), rset.getInt("crotal"));
             listaAnimales.add(a);
             
         }
@@ -53,13 +53,13 @@ public class AnimalBD {
         return listaAnimales.size();
     }
     
-    public static void insertAnimal(char sexo, int ideganadera, int idparcela) throws ClassNotFoundException, InstantiationException, SQLException{
+    public static void insertAnimal(char sexo, int ideganadera, int idparcela, int crotal) throws ClassNotFoundException, InstantiationException, SQLException{
         
         Connection conn = controladores.Toolbox.Conexion();
         
         Statement stmt = conn.createStatement();
         
-        String sqlStr = "insert into animal(sexo, ideganadera, idparcela) values('" + sexo + "' , " + ideganadera+ ", " + idparcela + ");";
+        String sqlStr = "insert into animal(sexo, ideganadera, idparcela, crotal) values('" + sexo + "' , " + ideganadera+ ", " + idparcela + ", " + crotal + ");";
                     int state = stmt.executeUpdate(sqlStr);
 
                     if (stmt != null) {
@@ -153,6 +153,10 @@ public class AnimalBD {
    
    public static int getIdeganadera (int idanimal){
        return listaAnimales.get(idanimal).getIdeganadera();
+   }
+   
+   public static int getIdCrotal (int idanimal){
+       return listaAnimales.get(idanimal).getCrotal();
    }
    
     

@@ -14,6 +14,24 @@ public class PAgricola extends Parcela {
     private int idpagricola;
     
     private int idparcela;
+    
+    private int idestado;
+
+    public int getIdestado() {
+        return idestado;
+    }
+
+    public void setIdestado(int idestado) {
+        this.idestado = idestado;
+    }
+
+    public PAgricola(int idpagricola, int idparcela, int idestado) {
+        this.idpagricola = idpagricola;
+        this.idparcela = idparcela;
+        this.idestado = idestado;
+    }
+    
+    
 
     public int getIdparcela() {
         return idparcela;

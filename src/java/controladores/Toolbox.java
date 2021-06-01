@@ -23,35 +23,38 @@ import javax.swing.JOptionPane;
  * @author DAW208
  */
 public class Toolbox {
+
     //login y contraseña utilizados para la conectarse a la base de datos
     private static String loginBD = "admin";
     private static String passwordBD = "admin";
-    
-    
 
     public static String encriptaContrasena(String contrasena) {
-        String contrasenaenc = "";
         try {
-            MessageDigest mensaje = MessageDigest.getInstance("SHA");
             byte[] textoArrayBytes = contrasena.getBytes();
+            MessageDigest mensaje = MessageDigest.getInstance("SHA");
             mensaje.update(textoArrayBytes);
-            contrasenaenc = mensaje.digest().toString();
-
-            while (contrasenaenc.length() < 32) {
-                contrasenaenc = "0" + contrasenaenc;
+            byte[] resumen = mensaje.digest();
+            String cadenaHexadecimal = "";
+            String apoyo;
+            for (int i = 0; i < resumen.length; i++) {
+                apoyo = Integer.toHexString(resumen[i] & 0xFF);
+                if (apoyo.length() == 1) {
+                    apoyo = "0" + apoyo;
+                }
+                cadenaHexadecimal = cadenaHexadecimal + apoyo;
             }
-        } catch (NoSuchAlgorithmException e) {
+            return cadenaHexadecimal;
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return contrasenaenc;
+
     }
-    
-    
+
     public static boolean validacion(String user, String pass) {
         java.sql.Connection conn = null;
         java.sql.Statement stmt = null;
         try {
-            conn=Conexion();
+            conn = Conexion();
             stmt = (Statement) conn.createStatement();
             String sqlStr = "SELECT * FROM usuario where nombre='" + user + "' and pass='" + pass + "';";
             //PARA DEPURACIÓN
@@ -75,14 +78,14 @@ public class Toolbox {
         }
         return false;
     }
-    
+
     public static int rol(String user, String pass) {
         Connection conn = null;
         Statement stmt = null;
         int validar = 0;
         int id = 0;
         try {
-            conn=Conexion();
+            conn = Conexion();
             stmt = (Statement) conn.createStatement();
             String sqlStr = "SELECT * FROM usuario WHERE nombre='" + user + "' and pass='" + pass + "'";
             ResultSet rset = stmt.executeQuery(sqlStr);
@@ -111,13 +114,15 @@ public class Toolbox {
         return validar;
 
     }
+
     /**
      * metodo que realiza la conexion a la base de datos gestionParcelas
+     *
      * @return una conexion a la base de datos gestionParcelas
      * @throws ClassNotFoundException
      * @throws InstantiationException
      * @throws IllegalAccessException
-     * @throws SQLException 
+     * @throws SQLException
      */
     public static Connection Conexion() throws ClassNotFoundException, InstantiationException, SQLException {
 
@@ -143,63 +148,65 @@ public class Toolbox {
         String nextPage = "";
         if (estado == null) {
             nextPage = "/index.jsp";
-            
+
         } else if (estado.equals("menu")) {
             nextPage = "/menu.jsp";
-            
+
         } else if (estado.equals("gestionusuarios")) {
             nextPage = "/menusuario.jsp";
-            
+
         } else if (estado.equals("gestionespecies")) {
             nextPage = "/menuespecie.jsp";
-            
+
         } else if (estado.equals("gestionparcelas")) {
             nextPage = "/menuparcela.jsp";
-            
+
         } else if (estado.equals("irinsertespecie")) {
             nextPage = "/insertarespecies.jsp";
-            
+
         } else if (estado.equals("irinsertparcela")) {
             nextPage = "/insertarparcela.jsp";
-            
-        } else if (estado.equals("modificarparcela")) {         
+
+        } else if (estado.equals("modificarparcela")) {
             nextPage = "/modificaparcela.jsp";
-            
+
         } else if (estado.equals("irinsertanimal")) {
             nextPage = "/insertaranimal.jsp";
-            
+
         } else if (estado.equals("irinsertarplantacion")) {
             nextPage = "/insertarplantacion.jsp";
-            
+
         } else if (estado.equals("gestionanimal")) {
             nextPage = "/menuanimales.jsp";
-            
-        }else if (estado.equals("gestionplantaciones")) {
+
+        } else if (estado.equals("gestionplantaciones")) {
             nextPage = "/menuplantaciones.jsp";
-            
-        }else if (estado.equals("modificarplantacion")) {
+
+        } else if (estado.equals("modificarplantacion")) {
             nextPage = "/modfiicarplantacion.jsp";
-            
-        }else if (estado.equals("irinsertarusuario")) {
+
+        } else if (estado.equals("irinsertarusuario")) {
             nextPage = "/insertausuario.jsp";
-            
-        }else if (estado.equals("modificarusuario")) {
-            nextPage = "/modificarusuario.jsp";
-            
-        }else if (estado.equals("asignarparcela")) {
+
+        } else if (estado.equals("modificarcontra")) {
+            nextPage = "/modificarcontra.jsp";
+
+        } else if (estado.equals("asignarparcela")) {
             nextPage = "/asignaparcela.jsp";
+
+        } else if (estado.equals("desasignarparcela")) {
+            nextPage = "/menutrabaja.jsp";
+
+        } else if (estado.equals("modificardatos")) {
+            nextPage = "/modificardatos.jsp";
+
         }
-        
-        
-        
-        
+
         return nextPage;
     }
-
 
     private Connection getConexion() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
-

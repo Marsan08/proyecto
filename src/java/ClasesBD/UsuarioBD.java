@@ -41,7 +41,7 @@ public class UsuarioBD {
 
         while (rset.next()) {
 
-            Parcela p = new Parcela(rset.getInt("idparcela"), rset.getInt("hectareas"), rset.getInt("idpropietario"), rset.getInt("idestado"), rset.getInt("idtipoparcela"), rset.getInt("referencia"));
+            Parcela p = new Parcela(rset.getInt("idparcela"), rset.getInt("hectareas"), rset.getInt("idpropietario"), rset.getInt("idtipoparcela"), rset.getInt("referencia"));
             listaParcelas.add(p);
 
         }
@@ -60,7 +60,7 @@ public class UsuarioBD {
 
         Statement stmt = conn.createStatement();
 
-        String sqlStr = "SELECT * FROM usuario";
+        String sqlStr = "SELECT * FROM usuario WHERE idrol= 2 ";
 
         ResultSet rset = stmt.executeQuery(sqlStr);
 
@@ -362,7 +362,7 @@ public class UsuarioBD {
         java.sql.Connection conn = controladores.Toolbox.Conexion();
 
         Statement stmt = conn.createStatement();
-        String sqlStr = "delete from usuario where idUsuario=" + iduser +";";
+        String sqlStr = "delete from usuario where idUsuario=" + iduser + ";";
         int state = stmt.executeUpdate(sqlStr);
 
         if (stmt != null) {
@@ -373,14 +373,13 @@ public class UsuarioBD {
         }
 
     }
-    
-    
+
     public static void borrarJornalero(int iduser) throws ClassNotFoundException, InstantiationException, SQLException {
 
         java.sql.Connection conn = controladores.Toolbox.Conexion();
 
         Statement stmt = conn.createStatement();
-        String sqlStr = "delete from jornalero where idusuario=" + iduser +";";
+        String sqlStr = "delete from jornalero where idusuario=" + iduser + ";";
         int state = stmt.executeUpdate(sqlStr);
 
         if (stmt != null) {
@@ -391,14 +390,13 @@ public class UsuarioBD {
         }
 
     }
-    
-    
+
     public static void borrarPropietario(int iduser) throws ClassNotFoundException, InstantiationException, SQLException {
 
         java.sql.Connection conn = controladores.Toolbox.Conexion();
 
         Statement stmt = conn.createStatement();
-        String sqlStr = "delete from propietario where idusuario=" + iduser +";";
+        String sqlStr = "delete from propietario where idusuario=" + iduser + ";";
         int state = stmt.executeUpdate(sqlStr);
 
         if (stmt != null) {
@@ -415,6 +413,21 @@ public class UsuarioBD {
         java.sql.Connection conn = controladores.Toolbox.Conexion();
         Statement stmt = conn.createStatement();
         String sqlStr = "UPDATE `usuario` SET `pass` = '" + pass + "' WHERE `usuario`.`idUsuario` = " + iduser + ";";
+        int state = stmt.executeUpdate(sqlStr);
+        if (stmt != null) {
+            stmt.close();
+        }
+        if (conn != null) {
+            conn.close();
+        }
+
+    }
+
+    public static void modificarDatos(int iduser, String nombre, String email, int telefono) throws ClassNotFoundException, InstantiationException, SQLException {
+
+        java.sql.Connection conn = controladores.Toolbox.Conexion();
+        Statement stmt = conn.createStatement();
+        String sqlStr = "UPDATE `usuario` SET nombre = '" + nombre + "' , email = '" + email + "' , telefono = " + telefono + " WHERE idusuario = " + iduser + ";";
         int state = stmt.executeUpdate(sqlStr);
         if (stmt != null) {
             stmt.close();
@@ -519,10 +532,6 @@ public class UsuarioBD {
 
     public static int getReferencia(int idparcela) {
         return listaParcelas.get(idparcela).getReferencia();
-    }
-
-    public static int getEstado(int idparcela) {
-        return listaParcelas.get(idparcela).getIdestado();
     }
 
     public static int getTipo(int idparcela) {

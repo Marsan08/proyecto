@@ -14,6 +14,22 @@ public class PGanadera extends Parcela {
     private int idpganadera;
     
     private int idparcela;
+    
+    private int idestado;
+
+    public PGanadera(int idpganadera, int idparcela, int idestado) {
+        this.idpganadera = idpganadera;
+        this.idparcela = idparcela;
+        this.idestado = idestado;
+    }
+
+    public int getIdestado() {
+        return idestado;
+    }
+
+    public void setIdestado(int idestado) {
+        this.idestado = idestado;
+    }
 
     public int getIdparcela() {
         return idparcela;
@@ -41,7 +57,7 @@ public class PGanadera extends Parcela {
     }
 
     public PGanadera(int idpganadera, int idparcela, int hectareas, int idpropietario, int idestado, int idtipoparcela, int referencia) {
-        super(idparcela, hectareas, idpropietario, idestado, idtipoparcela, referencia);
+        super(idparcela, hectareas, idpropietario, idtipoparcela, referencia);
         this.idpganadera = idpganadera;
     }
 

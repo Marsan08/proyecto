@@ -47,7 +47,7 @@ public class ParcelaBD {
 
         while (rset.next()) {
 
-            Parcela p = new Parcela(rset.getInt("idparcela"), rset.getInt("hectareas"), rset.getInt("idpropietario"), rset.getInt("idestado"), rset.getInt("idtipoparcela"), rset.getInt("referencia"));
+            Parcela p = new Parcela(rset.getInt("idparcela"), rset.getInt("hectareas"), rset.getInt("idpropietario"), rset.getInt("idtipoparcela"), rset.getInt("referencia"));
             listaParcelas.add(p);
 
         }
@@ -58,12 +58,12 @@ public class ParcelaBD {
 
     }
 
-    public static void insertar(int hectareas, int idpropietario, int estado, int tipo, int referencia) throws ClassNotFoundException, InstantiationException, SQLException {
+    public static void insertar(int hectareas, int idpropietario, int tipo, int referencia) throws ClassNotFoundException, InstantiationException, SQLException {
 
         Connection conn = controladores.Toolbox.Conexion();
         Statement stmt = conn.createStatement();
 
-        String sqlStr = "insert into parcela(hectareas, idpropietario, idestado, idtipoparcela, referencia) values(" + hectareas + ", " + idpropietario + ", " + estado + ", " + tipo + ", " + referencia + ");";
+        String sqlStr = "insert into parcela(hectareas, idpropietario, idtipoparcela, referencia) values(" + hectareas + ", " + idpropietario + "," + tipo + ", " + referencia + ");";
         int state = stmt.executeUpdate(sqlStr);
 
         if (stmt != null) {
@@ -317,10 +317,6 @@ public class ParcelaBD {
 
     public static int getReferencia(int idparcela) {
         return listaParcelas.get(idparcela).getReferencia();
-    }
-
-    public static int getEstado(int idparcela) {
-        return listaParcelas.get(idparcela).getIdestado();
     }
 
     public static int getTipo(int idparcela) {

@@ -1,7 +1,7 @@
 "use strict";
 
 import { validarNombre } from './validaciones.js';
-
+ 
 function validarEspecie(){
     
     var validar;

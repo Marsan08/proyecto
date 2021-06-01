@@ -1,7 +1,7 @@
 "use strict";
 
 import {validarVacio, validarNoNegativo, validarNombre, validarEmail} from './validaciones.js';
-
+ 
 
 function validarModificarDatos() {
 

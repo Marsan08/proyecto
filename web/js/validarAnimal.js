@@ -3,7 +3,7 @@
 import { validarNombre, validarNoNegativo } from './validaciones.js';
 
 
-
+ 
 function validarAnimal() {
 
     console.log("entra en la funcion");

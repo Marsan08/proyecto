@@ -2,7 +2,7 @@
 
 import { validarNombre, validarEmail, validarDni, validarNoNegativo, validarVacio} from './validaciones.js';
 
-
+ 
 function validarUsuario(){
     
     var validar;

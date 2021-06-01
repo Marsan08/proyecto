@@ -2,7 +2,7 @@
 
 import { noNulo } from './validaciones.js';
 
-
+ 
 function noSacarNull(){
     
     var frecogida = document.getElementsByClassName("frecogida");

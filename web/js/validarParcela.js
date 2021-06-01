@@ -1,7 +1,7 @@
 "use strict";
 
 import { validarNoNegativo} from './validaciones.js';
-
+ 
 function validarParcela() {
 
     console.log("entra en la funcion");

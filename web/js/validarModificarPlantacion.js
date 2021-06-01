@@ -1,6 +1,6 @@
 "use strict";
 
-
+ 
 import {validarFecha} from './validaciones.js';
 
 function validaFechaRecogida(){

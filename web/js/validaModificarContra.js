@@ -3,7 +3,7 @@
 
 import {validarVacio} from './validaciones.js';
 
-
+ 
 function validarModificaUsuario() {
 
     var validar;

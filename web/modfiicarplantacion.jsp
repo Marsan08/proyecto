@@ -1,7 +1,7 @@
 <%-- 
-    Document   : modificaparcela
+    Document   : modifica plantacion
     Created on : 09-may-2021, 22:31:31
-    Author     : Luis
+    Author     : Mar
 --%>
 
 <%@page import="java.sql.Date"%>

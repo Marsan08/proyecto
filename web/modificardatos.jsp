@@ -1,7 +1,7 @@
 <%-- 
-    Document   : modificacontraseña
-    Created on : 18-may-2021, 15:11:35
-    Author     : Luis José
+    Document   : modificar datos
+    Created on : 01/06/2021
+    Author     : Mar
 --%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>

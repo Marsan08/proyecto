@@ -1,7 +1,7 @@
 <%-- 
-    Document   : modificacontraseña
+    Document   : modifica contraseña
     Created on : 18-may-2021, 15:11:35
-    Author     : Luis José
+    Author     : Mar
 --%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>

@@ -1,3 +1,10 @@
+ 
+<%-- 
+    Document   : pagina de error
+    Created on : 14/05/2021
+    Author     : Mar
+--%>
+
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.

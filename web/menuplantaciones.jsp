@@ -1,7 +1,7 @@
 <%@page import="java.sql.*" %>  
 <%@page import="java.sql.Date"%>
 <%-- 
-    Document   : menuespecies
+    Document   : menu plantaciones
     Created on : 14/05/2021
     Author     : Mar
 --%>

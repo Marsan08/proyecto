@@ -1,6 +1,6 @@
 <%@page import="java.sql.*" %>  
 <%-- 
-    Document   : menuespecies
+    Document   : menu animales
     Created on : 14/05/2021
     Author     : Mar
 --%>

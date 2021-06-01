@@ -1,5 +1,8 @@
-<%-- Document : insertar Created on : 11-mar-2021, 0:59:15 Author : Mar --%>
-
+<%-- 
+    Document   : insertar parcela
+    Created on : 14/05/2021
+    Author     : Mar
+--%>
 <%@page import="java.sql.Statement" %>
 <%@page import="java.sql.ResultSet" %>
 <%@page import="java.sql.DriverManager" %>

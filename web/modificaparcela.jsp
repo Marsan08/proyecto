@@ -1,7 +1,7 @@
 <%-- 
-    Document   : modificaparcela
+    Document   : modificar parcela
     Created on : 09-may-2021, 22:31:31
-    Author     : Luis
+    Author     : Mar
 --%>
 
 <%@page import="java.util.Iterator"%>

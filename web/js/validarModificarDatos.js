@@ -16,7 +16,7 @@ function validarModificarDatos() {
 
     if ((validarVacio(nombre) && validarVacio(email) && validarVacio(tln)) === true) {
         
-        alert("entra");
+        //alert("entra");
         
         if (validarNombre(nombre) === false) {
 

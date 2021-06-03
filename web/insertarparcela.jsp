@@ -262,7 +262,7 @@
     
     <% }%>
 
-    <script type ="module" src = "js/validarParcela.js" > </script> 
+    <script type ="module" src = "js/validarParcela.js" ></script> 
 </body>
 
 </html>

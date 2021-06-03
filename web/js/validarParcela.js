@@ -16,7 +16,7 @@ function validarParcela() {
 
     //var ref = parseInt(referencia);
     
-    var tipo = document.getElementById("selecttipoparcela").value;
+    //var tipo = document.getElementById("selecttipoparcela").value;
 
     validar = document.getElementById("divparcela").hidden = true;
 

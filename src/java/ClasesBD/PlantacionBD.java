@@ -192,7 +192,7 @@ public class PlantacionBD {
 
         Statement stmt = conn.createStatement();
 
-        String sqlStr = "SELECT * FROM plantacion WHERE idplantacion =" + idplantacion + ";";
+        String sqlStr = "SELECT * FROM `plantacion` WHERE frecogida IS NOT NULL AND idplantacion =" + idplantacion + ";";
 
         ResultSet rset = stmt.executeQuery(sqlStr);
 

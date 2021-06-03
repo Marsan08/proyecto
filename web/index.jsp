@@ -1,3 +1,10 @@
+
+<%-- 
+    Document   : inicio / index
+    Created on : 14/05/2021
+    Author     : Mar
+--%>
+
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -81,7 +88,7 @@ Se han utilizado estilos de Boostrap además de ingresar algunos estilos manualme
         </div>
         <footer>
               <div id="pie">
-                    <p>Si no puede iniciar sesi&oacute;n por favor contacte con su administrador o propietario.</p>
+                    <p>Si no puede iniciar sesi&oacute;n por favor contacte con su propietario para que cambie su contraseña o le habilite un usuario si no dispone de él.</p>
                 </div>
         </footer>
 

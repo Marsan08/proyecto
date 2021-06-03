@@ -18,6 +18,26 @@ public class Animal {
     private int idparcela;
     
     private int ideganadera;
+    
+    private int crotal;
+
+    public int getCrotal() {
+        return crotal;
+    }
+
+    public void setCrotal(int crotal) {
+        this.crotal = crotal;
+    }
+
+    public Animal(int idanimal, char sexo, int idparcela, int ideganadera, int crotal) {
+        this.idanimal = idanimal;
+        this.sexo = sexo;
+        this.idparcela = idparcela;
+        this.ideganadera = ideganadera;
+        this.crotal = crotal;
+    }
+    
+    
 
     public Animal(int idanimal, char sexo, int idparcela, int ideganadera) {
         this.idanimal = idanimal;

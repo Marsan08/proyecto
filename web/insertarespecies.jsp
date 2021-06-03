@@ -16,7 +16,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Menú</title>
+        <title>Insertar especie</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="css/css.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -72,7 +72,7 @@
         <nav class="navbar navbar-inverse navbar-fixed-top" >
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Bienvenido <%=user%></a>
+                    <a class="navbar-brand" href="menu.jsp">Bienvenido <%=user%></a>
                 </div>
                 <ul class="nav navbar-nav">
                     <li><a href="menu.jsp">Inicio</a></li>
@@ -81,8 +81,19 @@
                     <li><a href="menuanimales.jsp">Animales</a></li>
                     <li><a href="menuplantaciones.jsp">Plantaciones</a></li>
                     <li><a href="menusuario.jsp">Usuarios</a></li>
+                    <li><a href="menutrabaja.jsp">Asignar</a></li>
                 </ul>
-                <ul
+                <ul class="salir" style="float: right; margin: 10px; ">
+                    <li><form method="post" action="controlador"><input type="submit" name="todo" value="Cerrar" class="salir" style="-webkit-border-radius:20px;
+                                                                        -webkit-border-radius: 20px;
+                                                                        -moz-border-radius: 20px;
+                                                                        color: #FFFFFF;
+                                                                        padding: 10px;
+                                                                        border-style-hover: solid;
+                                                                        border-width-hover: 1;
+                                                                        background-color: #e67e7e;
+                                                                        border: none;"></li></form>
+                </ul>
         </div>
     </nav>
 
@@ -142,7 +153,7 @@
                     <div class="centrartabla">
 
                         <h1 style="margin-top: 70px;">Insertar especie</h1>
-                        <form action="controlador" method="post">
+                        <form action="controlador" method="post" id="validaespecie">
                             <input type="hidden" name="todo" value="insertespecie">
                             <table class="table table-hover">
                                 <thead>
@@ -153,7 +164,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><input type="text" name="nombre"></td>
+                                        <td><input type="text" name="nombre" id="nombrespecie"></td>
                                         <td>
                                             <select name="idtipo">
 
@@ -189,7 +200,7 @@
                                  align-content: center;
                                  flex-wrap: wrap;
                                  width: 100%;">
-                                <input type="submit" name="enviar" value="Aceptar e insertar" class="boton">
+                                <div id="divespecie"><input type="submit" name="enviar" value="Aceptar e insertar" class="boton"></div>
 
                             </div>
                         </form>
@@ -207,15 +218,28 @@
         </div>
     </div>
 
+      <footer style="color: black;
+    margin: 50px;
+    background-color: rgba(255, 255, 255, 0.65);
+    width: 50%;
+    height: 5%;
+    font-size: small;">
+            <p class="pull-right"><a href="#">Arriba</a></p>
+            <p>  Gestiona tu parcela es una página creada para ayudar a la gestión de las parcelas agricoganaderas. </p>
+        </footer>
+
 
     <% } else { %>
 
-    <h1>NO TIENES PERMISOS</h1>
-    <a href="index.jsp">Inicio</a>
+    <META HTTP-EQUIV="REFRESH" CONTENT="1;error.jsp">
 
     <% }
-} else { %>
+    } else { %>
 
+    <META HTTP-EQUIV="REFRESH" CONTENT="1;error.jsp">
+    
     <% }%>
+
+    <script type = "module" src = "js/validarEspecie.js" > </script> 
 </body>
 </html>

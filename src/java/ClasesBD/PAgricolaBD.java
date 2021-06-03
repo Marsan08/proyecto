@@ -38,7 +38,7 @@ public class PAgricolaBD {
 
         while (rset.next()) {
 
-            PAgricola p = new PAgricola(rset.getInt("idpagricola"), rset.getInt("idparcela"));
+            PAgricola p = new PAgricola(rset.getInt("idpagricola"), rset.getInt("idparcela"), rset.getInt("idestado"));
             listaPAgricola.add(p);
 
         }
@@ -48,13 +48,27 @@ public class PAgricolaBD {
         rset.close();
 
     }
+     public static void modificarA(int idparcela, int idestado) throws ClassNotFoundException, InstantiationException, SQLException {
 
-    public static void insertarAgricola(int idparcela, int referencia) throws ClassNotFoundException, InstantiationException, SQLException {
+        java.sql.Connection conn = controladores.Toolbox.Conexion();
+        Statement stmt = conn.createStatement();
+        String sqlStr = "UPDATE `pagricola` SET `idestado`=" + idestado + " WHERE idparcela = " + idparcela + ";";
+        int state = stmt.executeUpdate(sqlStr);
+
+        if (stmt != null) {
+            stmt.close();
+        }
+        if (conn != null) {
+            conn.close();
+        }
+
+    }
+    public static void insertarAgricola(int idparcela) throws ClassNotFoundException, InstantiationException, SQLException {
 
         Connection conn = controladores.Toolbox.Conexion();
         Statement stmt = conn.createStatement();
 
-        String sqlStr = "insert into pagricola(idparcela, referencia) values(" + idparcela + ", " + referencia + ");";
+        String sqlStr = "insert into pagricola(idparcela) values(" + idparcela + ");";
         int state = stmt.executeUpdate(sqlStr);
 
         if (stmt != null) {
@@ -140,6 +154,44 @@ public class PAgricolaBD {
             rset = stmt.executeQuery(sqlStr);
             while (rset.next()) {
                 validar = rset.getInt("idparcela");
+                System.out.println("ENTRA");
+            }
+
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("NO ENTRA");
+        }
+        return validar;
+
+    }
+       
+       
+        public static int sacarIdestado(int idpagricola) throws ClassNotFoundException, InstantiationException, SQLException {
+
+        Connection conn = null;
+        com.mysql.jdbc.Statement stmt = null;
+        int validar = 0;
+
+        try {
+            conn = Conexion();
+            stmt = (com.mysql.jdbc.Statement) conn.createStatement();
+            String sqlStr = "SELECT * FROM pagricola WHERE idpagricola=" + idpagricola + ";";
+            ResultSet rset = stmt.executeQuery(sqlStr);
+
+            while (rset.next()) {
+                validar = rset.getInt("idestado");
+                System.out.println(validar);
+            }
+            sqlStr = "SELECT * FROM pagricola WHERE idpagricola=" + idpagricola + ";";
+            rset = stmt.executeQuery(sqlStr);
+            while (rset.next()) {
+                validar = rset.getInt("idestado");
                 System.out.println("ENTRA");
             }
 
